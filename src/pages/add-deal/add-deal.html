@@ -1,0 +1,206 @@
+<ion-header>
+
+    <ion-navbar hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
+ 
+            
+        <ion-title>{{title}}</ion-title>
+
+
+    </ion-navbar>
+    <!-- <div class="info" padding>
+      <p class="p">PERSONAL INFORMATION</p>
+    </div> -->
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <ion-segment [(ngModel)]="galleryType" color="primary">
+    <ion-segment-button value="Form">
+      Detail
+    </ion-segment-button>
+    <ion-segment-button value="Date">
+      Date Of Birth
+    </ion-segment-button>
+    <ion-segment-button value="Gender">
+      Gender
+    </ion-segment-button>
+  </ion-segment>
+
+
+
+
+    <div [ngSwitch]="galleryType">
+
+
+    <form [formGroup]="dealForm" (ngSubmit)="submit()">
+
+        
+
+      <ion-card *ngSwitchCase="'Form'">
+
+
+    <ion-grid>
+            <ion-row>
+                    <ion-col col-12 text-center>
+                      <ion-img (click)="setImage()" style="width:120px;height:120px"  [src]="deal?.photo || 'https://cdn.dribbble.com/users/21845/screenshots/3938419/placeholder.png'" height="120px"></ion-img>    
+                    </ion-col>
+                  </ion-row>
+    </ion-grid>
+
+        <ion-item>
+            <ion-label floating>Child Name</ion-label>
+            <ion-input type="text" formControlName="name" [class.invalid]="!dealForm.get('name').valid && (dealForm.get('name').dirty || dealForm.get('name').touched)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>City</ion-label>
+            
+
+                       <ion-select placeholder="City" formControlName="city" [class.invalid]="!dealForm.get('city').valid && (dealForm.get('city').dirty || dealForm.get('city').touched)">
+                    <ion-option value="karachi">Karachi</ion-option>
+                    <ion-option value="Lahore">Lahore</ion-option>
+                    <ion-option value="multan">Multan</ion-option>
+                    <ion-option value="islamabad">Islamabad</ion-option>
+                </ion-select>
+
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Phone number </ion-label>
+                        <ion-input type="number" formControlName="number" [class.invalid]="!dealForm.get('number').valid && (dealForm.get('number').dirty || dealForm.get('number').touched)"></ion-input>
+        </ion-item>
+
+        
+                      
+           <br>            
+           <br>
+           <br>
+        
+             <img class="tick" (click)="gotoDate()" src="assets/imgs/tick.png"> 
+
+      </ion-card>
+
+        <ion-card *ngSwitchCase="'Date'">
+
+            <div>
+              <img class="imgx" src="assets/imgs/cc.png"  style="height: 100px; width: 100px; border-radius: 50%;">
+              <h1 style="text-align: center; margin-top: 20px;">Select Date Of Birth</h1>
+
+            </div>
+
+             <ion-item>
+               <ion-label floating>Date</ion-label>
+               <ion-datetime  displayFormat="DD/MMMM/YYYY" min="2010" max="2050-10-31" formControlName="birthday" (ionChange)="onDateChange()" [(ngModel)]="selectedDate">
+               </ion-datetime>
+            </ion-item>
+             
+             <div style="margin-top: 25px;" *ngIf="selectedDate"> 
+  <div *ngFor="let commingDate of upcomingDates">
+    <p>{{commingDate.time }} : {{commingDate.date | date}}</p>
+  </div>
+</div>
+
+            <br><br>
+            <img class="tick" (click)="GotoGender()" src="assets/imgs/tick.png"> 
+            <br>
+
+
+         </ion-card>
+
+
+      <ion-card *ngSwitchCase="'Gender'" class="sd">
+      
+         <div>
+           <img class="imgx"  src="assets/imgs/male.png"  style="height: 100px; width: 100px; border-radius: 50%;">
+ 
+         </div>
+         <br>
+
+          <h1 style="text-align: center;">Select Gender</h1>
+ 
+ <ion-item>
+    <ion-label>Select Here</ion-label>
+    <ion-select  formControlName="gender" [class.invalid]="!dealForm.get('gender').valid && (dealForm.get('gender').dirty || dealForm.get('gender').touched)"  >
+        <ion-option value="male" selected="true">Male</ion-option>
+        <ion-option value="female">Female</ion-option>
+        <ion-option value="x">X</ion-option>
+    </ion-select>
+</ion-item>
+
+        <br><br>
+
+          
+           <button  [disabled]="!dealForm.valid" type="submit"><img class="tick"  src="assets/imgs/tick.png"> </button>
+
+
+    </ion-card>
+
+
+
+
+
+<!-- 
+        <ion-item *ngIf="buttonClicked2">
+            <ion-label floating>Normal Price</ion-label>
+            <ion-input type="text" formControlName="normalprice" [class.invalid]="!dealForm.get('normalprice').valid && (dealForm.get('normalprice').dirty || dealForm.get('normalprice').touched)"></ion-input>
+        </ion-item>
+
+
+
+        <ion-item>
+            <ion-label floating>Description</ion-label>
+            <ion-input type="text" formControlName="description" [class.invalid]="!dealForm.get('description').valid && (dealForm.get('description').dirty || dealForm.get('description').touched)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Brand Contact No</ion-label>
+            <ion-input type="number" formControlName="brandPhone" [class.invalid]="!dealForm.get('brandPhone').valid && (dealForm.get('brandPhone').dirty || dealForm.get('brandPhone').touched)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+                <ion-label floating>URL</ion-label>
+                <ion-input type="text" formControlName="url" [class.invalid]="!dealForm.get('url').valid && (dealForm.get('url').dirty || dealForm.get('url').touched)"></ion-input>
+            </ion-item>
+
+        <ion-item>
+            <ion-label floating>Select Category</ion-label>
+            <ion-select placeholder="Select Category" formControlName="categoryId" [class.invalid]="!dealForm.get('categoryId').valid && (dealForm.get('categoryId').dirty || dealForm.get('categoryId').touched)">
+                    <ion-option *ngFor="let x of categories" value={{x.id}}>{{x.name}}</ion-option>
+                </ion-select>
+        </ion-item>
+
+
+
+        <ion-item>
+            <ion-label floating>Coupon Code</ion-label>
+            <ion-input type="text" formControlName="code" [class.invalid]="!dealForm.get('code').valid && (dealForm.get('code').dirty || dealForm.get('code').touched)"></ion-input>
+        </ion-item>
+
+
+
+
+        <ion-item>
+            <ion-label floating>Start Date</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" formControlName="startDate"  [min]="'2018'" [max]="maxDate">
+            </ion-datetime>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>End Date</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" formControlName="endDate"  [min]="dealForm.get('startDate').value" [max]="maxDate">
+            </ion-datetime>
+        </ion-item> -->
+
+<!--         <button ion-button block color="primary" [disabled]="!dealForm.valid" type="submit">{{buttonText}}</button>
+ -->    </form>
+</div>
+
+</ion-content>

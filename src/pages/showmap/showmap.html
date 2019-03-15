@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-fab left top (click)="goBack()">
+        <button ion-fab color="light" style="background-color:transparent">
+            <ion-icon name="ios-arrow-round-back-outline" color="primary" style="font-size:46px;font-weight:bold"></ion-icon>
+        </button>
+    </ion-fab>
+ 
+</ion-header>
+
+<ion-content padding>
+
+<div style="text-align: center;">
+<button ion-button color="primary" (click)="loadMap()"> Show Hospital On Map</button>
+</div>
+<div #map id="map"></div>
+
+</ion-content>

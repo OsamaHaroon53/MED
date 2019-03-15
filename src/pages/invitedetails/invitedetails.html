@@ -1,0 +1,36 @@
+<!--
+  Generated template for the InvitedetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+     
+        <button ion-fab color="light" (click)="Back()" style="background-color:transparent">
+            <ion-icon name="ios-arrow-round-back-outline" color="primary" style="font-size:46px;font-weight:bold"></ion-icon>
+        </button>
+  
+    <img *ngIf="inv" [src]="inv.photo || 'https://ununsplash.imgix.net/photo-1421091242698-34f6ad7fc088?fit=crop&fm=jpg&h=650&q=75&w=950'"
+    alt="" style="width:100%;height:250px;margin:0;padding:0;image-rendering: auto;outline:0;">
+</ion-header>
+
+
+<ion-content padding *ngIf="inv">
+
+	<h1 style="color: #B7A3DC" >{{inv.name || 'Child Name' }}</h1>
+
+
+
+<div class="i"><ion-badge style="zoom:1.5;">{{inv.gender || 'Cross'}}</ion-badge></div>
+
+<div class="row">
+<div class="column" *ngIf="inv"><h3>Birthday Date </h3> <h5 style="color: #B7A3DC; margin-top: 0px;" >{{inv.birthday}}</h5></div>
+<br>
+<div class="column" style="margin-left: 5px;" *ngIf="inv"><h3>City </h3> <h5 style="color: #B7A3DC; margin-top: 0px;" >{{inv.city}}</h5></div>
+
+
+</div>
+
+
+
+</ion-content>
