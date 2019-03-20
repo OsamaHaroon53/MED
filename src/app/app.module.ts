@@ -94,13 +94,21 @@ import { LoginPageModule } from '../pages/login/login.module'
       }
     }),
     AngularFireModule.initializeApp({
-      apiKey: "AIzaSyAnCvBpgYkw9VEk5imjWuQNv0HNyHRKcMQ",
-      authDomain: "gummee-dfa2e.firebaseapp.com",
-      databaseURL: "https://gummee-dfa2e.firebaseio.com",
-      projectId: "gummee-dfa2e",
-      storageBucket: "gs://gummee-dfa2e.appspot.com/",
-      messagingSenderId: "925797755692"
+      apiKey: "AIzaSyDFxIHCbVSUE04dQaRNmmXQsctVErhZp1Y",
+      authDomain: "medrec-7d02d.firebaseapp.com",
+      databaseURL: "https://medrec-7d02d.firebaseio.com",
+      projectId: "medrec-7d02d",
+      storageBucket: "medrec-7d02d.appspot.com",
+      messagingSenderId: "196756084583"
     }),
+    // AngularFireModule.initializeApp({
+    //   apiKey: "AIzaSyAnCvBpgYkw9VEk5imjWuQNv0HNyHRKcMQ",
+    //   authDomain: "gummee-dfa2e.firebaseapp.com",
+    //   databaseURL: "https://gummee-dfa2e.firebaseio.com",
+    //   projectId: "gummee-dfa2e",
+    //   storageBucket: "gs://gummee-dfa2e.appspot.com/",
+    //   messagingSenderId: "925797755692"
+    // }),
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule
