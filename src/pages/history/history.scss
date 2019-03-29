@@ -1,0 +1,19 @@
+page-history {
+    ion-card-header,ion-segment-button{
+        color: purple !important;
+    }
+    .segment-button{
+        border-color: rgba(0,0,0,0) !important;
+    }
+    .segment-button.segment-activated{
+        border-color: purple !important;
+    }
+    ion-card-header{
+        background-color: #B7A3DC;
+    }
+
+    ion-list{
+        min-height: 193px;
+    }
+
+}

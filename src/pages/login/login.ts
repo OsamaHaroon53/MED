@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
-
+import { AngularFireAuth } from "@angular/fire/auth";
 import firebase from 'firebase';
 
 
@@ -23,87 +23,123 @@ import firebase from 'firebase';
   templateUrl: 'login.html',
 })
 export class LoginPage {
- err:any;
- token:string;
- influencer:boolean;
-  constructor(private googlePlus: GooglePlus, private events:Events,private iab:InAppBrowser,private navCtrl: NavController, private auth:AuthProvider,private api:ApiProvider,private helper:HelperProvider, public fb: Facebook, private afs: AngularFirestore, public menuCtrl: MenuController, 
-    private navParams: NavParams) {
+  err: any;
+  token: string;
+  influencer: boolean;
+  constructor(private googlePlus: GooglePlus, private events: Events, private iab: InAppBrowser, private navCtrl: NavController, private auth: AuthProvider, private api: ApiProvider, private helper: HelperProvider, public fb: Facebook, private afs: AngularFirestore, public menuCtrl: MenuController,
+    private navParams: NavParams, private fire: AngularFireAuth) {
 
-        this.menuCtrl.enable(false, 'logoutmenu');
-
+    this.menuCtrl.enable(false, 'logoutmenu');
+    // if(this.auth.isAuthenticated())
+    //   this.navCtrl.setRoot(SimpleDealsPage);
 
   }
-  goBack(){
-  this.navCtrl.setRoot(SimpleDealsPage)
+  goBack() {
+    this.navCtrl.setRoot(SimpleDealsPage)
   }
+  facebookLogin(){
+    // this.spl
+    this.fire.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(res=>{
+        console.log(res);
+        // const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.credential['accessToken']);
+        // console.log(facebookCredential);
+              firebase.auth().signInAndRetrieveDataWithCredential(res.credential)
+          .then(credential => {
 
-  facebookLogin() {
- 
- this.fb.login(['public_profile', 'email'])
-  .then((retorno: FacebookLoginResponse) => {
-    const facebookCredential = firebase.auth.FacebookAuthProvider.credential(retorno.authResponse.accessToken);
-
-    firebase.auth().signInAndRetrieveDataWithCredential(facebookCredential)
-                        .then(credential => {
-
-                          this.user = credential.user;
-                          
-        
-                          localStorage.setItem('uid',this.user.uid);
-                          this.events.publish('user:loggedIn',this.user);
-
-                                this.navCtrl.setRoot(SimpleDealsPage);
-                           
-                           console.log(this.user);
-                           console.log('UID = ', this.user.uid);
-                           console.log('email = ', this.user.email);
-                           console.log('name = ', this.user.displayName);
-
-             const userr = { uid: this.user.uid, email:this.user.email, name:this.user.displayName,influencer: false,phone: '',savedDeals:'',photo:'' }
-                          this.afs.doc(`users/${this.user.uid}`).set(userr);
+            this.user = credential.user;
 
 
-                         })
-   })
+            localStorage.setItem('uid', this.user.uid);
+            this.events.publish('user:loggedIn', this.user);
 
-}
+            this.navCtrl.setRoot(SimpleDealsPage);
+
+            console.log(this.user);
+            console.log('UID = ', this.user.uid);
+            console.log('email = ', this.user.email);
+            console.log('name = ', this.user.displayName);
+
+            const userr = { uid: this.user.uid, email: this.user.email, name: this.user.displayName, influencer: false, phone: '', savedDeals: '', photo: '' }
+            this.afs.doc(`users/${this.user.uid}`).set(userr);
+
+
+          }).catch(err=>{
+            console.log("inner firebase error fb login",err);
+          })
+      })
+  }
+  // facebookLogin() {
+  //   console.log('click ok')
+  //   this.fb.login(['public_profile', 'email'])
+  //     .then((retorno: FacebookLoginResponse) => {
+  //       const facebookCredential = firebase.auth.FacebookAuthProvider.credential(retorno.authResponse.accessToken);
+  //       console.log('first-step completed')
+  //       firebase.auth().signInAndRetrieveDataWithCredential(facebookCredential)
+  //         .then(credential => {
+
+  //           this.user = credential.user;
+
+
+  //           localStorage.setItem('uid', this.user.uid);
+  //           this.events.publish('user:loggedIn', this.user);
+
+  //           this.navCtrl.setRoot(SimpleDealsPage);
+
+  //           console.log(this.user);
+  //           console.log('UID = ', this.user.uid);
+  //           console.log('email = ', this.user.email);
+  //           console.log('name = ', this.user.displayName);
+
+  //           const userr = { uid: this.user.uid, email: this.user.email, name: this.user.displayName, influencer: false, phone: '', savedDeals: '', photo: '' }
+  //           this.afs.doc(`users/${this.user.uid}`).set(userr);
+
+
+  //         }).catch(err=>{
+  //           console.log("inner firebase error fb login",err);
+  //         })
+  //     }).catch(err=>{
+  //       console.log("error fb login",err);
+  //     })
+
+  // }
 
   user: any = {
-    email:'',
-    password:''
+    email: '',
+    password: ''
   }
 
   ionViewDidLoad() {
-     
- 
-    
+
+
+
   }
 
   loginUser() {
-  this.googlePlus.login({})
-  .then(res => console.log(res))
-  .catch(err => console.error(err));
+    this.googlePlus.login({})
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
   }
-  
-  login(){
+
+  login() {
     this.helper.load();
-    this.auth.login(this.user.email, this.user.password).then((resp:any)=>{
+    this.auth.login(this.user.email, this.user.password).then((resp: any) => {
       this.auth.saveToken(resp.user.uid);
-        
-        //this.navCtrl.setRoot(MyApp);
-        this.navCtrl.setRoot(SimpleDealsPage);
-        //this.navCtrl.pop();
-        this.helper.dismiss();
-        this.helper.toast(`Welcome!`)
+
+      //this.navCtrl.setRoot(MyApp);
+      this.navCtrl.setRoot(SimpleDealsPage);
+      //this.navCtrl.pop();
+      this.helper.dismiss();
+      this.helper.toast(`Welcome!`)
       // this.navCtrl.setRoot(TabsPage).then(()=> {
-      
+
       // })
-    },err=>{
+    }, err => {
       this.err = err.message;
       this.helper.dismiss();
     })
   }
-  goRegister(){
+  goRegister() {
     this.navCtrl.push('RegisterPage');
   }
 }

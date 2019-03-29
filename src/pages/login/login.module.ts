@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { LoginPage } from './login';
 import { HttpClientModule, HttpClient }    from '@angular/common/http';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { HttpClientModule, HttpClient }    from '@angular/common/http';
   ],
   imports: [
     IonicPageModule.forChild(LoginPage),
-    HttpClientModule
+    HttpClientModule,
+    AngularFireAuthModule
   ],
   providers:[
     HttpClient

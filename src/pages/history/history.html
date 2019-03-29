@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">Close</button>
+    </ion-buttons>
+    <ion-title>History</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngIf="deal">
+    <ion-card-header no-padding>
+      <div>
+        <div padding-horizontal padding-top style="white-space: normal;">
+            {{deal.category}}
+        </div>
+        <ion-segment [(ngModel)]="option">
+          <ion-segment-button value="about" no-padding>
+            About
+          </ion-segment-button>
+          <ion-segment-button value="history" no-padding>
+            History
+          </ion-segment-button>
+          <ion-segment-button value="note" no-padding>
+            Notes
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </ion-card-header>
+
+    <ion-list *ngIf="option=='about'" padding>
+      <ion-item>Child Name: {{deal.child.name}}</ion-item>
+      <ion-item>Birth Date: {{birthDate| date}}</ion-item>
+      <ion-item>Vaccine Date: {{getVaccineDate(deal)| date}}</ion-item>
+      <p class="item item-md" style="font-size: 1.6rem">{{deal.category}}</p>
+    </ion-list>
+    <ion-list *ngIf="option=='history'" padding>
+      <ion-item *ngIf="selected">Required On: {{getVaccineDate(deal)| date}}</ion-item>
+      <ion-item *ngIf="selected">Take On: {{selected.date| date}}</ion-item>
+      <ion-item *ngIf="!selected">No History Found</ion-item>
+    </ion-list>
+    <ion-list *ngIf="option=='note'" padding>
+      <p text-justify class="item item-md" *ngIf="selected && selected.msg" style="font-size: 1.6rem">{{selected.msg}}</p>
+      <p text-justify class="item item-md" *ngIf="!selected || !selected.msg" style="font-size: 1.6rem">No Notes</p>
+    </ion-list>
+  </ion-card>
+  <button ion-button block (click)="closeModal()">Close</button>
+</ion-content>

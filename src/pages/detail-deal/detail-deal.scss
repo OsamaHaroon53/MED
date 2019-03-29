@@ -1,0 +1,86 @@
+page-detail-deal {
+    .active-theme{
+        background-color: #B7A3DC !important;
+    }
+    .blue{
+        background-color: #4028d9 !important;
+    }
+    .gray{
+        background-color: lightgray !important;
+    }
+    .orange{
+        background-color: #E30F64 !important;
+    }
+    .gray-slide{
+        background-color: lightgray !important;
+        ion-list-header{
+            color: darkgray;
+        }
+    }
+    .orange-slide{
+        background-color: #E30F64 !important;
+        ion-list-header{
+            color: aliceblue;
+        }
+    }
+    
+    .blue-slide{
+        background-color: #4028d9 !important;
+        ion-list-header{
+            color: aliceblue;
+        }
+    }
+    .active-slide{
+        background-color: #B7A3DC !important;
+        ion-list-header{
+            color: aliceblue;
+        }
+    }
+    ion-title{
+        text-align: left;
+    }
+    ion-grid{
+        font-size: 1.7rem;
+    }
+
+    .image {
+        border-radius: 50%;
+        margin-top:5px;
+    }
+    .progressbar{
+        ion-col{
+            margin: 0px 2px;
+            box-shadow: 0px 0px 1px 0px grey;
+            background-color: lightgrey;
+        }
+    }
+    .my-slider{
+        ion-slide{
+            border-radius: 9px;
+            overflow: hidden;
+            box-shadow: 0px 0px 5px 0px grey;
+
+            ion-list{
+                margin-bottom: 0;
+                height: 100%;
+                & *{
+                background-color: transparent !important;
+                }
+            }
+        }
+        ion-slide>*{
+            height: 100%;
+        }
+
+        .inner{
+            height: 180px;
+            overflow: auto;
+            input[type="checkbox"]{
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+        
+    }
+}

@@ -63,9 +63,9 @@ two(){
         this.helper.dismiss();
         this.events.publish('user:loggedIn',resp.user);
           this.helper.toast(`Welcome!`)
-          this.navCtrl.setRoot(RegisterinfluencerPage);
+          // this.two();
+          this.navCtrl.setRoot(SimpleDealsPage);
       },err=>{
-        debugger;
         console.log(err);
         this.helper.dismiss();
         this.helper.toast(err);
@@ -74,7 +74,6 @@ two(){
       })
 
     },err=>{
-      debugger
       this.err = err.message;
       this.helper.presentAlert('signup error',this.err,'ok');
       this.helper.dismiss();

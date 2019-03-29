@@ -49,71 +49,88 @@ export class MyApp {
 
   rootPage: any = LoginPage;
   @ViewChild(Nav) nav: Nav;
-  
-  user:User={
-  
-    email:'',
-    influencer:false,
-    name:'',
-    phone:'',
-    photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx1KyXUF5JPMgtFk8vaAhhOI7_T3zi6JcQw4NB6Sqf5Xr5noXV',
-    savedDeals:[],
-    uid:''
+
+  user: User = {
+
+    email: '',
+    influencer: false,
+    name: '',
+    phone: '',
+    photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx1KyXUF5JPMgtFk8vaAhhOI7_T3zi6JcQw4NB6Sqf5Xr5noXV',
+    savedDeals: [],
+    uid: ''
   }
+  loadedAll: Boolean = true;
 
   constructor(
     platform: Platform,
-    private fcm:FCM,
+    private fcm: FCM,
     statusBar: StatusBar,
     private helper: HelperProvider,
-    splashScreen: SplashScreen,
+    private splashScreen: SplashScreen,
     androidPermissions: AndroidPermissions,
     private auth: AuthProvider,
-    private events:Events,  
-    private menuCtrl: MenuController,private api:ApiProvider) {
-  
-    
+    private events: Events,
+    private menuCtrl: MenuController, private api: ApiProvider) {
+    splashScreen.show();
+
     platform.ready().then(() => {
-      console.log('app.component loaded');
-      
-      androidPermissions.checkPermission(androidPermissions.PERMISSION.CAMERA).then(
-        result => console.log('Has permission?', result.hasPermission),
-        err => androidPermissions.requestPermission(androidPermissions.PERMISSION.CAMERA)).catch(err => console.log(`android permission error`))
-        androidPermissions.requestPermissions([androidPermissions.PERMISSION.CAMERA, androidPermissions.PERMISSION.GET_ACCOUNTS])
-        .catch(err => console.log(`Cordova error!`));
-        
+        console.log('app.component loaded');
+        androidPermissions.checkPermission(androidPermissions.PERMISSION.CAMERA).then(
+          result => console.log('Has permission?', result.hasPermission),
+          err => androidPermissions.requestPermission(androidPermissions.PERMISSION.CAMERA)).catch(err => console.log(`android permission error`))
+          androidPermissions.requestPermissions([androidPermissions.PERMISSION.CAMERA, androidPermissions.PERMISSION.GET_ACCOUNTS])
+          .catch(err => console.log(`Cordova error!`));
 
-        this.auth.isAuthenticated().subscribe(r => {
-          if (r) {     
-          this.setLoggedInView();        
-          }else{
-            this.setLoggedOutView();
-          }    
-        })
 
-      statusBar.styleDefault();
-      splashScreen.hide();
-      this.rootPage = LoginPage;
+      this.auth.isAuthenticated().subscribe(r => {
+        console.log(r)
+        if (r) {
+          this.rootPage = SimpleDealsPage;
+          // this.loadedAll = true;
+          this.setLoggedInView();
+        } else {
+          // this.loadedAll = true;
+          this.setLoggedOutView();
+        }
+        statusBar.styleDefault();
+        this.splashScreen.hide();
+        this.loadedAll = true;
+        // this.check();
+      })
+
+      // this.rootPage = LoginPage;
     });
 
-    this.events.subscribe('user:loggedIn',(data)=>{
-      
-      console.log('login event recieved'+ data);
+    this.events.subscribe('user:loggedIn', (data) => {
+
+      console.log('login event recieved', data);
       this.setLoggedInView();
     })
-  
-    
+
+
+  }
+
+  check(){
+    if(localStorage.getItem('check')!='true'){
+      localStorage.setItem('check','true');
+      console.log('stop')
+      window.location.reload();
+    }
+    else{
+      this.splashScreen.hide();
+      this.loadedAll = true;
+    }
   }
 
 
 
-  setLoggedInView(){
-    
-    this.getuserProfile().then((data)=>{
-      this.user=data;
-      this.menuCtrl.enable(true,'loginmenu');
-      this.menuCtrl.enable(false,'logoutmenu');
-      
+  setLoggedInView() {
+    this.getuserProfile().then((data) => {
+      console.log('ok',data)
+      this.user = data;
+      this.menuCtrl.enable(true, 'loginmenu');
+      this.menuCtrl.enable(false, 'logoutmenu');
       // this.fcm.getToken().then(token => {
       // this.user.token=token;
       // this.api.updateProfile(this.user.uid,this.user).then(r=>{
@@ -130,7 +147,7 @@ export class MyApp {
       //     console.log("Received in foreground");
       //   };
       // });
-      
+
       // this.fcm.onTokenRefresh().subscribe(token => {
       //   this.user.token=token;
       //   this.api.updateProfile(this.user.uid,this.user).then(r=>{
@@ -141,60 +158,59 @@ export class MyApp {
   }
 
 
-  setLoggedOutView(){
-    this.menuCtrl.enable(true,'logoutmenu');
-    this.user={
-      
-email:'',
-influencer:false,
-name:'',
-phone:'',
-photo:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx1KyXUF5JPMgtFk8vaAhhOI7_T3zi6JcQw4NB6Sqf5Xr5noXV',
-savedDeals:[],
-uid:''
+  setLoggedOutView() {
+    this.menuCtrl.enable(true, 'logoutmenu');
+    this.user = {
+
+      email: '',
+      influencer: false,
+      name: '',
+      phone: '',
+      photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx1KyXUF5JPMgtFk8vaAhhOI7_T3zi6JcQw4NB6Sqf5Xr5noXV',
+      savedDeals: [],
+      uid: ''
     }
-  this.menuCtrl.enable(false,'loginmenu');
-  this.nav.setRoot(LoginPage);
-  
+    this.menuCtrl.enable(false, 'loginmenu');
+
   }
 
-  
 
-  getuserProfile():Promise<any>{
-    return new Promise((resolve,reject)=>{
-      
-      this.api.getProfile(localStorage.getItem('uid')).subscribe((r:User) => {    
-        if(r){
-          let user:User={
-            email:r.email || '',
-            influencer:r.influencer || false,
-            name:r.name || '',
-            photo:r.photo || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx1KyXUF5JPMgtFk8vaAhhOI7_T3zi6JcQw4NB6Sqf5Xr5noXV',
-            phone:r.phone || '',
-            savedDeals:r.savedDeals|| [],
-            uid:localStorage.getItem('uid')      
+
+  getuserProfile(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      this.api.getProfile(localStorage.getItem('uid')).subscribe((r: User) => {
+        if (r) {
+          let user: User = {
+            email: r.email || '',
+            influencer: r.influencer || false,
+            name: r.name || '',
+            photo: r.photo || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx1KyXUF5JPMgtFk8vaAhhOI7_T3zi6JcQw4NB6Sqf5Xr5noXV',
+            phone: r.phone || '',
+            savedDeals: r.savedDeals || [],
+            uid: localStorage.getItem('uid')
           }
           resolve(user);
-        }else{
+        } else {
           reject(r);
         }
       })
-    });    
+    });
   }
 
   navigateTo(url: string) {
     if (url == 'logout') {
-      this.auth.logout().then(r=>{
+      this.auth.logout().then(r => {
         this.setLoggedOutView();
+        this.nav.setRoot(LoginPage);
       });
     }
     else if (url == 'home') {
       this.rootPage = SimpleDealsPage;
-      
-    }else{
-      this.nav.setRoot(url,null,{
-        animate:true,
-        direction:'forward'
+    } else {
+      this.nav.setRoot(url, null, {
+        animate: true,
+        direction: 'forward'
       });
     }
     this.menuCtrl.close();
@@ -202,14 +218,15 @@ uid:''
 
   goLogin() {
     this.nav.setRoot('LoginPage');
-    
+
   }
 
 
-  getNewInvites(){
-    this.api.getUserDeals(this.user.uid).subscribe(r=>{
+  getNewInvites() {
+    this.api.getUserDeals(this.user.uid).subscribe(r => {
       console.log('all new deals recieved' + r);
-      
+
     })
   }
+
 }

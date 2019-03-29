@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage/storage';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { SimpleDealsPage } from '../simple-deals/simple-deals';
 
 /**
  * Generated class for the AddDealPage page.
@@ -173,8 +174,6 @@ onButtonClick(ev) {
     
       isInvite:false
     }
-
-    debugger;
     this.helper.load();
     if (this.navParams.data.deal) {
       deal.id = this.deal.id;
@@ -190,7 +189,7 @@ onButtonClick(ev) {
         console.log(resp);
 
         this.helper.toast(`Child Added ! . Thanks for using Medrec`);
-        this.navCtrl.pop().then(() => this.helper.dismiss());
+        this.navCtrl.setRoot(SimpleDealsPage).then(() => this.helper.dismiss());
       });
 
     }

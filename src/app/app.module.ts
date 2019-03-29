@@ -23,11 +23,11 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 
 
 //firestore
-import { AngularFireModule} from '@angular/fire';
-import { AngularFirestoreModule} from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule, AngularFireStorage } from '@angular/fire/storage';
-import { AngularFireAuthModule} from '@angular/fire/auth';
-import { DirectivesModule } from '../directives/directives.module';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+// import { DirectivesModule } from '../directives/directives.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
@@ -40,7 +40,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { CategoryPage } from '../pages/category/category';
 
 
-import { HttpClientModule, HttpClient }    from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { MomentModule } from 'angular2-moment';
@@ -58,6 +58,9 @@ import { Menu2PageModule } from '../pages/menu2/menu2.module';
 import { FetchdataPageModule } from '../pages/fetchdata/fetchdata.module';
 import { ShowmapPage } from '../pages/showmap/showmap';
 import { LoginPageModule } from '../pages/login/login.module'
+import { DetailDealPage } from '../pages/detail-deal/detail-deal';
+import { InjectionPage } from '../pages/injection/injection';
+import { HistoryPage } from '../pages/history/history';
 
 
 
@@ -69,7 +72,10 @@ import { LoginPageModule } from '../pages/login/login.module'
     SearchPipe,
     SimpleDealsPage,
     ShowmapPage,
-    SortPipe
+    SortPipe,
+    DetailDealPage,
+    InjectionPage,
+    HistoryPage
   ],
   imports: [
     BrowserModule,
@@ -81,11 +87,11 @@ import { LoginPageModule } from '../pages/login/login.module'
     LoginPageModule,
     InvitedetailsPageModule,
     FetchdataPageModule,
-    DirectivesModule,
+    // DirectivesModule,
     RegisterinfluencerPageModule,
     Menu2PageModule,
     MomentModule,
-    IonicModule.forRoot(MyApp,{
+    IonicModule.forRoot(MyApp, {
       menuType: 'push',
       platforms: {
         ios: {
@@ -94,12 +100,12 @@ import { LoginPageModule } from '../pages/login/login.module'
       }
     }),
     AngularFireModule.initializeApp({
-      apiKey: "AIzaSyDFxIHCbVSUE04dQaRNmmXQsctVErhZp1Y",
-      authDomain: "medrec-7d02d.firebaseapp.com",
-      databaseURL: "https://medrec-7d02d.firebaseio.com",
-      projectId: "medrec-7d02d",
-      storageBucket: "medrec-7d02d.appspot.com",
-      messagingSenderId: "196756084583"
+      apiKey: "AIzaSyBPtX95-pW1_Q8JjQCuZRxGdsnEutUt9Us",
+      authDomain: "meddec-11408.firebaseapp.com",
+      databaseURL: "https://meddec-11408.firebaseio.com",
+      projectId: "meddec-11408",
+      storageBucket: "meddec-11408.appspot.com",
+      messagingSenderId: "522878343942"
     }),
     // AngularFireModule.initializeApp({
     //   apiKey: "AIzaSyAnCvBpgYkw9VEk5imjWuQNv0HNyHRKcMQ",
@@ -119,18 +125,20 @@ import { LoginPageModule } from '../pages/login/login.module'
     CategoryPage,
     SimpleDealsPage,
     ShowmapPage,
-    
+    DetailDealPage,
+    InjectionPage,
+    HistoryPage
   ],
   providers: [
     StatusBar,
     Facebook,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     ApiProvider,
     HelperProvider,
     AuthProvider,
-        Clipboard,
-        GoogleMaps,
+    Clipboard,
+    GoogleMaps,
 
     InAppBrowser,
     AndroidPermissions,
@@ -145,4 +153,4 @@ import { LoginPageModule } from '../pages/login/login.module'
     GooglePlus
   ]
 })
-export class AppModule {}
+export class AppModule { }

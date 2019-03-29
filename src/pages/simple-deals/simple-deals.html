@@ -2,9 +2,9 @@
 
   <ion-navbar color="primary">
 
-      <button ion-button icon-only menuToggle>
-          <ion-icon name="menu" style="color:white"></ion-icon>
-        </button>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu" style="color:white"></ion-icon>
+    </button>
 
     <ion-title>Medrec</ion-title>
 
@@ -12,117 +12,135 @@
 
 </ion-header>
 
-<ion-content class="card-background-page" class="background" class="no-scroll">
+<ion-content class="card-background-page" class="background" class="no-scroll" *ngIf="showAll">
 
-  <p class="pp"> Next Due Vaccines </p>
+  <ion-card class="first-card" [class]="addCSS?'first-card card card-md addCSS':'first-card card card-md'">
+    <p class="pp"> Next Due Vaccines </p>
+    <div class="ci">
+      <ion-slides #mySlider *ngIf="showSlide.length">
+        <ion-slide *ngFor="let item of showSlide" (click)="descriptionPage(item.child)">
+          <div class="dash">
+            <div class="panel">
+              <div class="slide-container">
+                <div class="image first">
+                  <img [src]="item.child.photo?item.child.photo:'../assets/imgs/image.jpg'" style="height: 57px; width: 57px; border-radius: 50%;">
+                </div>
+                <div class="slide-content">
+                  <h1>{{getVaccineDate(item) | date}}</h1>
+                  <div padding text-left>
+                    <div>
+                      <label for="">{{item.child.name}}</label>
+                    </div>
+                    <div>
+                      <label for="">{{item.from==0?'At Birth':item.from+' '+ item.format}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="dateInWords" *ngIf="item.child.injection">
+                  <div>{{7-item.child.injection.length==0?'No':7-item.child.injection.length}}</div>
+                  <div>Due</div>
+                </div>
+                <div class="dateInWords" *ngIf="!item.child.injection">
+                  <div>7</div>
+                  <div>Due</div>
+                </div>
+                <div class="bottom-text">
+                  <!-- <p><span *ngFor="let name of item.name">kjkkk</span></p> -->
+                  <p>{{item.category}}</p>
+                </div>
+              </div>
+            </div>
 
-  <ion-card class="ci">
-      <ion-slides loop="true" >
-        <ion-slide>
-
-    <div class="dash">
-
-      <div class="panel">
-        
-            <h1 style="text-align: center; color: #FFFFFF; font-size: 20px;">25 Nov, 2018 </h1>
-              <div class="image"><img src="../assets/imgs/image.jpg" style="height: 57px; width: 57px; border-radius: 50%;"></div>
-              <div class="name">John Player </div>
-              <div class="age">1 Month , Boy</div>
-              <div class="due">5</div>
-              <div class="duee">Due</div>
-              <p class="j1">Oop, Cp, WPL</p>
-             <p class="j2">WPL, MaD</p>
-           
           </div>
-
-        </div>
         </ion-slide>
-
-                <ion-slide>
-
-    <div class="dash">
-
-      <div class="panel">
-        
-            <h1 style="text-align: center; color: #FFFFFF; font-size: 20px;">25 Nov, 2018 </h1>
-              <div class="image"><img src="../assets/imgs/baby.png" style="height: 57px; width: 57px; border-radius: 50%;"></div>
-              <div class="name">Noori Player </div>
-              <div class="age">3 Month , Boy</div>
-              <div class="due">9</div>
-              <div class="duee">Due</div>
-              <p class="j1">Oop, Cp, WPL</p>
-             <p class="j2">WPL, MaD</p>
-           
-          </div>
-
-        </div>
-        </ion-slide>
-
       </ion-slides>
-   </ion-card>
+      <div *ngIf="!showSlide.length" text-center padding>
+        <h2 padding-vertical>No Child added yet!</h2>
+        <button ion-button color="primary" (click)="addDeal()">Add Child</button>
+      </div>
+    </div>
+  </ion-card>
 
   <ion-card class="cii">
 
-    <div class="oo"> 
-      <div class="oo1"><h1 style=" font-size: 20px; font-weight: 430; ">Children Added -1</h1></div>
-      <div class="oo2"><h2 style=" color:#F5A0E5; font-size: 20px; ">Age</h2></div>
-     <div class="ic" style="color: #F5A0E5"><ion-icon name="ios-arrow-down-outline"></ion-icon></div>
+    <div class="oo">
+      <div class="oo1">
+        <h1 style=" font-size: 20px; font-weight: 430; ">Children Added -1</h1>
+      </div>
+      <div class="oo2">
+        <h2 style=" color:#F5A0E5; font-size: 20px; ">Age</h2>
+      </div>
+      <div class="ic" style="color: #F5A0E5">
+        <ion-icon name="ios-arrow-down-outline"></ion-icon>
+      </div>
 
 
 
-    <svg height="100" width="100" class="circle">
-       <circle cx="50" cy="50" r="32" stroke="#B7A3DC" stroke-width="14" fill="#FFFFFF" />  
-    </svg>
+      <svg height="100" width="100" class="circle">
+        <circle cx="50" cy="50" r="32" stroke="#B7A3DC" stroke-width="14" fill="#FFFFFF" />
+      </svg>
 
-    <div class="ad">
-      <div class="do"><span class="dot"></span></div>
-      <div class="di"><p class="di">0-5 Year Old</p></div>
-    </div>
+      <div class="ad">
+        <div class="do"><span class="dot"></span></div>
+        <div class="di">
+          <p class="di">0-5 Year Old</p>
+        </div>
+      </div>
 
-     <button ion-button color="b" style="height: 18px; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF" (click)="addDeal()" >Add Child</button>
+      <button ion-button color="b"
+        style="height: 18px; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF"
+        (click)="addDeal()">Add Child</button>
 
-     <button ion-button color="b" style="height: 18px; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF" (click)="go2()">View Child</button>
+      <button ion-button color="b"
+        style="height: 18px; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF"
+        (click)="go2()">View Child</button>
     </div>
 
   </ion-card>
 
-  <ion-card class="ciii">
-     
-       <div class="ii"> 
-            <div class="ii1"><h1 style="font-size: 21px; font-weight: 430; ">Vaccination Article</h1></div>
-            <div class="ii2"> <h2 style="color:#B7CBF9; font-size: 19px; ">View All</h2></div>
-               <div class="pti" style="background-color: #B7A3DC;">
-                  <div class="ii3"><h1 style="text-align: center; font-size: 21px;  color: #FFFFFF;">DPT Vaccine</h1></div>
-                    <div class="ii4"><h2 style="color: #FFFFFF; font-size: 19px; font-weight: 300">DPT Vaccine protects<br>against diphtheria<br>pertussis(Whooping cough)</h2>
-                    </div>
-               </div>
-       </div>
+  <ion-card class="ciii" [class]="addCSS?'ciii card card-md addBottomCSS':'ciii card card-md'">
 
-   </ion-card>
+    <div class="ii">
+      <div class="ii1">
+        <h1 style="font-size: 21px; font-weight: 430; ">Vaccination Article</h1>
+      </div>
+      <div class="ii2">
+        <h2 style="color:#B7CBF9; font-size: 19px; ">View All</h2>
+      </div>
+      <div class="pti" style="background-color: #B7A3DC;">
+        <div class="ii3">
+          <h1 style="text-align: center; font-size: 21px;  color: #FFFFFF;">DPT Vaccine</h1>
+        </div>
+        <div class="ii4">
+          <h2 style="color: #FFFFFF; font-size: 19px; font-weight: 300">DPT Vaccine protects<br>against
+            diphtheria<br>pertussis(Whooping cough)</h2>
+        </div>
+      </div>
+    </div>
+
+  </ion-card>
 
 
 
 </ion-content>
 
-<ion-footer>
+<ion-footer no-margin>
   <ion-toolbar>
-      <ion-row>
-        <ion-col no-padding>
-          <div style="text-align: center;">
+    <ion-row>
+      <ion-col no-padding>
+        <div style="text-align: center;">
           <button ion-button icon-only clear (click)="map()">
-            <ion-icon name="paper-plane"></ion-icon>
+            <ion-icon name="calendar"></ion-icon>
           </button>
         </div>
-        </ion-col>
+      </ion-col>
 
-        <ion-col no-padding>
+      <ion-col no-padding>
 
-          <button ion-button icon-only clear (click)="map()">
-            <ion-icon name="paper-plane"></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
+        <button ion-button icon-only clear (click)="map()">
+          <ion-icon name="navigate"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>
-
-

@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+      <button ion-button icon-only>
+        <div class="image">
+          <img [src]="child.photo?child1.photo:'../assets/imgs/image.jpg'"
+            style="height: 57px; width: 57px; border-radius: 50%;">
+        </div>
+      </button>
+    </ion-buttons>
+    <ion-title>{{child.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+
+    <ion-card-header style="white-space: normal;">
+      {{injection.category}}
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-label>Description: (If any) </ion-label>
+      <textarea name="description" rows="3" padding [(ngModel)]="child.injection[child.injection.length-1].msg"></textarea>
+    </ion-card-content>
+
+  </ion-card>
+
+  <div padding>
+    <ion-segment [(ngModel)]="criteria" (ionChange)="segmentChanged($event.value,setDate)" color="primary">
+      <ion-segment-button class="segment-activated" value="1">
+        Due Date
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        Today
+      </ion-segment-button>
+      <ion-segment-button value="3">
+        Custom
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div class="mydate">
+    <ion-list>
+
+      <ion-item style="margin-left: 10px;">
+            <ion-label><ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>&nbsp;{{child.injection[child.injection.length-1].date| date}}</ion-label>
+            <ion-datetime #setDate hidden  displayFormat="DD/MMMM/YYYY" min="2010" (ionChange)="onDateChange($event)" hidden>
+            </ion-datetime>
+      </ion-item>
+      <button ion-button (click)="save()">Take Vaccine</button>
+    </ion-list>
+  </div>
+</ion-content>

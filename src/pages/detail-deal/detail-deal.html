@@ -1,0 +1,73 @@
+<ion-header>
+
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="goProfile()">
+        <div class="image">
+          <img [src]="child.photo?child1.photo:'../assets/imgs/image.jpg'"
+            style="height: 57px; width: 57px; border-radius: 50%;">
+        </div>
+      </button>
+    </ion-buttons>
+    <ion-title>{{child.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-uppercase>{{child.city}}</ion-col>
+      <ion-col>
+        <div text-center>
+          <ion-icon name="male"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col text-right>2 months</ion-col>
+    </ion-row>
+    <ion-row margin-vertical class="progressbar">
+      <ion-col *ngFor="let detail of allDeal; let i=index" [class]="'col '+getColor(detail,i)"></ion-col>
+    </ion-row>
+    <ion-row margin-vertical>
+      <ion-col>
+        <ion-slides #mySlider (ionSlideDidChange)="slideChange()" class="my-slider">
+          <ion-slide [attr.id]="'my-slide'+i" *ngFor="let item of allDeal; let i=index">
+            <ion-list [class]="getColorSlider(item,i)">
+              <ion-list-header (click)="goToHistory(i)">
+                <h1>{{getVaccineDate(item) | date}}</h1>
+                <p>{{item.from?item.from+' '+item.format:'At Birth'}}</p>
+              </ion-list-header>
+              <ion-list class="inner">
+                <ion-item *ngFor="let name of item.name;let j=index">
+                    <div>
+                      <input type="checkbox" name="name" (change)="selectVaccine(i,j)" [value]="name" [checked]="checkInjection(i)" [disabled]="checkInjection(i)">&nbsp;&nbsp;{{name}}
+                    </div>
+                    <div (click)="goToHistory(i)">
+                      <label for="">Category: </label><br>
+                      {{item.category}}
+                    </div>
+                    <!-- <ion-label>{{name}}</ion-label> -->
+                    <!-- <ion-checkbox></ion-checkbox> -->
+                </ion-item>
+                <!-- <ion-item >
+                    <ion-label>gdhgdf</ion-label>
+                    <ion-checkbox value="dfhdf"></ion-checkbox>
+                </ion-item> -->
+              </ion-list>
+              <ion-list-header style="border:none">
+                <div class="image">
+                    <img src="../assets/imgs/injection.jpg"
+                      style="height: 57px; width: 57px; border-radius: 50%;" (click)="inject(i+1)">
+                </div>
+              </ion-list-header>
+            </ion-list>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

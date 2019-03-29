@@ -1,0 +1,19 @@
+page-injection {
+    .segment-md-primary button.segment-activated {
+        border-color: #B7A3DC;
+        color: white;
+        background-color: #B7A3DC;
+        opacity: 1;
+    }
+    textarea{
+        border-color: #B7A3DC;
+        width: 90%;
+        display: block;
+        margin: auto;
+    }
+    .mydate{
+        width: 60%;
+        margin: auto;
+        text-align: center;
+    }
+}

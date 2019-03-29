@@ -32,17 +32,18 @@ export class AuthProvider {
 
   constructor(private afAuth: AngularFireAuth,private storage: AngularFireStorage, 
     private http: HttpClient,private api:ApiProvider,private events:Events, public facebook: Facebook,) {
-    console.log('Hello AuthProvider Provider');
+    // console.log('Hello AuthProv
+    ider Provider');
     
-    this.afAuth.authState.subscribe((user)=>{
-      if(user){
-        this.user=user;
+    // this.afAuth.authState.subscribe((user)=>{
+    //   if(user){
+    //     console.log(user,'user logged in');
+    //     this.user=user;
         
-        console.log('user logged in');
-      }else{
-        console.log('user logout');
-      }
-    })  
+    //   }else{
+    //     // console.log('user logout');
+    //   }
+    // })  
   }
 
 
@@ -61,6 +62,11 @@ export class AuthProvider {
         }
       }
     });
+    // let uid = localStorage.getItem('uid');
+    // if(uid){
+    //   return true;
+    // }
+    // return false;
   }
 
   login(email, password) {
