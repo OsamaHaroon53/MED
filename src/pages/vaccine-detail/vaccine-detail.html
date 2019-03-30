@@ -1,0 +1,930 @@
+<ion-header>
+
+  <ion-navbar hideBackButton="true" color="primary">
+    <ion-buttons left>
+      <button ion-button (click)="goBack()" icon-only>
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back" style="color:white;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Vaccine Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding text-justify style="font-family: arial;">
+
+  <div id="BCG" *ngIf="current.id == 0">
+    <h1 margin-bottom>BCG Vaccine (Bacillus Calmette-Guerin):</h1>
+    <h3>Key vaccine facts:</h3>
+    <p>
+      This vaccine gives protection against tuberculosis (TB) infection. It is 70-80% effective against the most severe
+      forms of TB, such as TB meningitis. However, it is less effective in preventing the form of TB that affects the
+      lungs.
+      The BCG vaccine contains live bacteria that have been weakened (attenuated), so that they stimulate the immune
+      system but do not cause disease in healthy people. However, the vaccine should not be given to people who are
+      clinically immunosuppressed (either due to drug treatment or underlying illness). This is because the vaccine
+      strain could replicate too much and cause a serious infection. This includes babies whose mothers have had
+      immunosuppressive treatment while they were pregnant or breastfeeding.
+      <br><br>
+      From August 2018, the UK is using the BCG vaccine manufactured in Denmark by AJ Vaccines. Before this, the UK was
+      using an alternative BCG vaccine manufactured by InterVax.
+    </p>
+    <h3>Who Should have the Vaccine?</h3>
+    <p>
+      Who Should have the Vaccine?In the UK the BCG vaccine is not currently part of the routine childhood schedule. It
+      is offered to those who are at higher risk of TB. The main risk groups for TB are:
+    </p>
+    <ul padding-horizontal>
+      <li>Babies and children under 5 who live in an area of the UK with a high rate of TB (more than 40 cases of TB per
+        year for every 100,000 people). In some areas of London, for example, all newborn babies are recommended to have
+        the BCG vaccine.
+      </li>
+      <li>
+        Having a parent or grandparent who was born in a country where there is a high rate of TB
+      </li>
+      <li>
+        Living for three months or more in a country where is a high rate of TB
+      </li>
+      <li>
+        Being in close contact for a prolonged period with someone who has pulmonary TB (TB affecting the lungs)
+      </li>
+    </ul>
+    <p>
+      Babies and children under 16 in any of these risk groups will usually be offered the BCG vaccine. The BCG vaccine
+      does not work well in adults, but those aged up to 35 may also be offered the vaccine if their job has a high risk
+      of contact with people or animals infected with TB. Adults are often given a skin test before they are offered the
+      vaccine. This is to check whether they already have antibodies to TB.
+      People with a past history of TB should not receive the vaccine. This is because they have an increased risk of
+      adverse reactions to the vaccine.
+    </p>
+
+
+
+    <h2>Ingredients</h2>
+    <p>The BCG vaccine used in the UK contains strains of a bacterium closely related to the one that causes TB in
+      humans.
+      The bacterium used for the vaccine is called Mycobacterium bovis, which causes TB in animals such as cows and
+      badgers. The bacteria in the vaccine are weakened (attenuated) so that they do not cause disease in healthy
+      people.
+      <br><br>
+      Apart from the active ingredients (the antigens), the vaccine also contains small amounts of the following
+      ingredients:
+    </p>
+    <ul padding-horizontal>
+      <li>sodium, potassium and magnesium salts</li>
+      <li>glycerol, a common non-toxic stabilizer also used in foods</li>
+      <li>citric acid</li>
+    </ul>
+    <p>
+      Other brands of BCG vaccine used in other countries may contain different ingredients. If you are not in the UK,
+      ask for the Patient Information leaflet for the vaccine you are offered.
+    </p>
+    <h2>Side effects</h2>
+    <p>Very common side effect (affecting 9 out of 10 people):</p>
+    <ul padding-horizontal>
+      <li>Hardness at the injection site, followed by a raised blister.</li>
+    </ul>
+    <p>Uncommon side effects (affecting up to 1 in 100 people at each dose):</p>
+    <ul padding-horizontal>
+      <li>Headache and a raised temperature (fever)</li>
+      <li>An ulcer which develops from the blister at the injection site, two to six weeks after injection. This may be
+        painful and take several weeks or months to heal fully.</li>
+      <li>Swelling of lymph nodes in the armpit larger than 1 cm across</li>
+      <li>An enlarged lymph node that becomes infected (lymphadenitis)</li>
+    </ul>
+    <p>Rare side effects (affecting up to 1 in 1000 people at each dose):</p>
+    <ul padding-horizontal>
+      <li>More severe skin reactions. These usually heal within a few weeks.</li>
+      <li>Bone inflammation (osteitis or osteomyelitis)</li>
+      <li>An abscess at the injection site</li>
+    </ul>
+    <h2>Anaphylaxis</h2>
+    <p>
+      As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction (anaphylaxis).
+      Anaphylaxis is different from less severe allergic reactions because it causes life-threatening breathing and/or
+      circulation problems. It is always extremely serious but can be treated with adrenaline. Health care workers who
+      give vaccines know how to do this. In the UK between 1997 and 2003 there were a total of 130 reports of
+      anaphylaxis
+      following ALL immunizations. Around 117 million doses of vaccines were given in the UK during this period. This
+      means that the overall rate of anaphylaxis is around 1 in 900,000.
+    </p>
+
+  </div>
+
+  <div id="Boosters" *ngIf="current.id == 1">
+    <h1 margin-bottom>Boosters (6-in-1 Vaccine):</h1>
+    <h3>Key vaccine facts:</h3>
+    <p>
+      The 6-in-1 vaccine used in the UK gives protection against these six serious diseases: diphtheria, tetanus,
+      whooping cough (pertussis), polio, Hib disease (Hemophilus influenzae type b) and hepatitis B. Before vaccines
+      existed, these diseases used to kill thousands of children in the UK every year, as the table at the bottom of the
+      page shows. The vaccine has a good safety record and offers very good protection against all six diseases (see
+      'Does the vaccine work?' below).
+      <br><br>
+      The vaccine can safely be given at the same time as other vaccines in the schedule (see the full UK routine
+      schedule for details of the other vaccines). It is a combination vaccine, which reduces the number of injections a
+      child needs. Read more about combination vaccines and multiple vaccinations and why these are not a risk to your
+      baby's immune system.
+      <br><br>
+      The 6-in-1 vaccine used in the UK does not contain any live bacteria or viruses, and cannot cause any of the
+      diseases it protects against.
+      <br><br>
+      The brand name of the 6-in-1 vaccine used in the UK is Infanrix Hexa (see the Patient Information Leaflet ). This
+      vaccine contains just 10 components (the active ingredients that make the immune system produce antibodies to
+      protect you against the disease). A similar vaccine used until 2004 contained more than 3,000 proteins among its
+      components. This means that the current vaccine is less likely to cause side effects. See 'More information'
+      below.
+    </p>
+    <h3>Who Should have the Vaccine?</h3>
+    <p>
+      In the UK the 6-in-1 vaccine is given to babies at 8, 12 and 16 weeks. The repeated doses are needed to give a
+      good immune response in most children.
+      <br>
+      Almost all babies can receive the 6-in-1 vaccine. However, there are some cases in which a baby should not have
+      the vaccine:
+    </p>
+    <ul padding-horizontal>
+      <li>Babies and children under 5 who live in an area of the UK with a high rate of TB (more than 40 cases of TB per
+        year for every 100,000 people). In some areas of London, for example, all newborn babies are recommended to have
+        the BCG vaccine.
+      </li>
+      <li>
+        If they have a fever at the time of vaccination.
+      </li>
+      <li>
+        If they have signs of a neurological problem that is getting worse, including poorly controlled epilepsy
+      </li>
+      <li>
+        If they are allergic to the vaccine or any of its ingredients
+      </li>
+    </ul>
+    <p>
+      Ask your GP, nurse or health visitor for advice if your child has a history of fits (febrile seizures) or has
+      suffered a fit within 72 hours of a previous dose of the 6-in-1 vaccine.
+      There are special recommendations for babies born to mothers who are infected with hepatitis B. See 'More
+      Information' below.>
+    </p>
+
+
+
+    <h2>Ingredients</h2>
+    <p>
+      The 6-in-1 vaccine used in the UK is called Infanrix Hexa. Apart from the active ingredients (the antigens), it
+      contains very small amounts of these added ingredients:
+    </p>
+    <ul padding-horizontal>
+      <li>aluminum, which strengthens and lengthens the immune response to the vaccine</li>
+      <li>Lactose and Medium 199 (containing amino acids, mineral salts and vitamins), both used as stabilizers</li>
+      <li>Sodium chloride (salt)</li>
+    </ul>
+    <p>
+      The vaccine may also contain traces of these products used during the manufacturing process:
+    </p>
+    <ul padding-horizontal>
+      <li>Formaldehyde, an organic compound used to inactivate (kill) the viruses used in the vaccine</li>
+      <li>Yeast proteins from the yeast used to grow the hepatitis B proteins for the vaccine. A tiny quantity may
+        remain in the vaccine, but there is no evidence that this can cause allergic reactions.</li>
+      <li>Antibiotics (neomycin and polymyxin), used to stop bacteria growing and contaminating the vaccine during
+        manufacture.</li>
+    </ul>
+    <p>
+      Growing the active ingredients for the vaccine:
+    </p>
+    <ul padding-horizontal>
+      <li>The polio part of the vaccine is grown in the laboratory using animal cell strains</li>
+      <li>The hepatitis B proteins for the vaccine are grown in yeast cells. This process is called recombinant DNA
+        technology.</li>
+    </ul>
+    <p>Other brands of the 6-in-1 vaccine used in other countries may contain different ingredients. If you are not in
+      the UK, ask for the Patient Information leaflet for the vaccine you are offered.</p>
+    <h2>Side effects</h2>
+
+
+    <p>Very common (affecting more than 1 in 10 people at each dose):</p>
+    <ul padding-horizontal>
+      <li>redness, pain and/or swelling at the injection site. This is more common at the second and third dose.</li>
+      <li>raised temperature (fever). This is more common at the second and third dose.</li>
+      <li>irritability</li>
+      <li>loss of appetite</li>
+      <li>vomiting</li>
+      <li>abnormal crying</li>
+    </ul>
+    <p>
+      Many of these symptoms can be relieved by giving paracetamol (Calpol) if your child is over 2 months, or ibuprofen
+      if your child is over 3 months and weighs more than 5kg (see NHS Choices for more advice on giving painkillers to
+      babies and children).
+      <br>
+      Common (affecting up to 1 in 10 people at each dose):
+    </p>
+    <ul padding-horizontal>
+      <li>diarrhoea</li>
+      <li>bruising or bleeding at the injection site</li>
+      <li>a small, painless lump at the injection site. This usually disappears and is not serious.</li>
+    </ul>
+    <p>
+      Rare (affecting up to 1 in 1000 people at each dose):
+    </p>
+    <ul padding-horizontal>
+      <li>unusual high-pitched screaming, and episodes during which the child may become blue, pale and/or limp
+        (hypotonic-hyporesponsive episodes, or HHE)</li>
+    </ul>
+    <p>Very rare (affecting fewer than 1 in 10,000 people at each dose):</p>
+    <ul padding-horizontal>
+      <li>fits (also called febrile convulsions or febrile seizures)</li>
+    </ul>
+    <p>
+      You should consult your doctor if your child experiences fits or HHE episodes after vaccination. This is mainly to
+      check that it is the vaccine causing the symptoms, and not some unrelated disease. Symptoms such as fits can be
+      very worrying for parents, but there is no evidence of long-term effects. Children can normally safely receive
+      vaccines in the future. For more information on febrile seizures generally, see NHS Choices .
+    </p>
+
+    <h2>Anaphylaxis</h2>
+    <p>
+      As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction (anaphylaxis).
+      Anaphylaxis is different from less severe allergic reactions because it causes life-threatening breathing and/or
+      circulation problems. It is always extremely serious but can be treated with adrenaline. Health care workers who
+      give vaccines know how to do this. In the UK between 1997 and 2003 there were a total of 130 reports of
+      anaphylaxis following ALL immunisations. Around 117 million doses of vaccines were given in the UK during this
+      period. This means that the overall rate of anaphylaxis is around 1 in 900,000.
+    </p>
+
+  </div>
+
+  <div id="Chickenpox" *ngIf="current.id == 2">
+
+    <h1 margin-bottom text-left>Chickenpox (Varicella) Vaccine:</h1>
+    <h2>Key vaccine facts</h2>
+    <p>This vaccine gives protection against chickenpox infection. For those who are vaccinated but still get
+      chickenpox, the symptoms will generally be milder.
+      <br><br>The vaccine contains a live strain of the varicella-zoster (chickenpox) virus which has been weakened
+      (attenuated). This stimulates the immune system but does not cause disease in healthy people. However, the
+      chickenpox vaccine should not be given to people who are clinically immunosuppressed (see below).
+      <br><br>Two brands of chickenpox vaccine are used in the UK: Varilrix and Varivax.
+    </p>
+    <h1>Who should have the vaccine?</h1>
+    <p>In the UK the chickenpox vaccine is not currently part of the routine childhood schedule. It is recommended for
+      those in close contact with people who are particularly at risk of complications from chickenpox. This includes:
+    </p>
+    <ul padding-horizontal>
+      <li>Healthcare workers of all kinds who are not immune to chickenpox</li>
+      <li>Healthy family members and contacts of people without a fully-working immune system (for example, those with
+        HIV, those without a spleen, people who have had an organ transplant, and those receiving chemotherapy
+        treatment). As the chickenpox vaccine is a live vaccine, people without a fully-working immune system cannot
+        receive the vaccine themselves.</li>
+    </ul>
+    <p>The vaccine is also available for laboratory workers who are not immune to chickenpox and who may come into
+      contact with the virus as part of their job.
+      <br><br>In the UK the vaccine is given to adults and children over the age of one year. Two doses are given, at
+      least 4 weeks apart. The exact spacing between doses depends on the brand of vaccine given and the age of the
+      person receiving the vaccine.</p>
+    <h2>Who should not have the vaccine?</h2>
+    <p>The chickenpox vaccine should not be given to people who are clinically immunosuppressed (either due to drug
+      treatment or underlying illness). This is because the vaccine strain could replicate too much and cause a serious
+      infection. This includes babies whose mothers have had immunosuppressive treatment while they were pregnant or
+      breastfeeding. For more information see the MHRA's Drug Safety Update (April 2016) .
+      <br><br>The chickenpox vaccine is not recommended for pregnant women as a matter of caution. However, studies have
+      not shown any link between the weakened virus in the vaccine and any specific problems in babies born to women who
+      received a chickenpox vaccine while they were pregnant. See 'Is the vaccine safe?' below.</p>
+    <h2>What protection does the vaccine give?</h2>
+    <p>Two doses of the vaccine give about 98% protection in children and about 75% protection in teenagers and adults.
+    </p>
+    <h2>Ingredients</h2>
+    <p>The chickenpox vaccines used in the UK are called Varilrix and Varivax. Apart from the active ingredients (the
+      antigens), the vaccines may contain very small amounts of these added ingredients:</p>
+    <ul padding-horizontal>
+      <li>highly purified gelatin, used as a stabilizer (Varivax only - there is no gelatin in Varilrix)</li>
+      <li>human serum albumin, a very common protein found in human blood, used as a stabilizer (Varilrix only; however,
+        by the end of 2019 this vaccine will no longer contain human serum albumin)</li>
+      <li>sorbitol, mannitol, lactose or urea, safe organic compounds used as stabilizers</li>
+    </ul>
+    The vaccines may also contain traces of these products used during the manufacturing process:
+    <ul padding-horizontal>
+      <li>neomycin, an antibiotic used to stop bacteria growing and contaminating the vaccine</li>
+      <li>harmless salts based on sodium and potassium, used as acidity regulators</li>
+    </ul>
+    Growing the active ingredients for the vaccine:
+    <ul padding-horizontal>
+      <li>The virus strain used in both vaccines is grown in the laboratory using human cell strains</li>
+    </ul>
+    <p>Other brands of chickenpox vaccine used in other countries may contain different ingredients. If you are not in
+      the UK, ask for the Patient Information leaflet for the vaccine you are offered.</p>
+    <h2>Side effects</h2>
+    <p>The frequency and type of side effects are slightly different for the two chickenpox vaccines used in the UK. For
+      full information on side effects, ask for the Patient Information leaflet for the vaccine you are offered. As a
+      general guide, side effects may be experienced as listed below.
+      <br><br>Very common (affecting more than 1 in 10 people at each dose):</p>
+    <ul padding-horizontal>
+      <li>reactions at the site of the injection, including redness, pain and swelling.</li>
+      <li>raised temperature (fever)</li>
+    </ul>
+    <p>Common (affecting up to 1 in 10 people at each dose):</p>
+    <ul padding-horizontal>
+      <li>chickenpox-like rash (in up to 10% of adults and 5% of children)</li>
+      <li>mild cold-like symptoms</li>
+      <li>irritability</li>
+      <li>itching at the injection site</li>
+    </ul>
+    <p>Uncommon (affecting up to 1 in 100 people at each dose):</p>
+    <ul padding-horizontal>
+      <li>swollen glands, headache, sore throat, cough, or runny nose</li>
+      <li>feeling sick or being sick</li>
+      <li>diarrhea</li>
+      <li>a rash with blisters</li>
+      <li>joint or muscle pain</li>
+      <li>very high temperature</li>
+      <li>drowsiness, tiredness, or feeling generally unwell</li>
+    </ul>
+    <p>For rarer side effects (affecting fewer than 1 in 1000 people), see the Patient Information Leaflets for Varivax
+      and Varilrix </p>
+    <h2>Anaphylaxis</h2>
+    <p>As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction (anaphylaxis).
+      Anaphylaxis is different from less severe allergic reactions because it causes life-threatening breathing and/or
+      circulation problems. It is always extremely serious but can be treated with adrenaline. Health care workers who
+      give vaccines know how to do this. In the UK between 1997 and 2003 there were a total of 130 reports of
+      anaphylaxis following ALL immunizations. Around 117 million doses of vaccines were given in the UK during this
+      period. This means that the overall rate of anaphylaxis is around 1 in 900,000.</p>
+  </div>
+
+  <div id="HepatitisA" *ngIf="current.id == 3">
+
+    <h1 margin-bottom>Hepatitis A Vaccine:</h1>
+    <h2>Key vaccine facts:</h2>
+    This vaccine gives protection against the hepatitis A virus, which is a cause of liver infection.
+    <br><br>There are three types of hepatitis A vaccine available in the UK:
+    <ul padding-horizontal>
+      <li>a vaccine that protects just against hepatitis A</li>
+      <li>a combined vaccine for hepatitis A and hepatitis B</li>
+      <li>a combined vaccine for hepatitis A and typhoid</li>
+    </ul>
+    All types of hepatitis A vaccines used in the UK are inactivated. They do not contain any live viruses or bacteria,
+    and cannot cause disease.
+    <h2>Who should have the vaccine?</h2>
+    The risk of infection from hepatitis A is low for most people in the UK, so the vaccine is only available free of
+    charge to people at high risk of hepatitis A disease. This includes:
+    <ul padding-horizontal>
+      <li>people planning to visit or live in parts of the world where hepatitis A is common</li>
+      <li>close contacts of someone who has hepatitis A</li>
+      <li>people with chronic (long-term) liver disease</li>
+      <li>people with blood clotting disorders (hemophilia)</li>
+      <li>men who have sex with men</li>
+      <li>drug users who inject drugs</li>
+      <li>people who may be exposed to hepatitis A through their job (including staff working in jobs where people’s
+        personal hygiene may be poor, or people working with monkeys and apes)</li>
+    </ul>
+    In Europe and the UK there is currently an increase in the number of cases of hepatitis A, mainly among men who have
+    sex with men. Most of the UK cases so far have been in London. Public Health England is encouraging gay and bisexual
+    men to practice good personal hygiene and ask about hepatitis A vaccination at their sexual health clinic
+    appointments.
+    <br>Vaccines are available for adults and for children aged 1 year or older. However, combined hepatitis A and
+    typhoid vaccines are not licensed for children under the age of 15. For some vaccines only one initial dose is
+    needed, and for others two or three doses are needed. Booster doses may also be needed for long-term protection. For
+    more information, ask for the Patient Information Leaflet for the vaccine you are offered.
+    <h2>Ingredients</h2>
+    There are several different makes of hepatitis A vaccine used in the UK. For full information on ingredients, ask
+    for the Patient Information Leaflet for the vaccine you are offered, or look the brand name up on the electronic
+    Medicines Compendium (eMC)
+    <br><br>Apart from the active ingredients (the antigens), all hepatitis A vaccines used in the UK contain very small
+    amounts of this added ingredient:
+    <ul padding-horizontal>
+      <li>aluminum, which strengthens and lengthens the immune response to the vaccine</li>
+    </ul>
+    Hepatitis A vaccines may also contain traces of these products used during the manufacturing process:
+    <ul padding-horizontal>
+      <li>neomycin, an antibiotic used to stop bacteria growing and contaminating the vaccine</li>
+      <li>common salt (sodium chloride) and other harmless sodium and potassium salts used as acidity regulators</li>
+      <li>a trace of formaldehyde, used to inactivate the viruses for the vaccine</li>
+    </ul>
+    Growing the active ingredients for the vaccines:
+    <ul padding-horizontal>
+      <li>the hepatitis A virus strain used to make the vaccines is grown in the laboratory using human cell strains
+      </li>
+      <li>the combined hepatitis A and B vaccines may contain traces of yeast proteins. These come from the yeast used
+        to grow the hepatitis B proteins for the vaccine. A tiny quantity of yeast protein may remain in the vaccine,
+        but there is no evidence that this can cause allergic reactions. The hepatitis B proteins are grown in yeast
+        cells using recombinant DNA technology.</li>
+    </ul>
+    <h2>Side effects</h2>
+    Side effects vary between the different types of hepatitis A vaccine, but can include the following:
+    <br><br>Very common (affecting more than 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>pain at the injection site</li>
+      <li>redness and hardness at the injection site</li>
+      <li>headache</li>
+      <li>feeling tired, irritable, weak or generally unwell</li>
+      <li>loss of appetite or feeling sick</li>
+      <li>upset stomach or diarrhea</li>
+    </ul>
+    Common (affecting up to 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>a slightly raised temperature (fever)</li>
+      <li>swelling or a small lump at the injection site</li>
+      <li>itchy skin</li>
+      <li>aching muscles</li>
+      <li>feeling drowsy</li>
+    </ul>
+    Uncommon (affecting up to 1 in 100 people at each dose):
+    <ul padding-horizontal>
+      <li>feeling dizzy</li>
+      <li>stomach pain or being sick</li>
+    </ul>
+    <p>For rarer side effects (affecting fewer than 1 in 1000 people), ask to see the Patient Information Leaflet for
+      the vaccine you are offered.</p>
+    <h2>Anaphylaxis</h2>
+    <p>As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction (anaphylaxis).
+      Anaphylaxis is different from less severe allergic reactions because it causes life-threatening breathing and/or
+      circulation problems. It is always extremely serious but can be treated with adrenaline. Health care workers who
+      give vaccines know how to do this. In the UK between 1997 and 2003 there were a total of 130 reports of
+      anaphylaxis following ALL immunizations. Around 117 million doses of vaccines were given in the UK during this
+      period. This means that the overall rate of anaphylaxis is around 1 in 900,000.</p>
+
+  </div>
+
+  <div id="HepatitisB" *ngIf="current.id == 4">
+
+    <h1 margin-bottom>Hepatitis B Vaccine:</h1>
+    <h2>Key vaccine facts:</h2>
+
+    This vaccine gives protection against the hepatitis B virus, which is a major cause of serious liver disease,
+    including liver cancer and cirrhosis (scarring of the liver which prevents the liver from working properly).
+    <br><br>The individual hepatitis B vaccine can be given at the same time as other vaccines such as the PCV,
+    hepatitis A, MMR, pre-school booster and other travel vaccines. The vaccines should be given at a separate site,
+    preferably in a different arm or leg.
+    <br><br>The vaccine does not contain any live viruses, and cannot cause hepatitis B disease.
+    <br><br>Since the disease is so serious, the World Health Organization has said that all babies in the world should
+    be protected by hepatitis B vaccination. In the UK all babies are now offered the combination 6-in-1 vaccine which
+    contains hepatitis B vaccine as well as vaccines against five other serious diseases.
+
+    <h2>Who should have the vaccine?</h2>
+    The individual (monovalent) hepatitis B vaccine continues to be given to those in the UK at high risk of hepatitis B
+    disease. This includes:
+    <ul padding-horizontal>
+      <li>Babies born to mothers who have been infected with hepatitis B. These babies are exposed to the virus during
+        birth, and should be given the individual hepatitis B vaccine within 24 hours of birth. They should be given
+        another dose of the individual vaccine at 4 weeks, and then follow the routine UK schedule (three doses of the
+        6-in-1 vaccine at 2 months, 3 months and 4 months of age). They should have another dose of the individual
+        hepatitis B vaccine at 12 months of age. They will also be tested for hepatitis B infection at this time. Babies
+        born to women who are thought to be particularly infectious may also be given hepatitis B immunoglobulin at
+        birth. This provides immediate, temporary protection while the baby develops their own immunity through
+        vaccination.</li>
+      <li>People with chronic (long-term) liver disease or kidney conditions</li>
+      <li>People with blood disorders such as hemophilia, who receive blood products</li>
+      <li>Close family contacts of someone with chronic hepatitis B infection</li>
+      <li>Foster cares and people adopting children from countries where there is a high risk of hepatitis B infection
+      </li>
+      <li>People who inject drugs</li>
+      <li>People who change sexual partners frequently</li>
+      <li>Prisoners</li>
+      <li>People with learning disabilities who live in residential accommodation</li>
+      <li>Healthcare workers and other staff in healthcare settings who may come into direct contact with blood or blood
+        products</li>
+      <li>Workers in other settings who may be at risk of injury from needles, or at risk of being deliberately injured
+        or bitten by patients.</li>
+    </ul>
+    The hepatitis B vaccine may also be recommended as a travel vaccine for travel to some parts of the world.
+
+    <h2>Ingredients</h2>
+    There are several different hepatitis B vaccines used in the UK. For full information about ingredients, ask for the
+    Patient Information Leaflet for the vaccine you are offered. (See the 6-in-1 vaccine page for information about
+    ingredients for this vaccine.)
+    <br><br>Apart from the active ingredients (the antigens), hepatitis B vaccines contain very small amounts of this
+    added ingredient:
+    <ul padding-horizontal>
+      <li>Aluminum, which strengthens and lengthens the immune response to the vaccine</li>
+    </ul>
+    Hepatitis B vaccines may also contain tiny traces of products used during the manufacturing process:
+    <ul padding-horizontal>
+      <li>yeast proteins from the yeast used to grow the hepatitis B proteins for the vaccine. A tiny quantity may
+        remain in the vaccine, but there is no evidence that this can cause allergic reactions.</li>
+      <li>formaldehyde, used to inactivate (kill) the hepatitis B viruses used in the vaccine</li>
+      <li>sodium chloride (salt) and other salts based on sodium and potassium, used as acidity regulators</li>
+      <li>sodium borate (borax), used as an acidity regulator</li>
+    </ul>
+    Growing the active ingredients for the vaccines:
+    <ul padding-horizontal>
+      <li>Hepatitis B vaccines contain one of the proteins from the surface of the hepatitis B virus (HepB surface
+        antigen, or HBsAg). This protein is made by inserting the genetic code into yeast cells, which removes any risk
+        of viral DNA getting into the final product. This process is called recombinant DNA technology.</li>
+    </ul>
+    Latex may be used in the packaging of some of the hepatitis B vaccines.
+
+
+    <h2>Side effects</h2>
+    Several different makes of hepatitis B vaccine are used in the UK. For full information about side effects, ask for
+    the Patient Information Leaflet for the vaccine you are offered. Side effects reported for hepatitis B vaccines in
+    general are listed below.
+    <br><br>Very common (affecting more than 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>Headache</li>
+      <li>Pain, redness and hardness at the injection site</li>
+      <li>Feeling tired or irritable</li>
+      <li>Loss of appetite</li>
+    </ul>
+    Common (affecting up to 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>High temperature (fever) above 37.5 degrees</li>
+      <li>Feeling sick or being sick</li>
+      <li>Diarrhea or pain in the stomach</li>
+      <li>Swelling, bruising or itching at the injection site</li>
+      <li>Generally feeling unwell</li>
+    </ul>
+    Uncommon (affecting up to 1 in 100 people at each dose):
+    <ul padding-horizontal>
+      <li>Feeling dizzy</li>
+      <li>Aching muscles</li>
+      <li>Flu-like symptoms</li>
+    </ul>
+    Rare (affecting up to 1 in 1000 people at each dose):
+    <ul padding-horizontal>
+      <li>Low blood pressure</li>
+      <li>Joint pain (arthralgia)</li>
+      <li>Hives, rash or itchiness</li>
+      <li>Pins and needles (paranesthesia)</li>
+      <li>Swollen glands in the neck, armpit or groin (lymphadenopathy)</li>
+    </ul>
+    More serious side effects are very rare (affecting fewer than 1 in 10,000 people at each dose). You should consult
+    your doctor if you or your child experiences suspected serious side effects after vaccination. This is mainly to
+    check that it is the vaccine causing the symptoms, and not some unrelated disease.
+    <h2>Anaphylaxis</h2>
+    As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction (anaphylaxis).
+    Anaphylaxis is different from less severe allergic reactions because it causes life-threatening breathing and/or
+    circulation problems. It is always extremely serious but can be treated with adrenaline. Health care workers who
+    give vaccines know how to do this. In the UK between 1997 and 2003 there were a total of 130 reports of anaphylaxis
+    following ALL immunizations. Around 117 million doses of vaccines were given in the UK during this period. This
+    means that the overall rate of anaphylaxis is around 1 in 900,000.
+
+  </div>
+
+  <div id="MMR" *ngIf="current.id == 5">
+
+    <h1 margin-bottom>MMR Vaccine:</h1>
+    <h2>Key vaccine facts:</h2>
+    The MMR vaccine gives protection against three serious diseases: measles, mumps, and rubella. Before the
+    introduction of vaccines, all three diseases were extremely common and most people had them at some point, usually
+    as children. Although many people survived without long-term effects, others were left with serious disabilities and
+    some children died. Complications of measles include fatal pneumonia and encephalitis (inflammation of the brain).
+    In the year before a vaccine was introduced in the UK, 99 people died from measles complications. Mumps can cause
+    deafness and meningitis, and in the past rubella caused many babies to be born with serious abnormalities (known as
+    Congenital Rubella Syndrome).
+    <br><br>The vaccine can safely be given at the same time as other vaccines in the schedule (see the full UK routine
+    schedule for details of the other vaccines). It is a combination vaccine, which reduces the number of injections a
+    child need. Read more about combination vaccines and multiple vaccinations and why these are not a risk to your
+    baby's immune system.
+    <br><br>MMR vaccines contain live measles, mumps and rubella viruses that have been weakened (attenuated). These
+    stimulate the immune system but do not cause disease in healthy people. However, the MMR vaccine should not be given
+    to people who are clinically immunosuppressed (see below).
+    <br><br>Two brands of MMR vaccine are used in the UK: MMRVaxPro (see the Patient Information Leaflet ) and Priorix
+    (see the Patient Information Leaflet ).
+    <h3>Measles outbreaks in the UK and Europe</h3>
+    Between 2001 and 2013 there was a sharp rise in the number of UK measles cases, and three people died. Numbers of
+    cases have fallen since 2013, but rates of measles are still higher than they were in the late 1990s and seem to be
+    rising again in 2018. In 2018 there were 966 laboratory confirmed measles cases in England - nearly four times as
+    many as the total number confirmed in 2017 (259 cases). The majority of measles cases have been in people who are
+    not vaccinated, especially young people aged 15 and over who missed out on MMR vaccination when they were younger.
+    About 30% of those infected have been admitted to hospital.
+    <br><br>At the moment most UK measles cases are linked to travel in Europe. Cases have also been linked to music
+    festivals and other large public events. Public Health England is advising people to check that they are vaccinated
+    against measles before they travel abroad or go to large public events in the UK or elsewhere.
+    <br><br>Numbers of measles cases are currently high in several European countries. There were more than three times
+    as many measles cases in 2017 as there were in 2016. In 2016 and 2017 there were 49 deaths from measles in Europe,
+    and by November 2018 there had been another 33 deaths (see reports from the European Centre for Disease Prevention
+    and Control ). There have been particularly serious outbreaks in Serbia, Ukraine, Georgia, Greece, Romania, Italy,
+    and France. Around 95% of cases have been in babies and children under 1 year of age who were not yet vaccinated.
+    Travellers have brought a number of measles cases into the UK recently, and these are expected to continue.
+    <br><br>Numbers of measles cases are currently high in several European countries. There were over 82,500 measles
+    cases in Europe in 2018 . This is more than three times as many as in 2017, and 15 times as many as in 2016. In 2016
+    and 2017 there were 49 deaths from measles in Europe, and 2018 saw another 72 deaths. Some countries have reported
+    that over 60% of measles cases have been hospitalised. See the regular reports from the European Centre for Disease
+    Prevention and Control . There have been particularly serious outbreaks in Serbia, Ukraine, Georgia, Greece,
+    Romania, Italy, and France. Around 95% of cases have been in babies and children under 1 year of age who were not
+    yet vaccinated. Travellers have brought a number of measles cases into the UK recently, and these are expected to
+    continue.
+    <h3>Who should have the vaccine, and how many doses are needed?</h3>
+    <br><br>Children get two doses of MMR vaccine. The first dose is given at 12-13 months in the UK schedule. The
+    vaccine is not usually given earlier than this because studies have shown it does not work so well in children under
+    1 year of age. (See the short video under 'Is the vaccine safe?' at the bottom of the page.) A booster dose is given
+    at 3 years and 4 months at the same time as the Pre-school booster.
+    <br><br>The MMR vaccine should not be given to people who are clinically immunosuppressed (either due to drug
+    treatment or underlying illness). This is because the weakened viruses in the vaccine could replicate too much and
+    cause serious infection. This includes babies whose mothers have had immunosuppressive treatment while they were
+    pregnant or breastfeeding. For more information see the MHRA's Drug Safety Update (April 2016) .
+    <br><br>There is a catch-up programme for children, teenagers and young adults who have missed out on the MMR
+    vaccine. Anyone of any age who is not sure whether they have had two doses of measles, mumps and rubella vaccines
+    can ask their GP for the MMR vaccine.
+    <br><br>Because of measles outbreaks in Europe and elsewhere, all travellers are advised to check that they are up
+    to date with MMR vaccination before they travel. If you are travelling with a baby, the MMR vaccine can be given
+    from six months of age before travelling to a country where measles is a risk or where an outbreak is taking place.
+    See the Travel Health Pro website for more information.
+    <br><br>Single measles, mumps and rubella vaccines are not available in the UK through the NHS and are not
+    recommended by the NHS (see the statement from Public Health England ). Single mumps and rubella vaccines are no
+    longer manufactured anywhere in the world.
+    <br><br>The MMR vaccine is not recommended for pregnant women as a matter of caution. However, there are no known
+    risks associated with receiving the MMR vaccine during pregnancy or just before pregnancy. See this Public Health
+    England statement for more information.
+    <h3>What protection does the vaccine give?</h3>
+    After two doses of MMR vaccine, about 99 of people out of 100 will be protected against measles, about 88 out of 100
+    will be protected against mumps, and almost everyone will be protected against rubella.
+    <h2>MMR vaccine safety</h2>
+    There are now a large number of studies that show no evidence at all of any link between the MMR vaccine and autism.
+    In the short film below, experts say why they believe there is no link. See 'Is the vaccine safe?' towards the
+    bottom of this page for a full list of studies.
+
+    <h2>Ingredients</h2>
+    The MMR vaccines used in the UK are called MMRVaxPro and Priorix. The two vaccines contain different ingredients.
+    For more information, see the MMRVaxPro Patient Information Leaflet and the Priorix Patient Information Leaflet .
+    Other brands of MMR vaccines used in other countries may contain different ingredients. If you are not in the UK,
+    ask for the Patient Information leaflet for the vaccine you are offered.
+    <br><br>Apart from the active ingredients (the antigens), MMR vaccines may contain very small amounts of these
+    ingredients:
+    <ul padding-horizontal>
+      <li>highly purified gelatine derived from pigs, used as a stabiliser (MMRVaxPro only; the other MMR vaccine used
+        in the UK, Priorix, does not contain gelatine).</li>
+      <li>sorbitol or mannitol, used as stabilisers</li>
+      <li>polysorbate 80, used as an emulsifier (to hold other ingredients together)</li>
+      <li>recombinant human serum albumin, used as a stabiliser (MMRVaxPro only)</li>
+    </ul>
+    The vaccine may also contain traces of these products used during the manufacturing process:
+    <ul padding-horizontal>
+      <li>neomycin, an antibiotic used to stop bacteria growing and contaminating the vaccine</li>
+    </ul>
+    Growing the active ingredients for the vaccine:
+    <ul padding-horizontal>
+      <li>The rubella strain for both MMR vaccines is grown in the laboratory using human cell strains</li>
+      <li>The measles and mumps virus strains for both MMR vaccines are grown on a culture which contains chick embryo
+        cells (see more information about the use of animal cell strains to grow viruses for vaccines). The viruses are
+        not grown on eggs. This means that there is not enough egg protein in the MMR vaccine to cause allergic
+        reactions, so children with severe egg allergies can safely receive the MMR. In the past, people with an egg
+        allergy were advised not to receive the MMR vaccine, but advice on this changed more than ten years ago.</li>
+    </ul>
+    <h2>Side effects</h2>
+    The MMR vaccine should not be given to people who are clinically immunosuppressed (either due to drug treatment or
+    underlying illness). This is because the weakened viruses in the vaccine could replicate too much and cause serious
+    infection. This includes babies whose mothers have had immunosuppressive treatment while they were pregnant or
+    breastfeeding. For more information see the MHRA's Drug Safety Update (April 2016) .
+    <br><br>The MMR vaccine contains three separate vaccines and their side effects can take place over different time
+    periods. There tend to be fewer side effects after the second dose of MMR.
+    <br><br>Very common (affecting more than 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>redness, pain and/or swelling at the injection site</li>
+    </ul>
+    Common side effects (affecting up to 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>six to ten days after vaccination: some children may get a raised temperature, loss of appetite, and a
+        measles-like rash. This can happen when the measles part of the vaccine starts to work, and is normal. Symptoms
+        last 2-3 days.</li>
+      <li>about three weeks after vaccination: around 1 in 50 children may get mumps-like symptoms (slightly raised
+        temperature and swollen glands in the neck, cheek or under the jaw). This can happen when the mumps part of the
+        vaccine starts to work.</li>
+      <li>The rubella vaccine can cause inflammation in joints (arthritis or arthralgia). This is rare in children but
+        can be quite common in adult women who have the MMR vaccine. It usually last about 3 days.</li>
+    </ul>
+    Rare (affecting up to 1 in 1000 people at each dose):
+    <ul padding-horizontal>
+      <li>fits (also called febrile convulsions or febrile seizures). These may occur in every 1 in 1000 doses of the
+        vaccine. Fits are more common as a result of measles infection than they are as a result of the MMR vaccine.
+      </li>
+    </ul>
+    Very rare (affecting fewer than 1 in 10,000 people at each dose):
+    <ul padding-horizontal>
+      <li>in about 1 in every 24,000 doses of vaccine, a skin rash of small, bruise-like spots develops up to six weeks
+        after vaccination (called idiopathic thrombocytopenic purpura, or ITP). This can also occur after measles or
+        rubella infection, and is more common as a result of the diseases than as a result of the vaccine.</li>
+    </ul>
+    You should consult your doctor if your child experiences fits or a rash that looks like ITP after vaccination. This
+    is mainly to check that it is the vaccine causing the symptoms, and not some unrelated disease. Symptoms such as
+    fits can be very worrying for parents, but there is no evidence of long-term effects. Children can normally safely
+    receive vaccines in the future. For more information on febrile seizures generally, see NHS Choices .
+    <h2>Anaphylaxis</h2>
+    As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction (anaphylaxis).
+    Anaphylaxis is different from less severe allergic reactions because it causes life-threatening breathing and/or
+    circulation problems. It is always extremely serious but can be treated with adrenaline. Health care workers who
+    give vaccines know how to do this. In the UK between 1997 and 2003 there were a total of 130 reports of anaphylaxis
+    following ALL immunizations. Around 117 million doses of vaccines were given in the UK during this period. This
+    means that the overall rate of anaphylaxis is around 1 in 900,000.
+
+  </div>
+
+  <div id="Pentavalent" *ngIf="current.id == 6">
+
+    <h1 margin-bottom>Pentavalent Vaccine (5 in 1 Vaccine):</h1>
+    <h2>Key vaccine facts:</h2>
+    This article is about the 5-in-1 vaccine used in the UK until 2017. Other countries may use a different version of
+    the 5-in-1 vaccine. If you are not from the UK please check which vaccine is used in your country, as the
+    information here may not apply to you. See 'More information about the vaccine' at the bottom of the page.
+    <br><br>The 5-in-1 vaccine was used in the UK for many years. In late September 2017 the UK replaced it with a
+    6-in-1 vaccine for all babies born on or after 1st August 2017. Both vaccines give protection against diphtheria,
+    tetanus, whooping cough (pertussis), polio and Hib disease (Hemophilus influenzae type b). Before vaccines existed,
+    these diseases used to kill thousands of children in the UK every year (see the table in 'More information about the
+    vaccine' at the bottom of the page). The 6-in-1 vaccine also gives protection against hepatitis B, a cause of
+    serious liver disease.
+    <br><br>The 5-in-1 vaccine was given to all UK babies born on or before 31st July 2017. It was given at 2, 3 and 4
+    months in the UK. The 5-in-1 vaccines used in the UK do not contain any live bacteria or viruses and cannot cause
+    any of the diseases they protect against.
+    <br><br>Two brands of 5-in-1 vaccine were used in the UK: Pedicel and Infanrix IPV+Hib
+    <h2>Ingredients</h2>
+    Apart from the active ingredients (the antigens), the 5-in-1 vaccines used in the UK contain very small amounts of
+    these ingredients:
+    <ul padding-horizontal>
+      <li>A small amount of aluminum, which strengthens and lengthens the immune response to the vaccine. See more
+        information on aluminum in vaccines.</li>
+      <li>Sodium chloride (salt)</li>
+      <li>Polysorbate, used as an emulsifier (to hold other ingredients together)</li>
+      <li>Lactose and Medium 199 (containing amino acids, mineral salts and vitamins), both used as stabilizers
+        (Infanrix IPV+Hib only)</li>
+      <li>A very small amount of phenol, used as a preservative (Pedicel only).</li>
+    </ul>
+    The Hib part of the 5-in-1 is a conjugate vaccine. Sugars are taken from the capsule around the Hib bacteria are
+    joined to a non-toxic protein from tetanus. The protein helps to stimulate the immune system in a broader way to
+    respond well to the vaccine. This gives a better immune response in individuals of all ages.
+    <br><br>The polio part of the vaccine is grown in the laboratory using animal cell strains. See more information on
+    animal cell strains in vaccine production.
+    <br><br>Other brands of 5-in-1 vaccine used in other countries may contain different ingredients. If you are not in
+    the UK, ask for the Patient Information leaflet for the vaccine you are offered.
+    <h2>Side effects</h2>
+    Common (affecting up to 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>redness, tenderness and/or swelling at the injection site</li>
+      <li>raised temperature (fever)</li>
+      <li>irritability</li>
+      <li>sickness</li>
+      <li>diarrhea</li>
+      <li>loss of appetite</li>
+    </ul>
+    Many of these symptoms can be relieved by giving paracetamol (Calpol)if your child is over 2 months, or ibuprofen if
+    your child is over 3 months and weighs more than 5kg (see NHS Choices for more advice on giving painkillers to
+    babies and children).
+    <br><br>Rare (affecting up to 1 in 1000 people at each dose):
+    <ul padding-horizontal>
+      <li>high temperatures, sometimes leading to fits (also called convulsions or febrile seizures)</li>
+      <li>unusual high-pitched screaming and hypotonic-hyporesponsive episodes (HHE), during which the child may become
+        blue, pale and/or limp.</li>
+    </ul>
+    You should consult your doctor if these happen after vaccination. This is mainly to check that it is the vaccine
+    causing the symptoms, and not some unrelated disease. Symptoms such as fits can be very worrying for parents, but
+    there is no evidence of long-term effects. Children can normally safely receive vaccines in the future. For more
+    information on febrile seizures generally, see NHS Choices .
+    <br><br>As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction
+    (anaphylaxis). Anaphylaxis is different from less severe allergic reactions because it causes life-threatening
+    breathing and/or circulation problems. It is always serious but can be treated with adrenaline. In the UK between
+    1997 and 2003 there were a total of 130 reports of anaphylaxis following ALL immunisations, but all of these people
+    survived. Around 117 million doses of vaccines were given in the UK during this period, making the overall rate
+    around 1 in 900,000. Depending on the cause of the reaction, and following expert guidance, the person may be able
+    to have vaccinations in the future.
+    <br><br>Reactions listed under ‘possible side effects’ or ‘adverse events’ on vaccine product information sheets may
+    not all be directly linked to the vaccine. See Vaccine side effects and adverse reactions for more information on
+    why this is the case.
+    <br><br>See more information on the monitoring of vaccine safety.
+    <h2>More information about the vaccine</h2>
+    The full name of the 5-in-1 vaccine used in the UK is DTaP/IPV/Hib, which stands for ‘Diphtheria, Tetanus, acellular
+    Pertussis, Inactivated Polio Vaccine, Hib (Hemophilus influenzae type b)’.
+    <br><br>The table below shows the average number of deaths in the UK each year, before and after introduction of a
+    vaccine:
+    <ion-grid>
+      <ion-row>
+        <ion-col offset-2 col-4>
+          Disease
+        </ion-col>
+        <ion-col col-4>
+          Before
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset-2 col-4>
+          Diphtheria
+        </ion-col>
+        <ion-col col-4>
+          3500
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset-2 col-4>
+          Tetanus
+        </ion-col>
+        <ion-col col-4>
+          140
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset-2 col-4>
+          Pertussis
+        </ion-col>
+        <ion-col col-4>
+          1000
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset-2 col-4>
+          Polio
+        </ion-col>
+        <ion-col col-4>
+          200
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset-2 col-4>
+          Hib Disease
+        </ion-col>
+        <ion-col col-4>
+          60
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset-2 col-4>
+          Total
+        </ion-col>
+        <ion-col col-4>
+          4900
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    Source: Public Health England and the Health Protection Agency archive
+    <br><br>The vaccine includes the acellular pertussis vaccine (the ‘aP’ in ‘DTaP’). This uses only those parts of the
+    pertussis (whooping cough) bacteria needed to produce an immune response. This reduces the chance of serious side
+    effects such as high temperatures, screaming episodes, and HHE (see section on 'Side effects' above). The whole cell
+    (wP) vaccine used in the UK until 2004 contained many more antigens and had a greater risk of side effects.
+    <br><br>The 5-in-1 vaccine used in the UK also includes inactivated polio virus (IPV). As this is inactivated, it
+    cannot cause polio (which was a very small risk with the live, oral polio vaccine used in the UK until 2004).
+    <br><br>Different countries have decided on different schedules for the 5-in-1 vaccine, based on different patterns
+    of disease. In the UK, the three doses were given as close together as possible to give babies early protection from
+    pertussis (whooping cough). This disease can be particularly severe in very young babies, so the earlier they are
+    protected the better. This 'accelerated' program was introduced in the UK in 1990.
+    <br><br>The immunization rate in the UK for the three doses of the 5-in-1 vaccine has been around 94% since 2001,
+    just below the World Health Organization target of 95%. However, rates are lower than 94% in some areas of the UK.
+    For example, in London in 2014 the coverage rate was around 90%, and in some parts of London the rate was below 75%.
+
+  </div>
+
+  <div id="Pneumococcal" *ngIf="current.id == 7">
+
+    <h1 margin-bottom>Pneumococcal Conjugate Vaccine (PCV):</h1>
+    <h2>Key vaccine facts:</h2>
+    The PCV used in the UK gives protection against 13 types of pneumococcal bacteria that all cause pneumococcal
+    disease. There are over 90 different types of pneumococcal bacteria, and they cause a range of problems including
+    ear infections and pneumonia (serious chest infections). Pneumococcal disease can also cause life-threatening
+    conditions such as meningitis and septicemia (blood poisoning). Vaccines have been produced to protect against the
+    types that cause the most disease.
+    <br><br>The PCV can safely be given at the same time as other vaccines in the schedule (see the full UK routine
+    schedule for details of the other vaccines). Read more about multiple vaccinations and why these are not a risk to
+    your baby's immune system. There is a similar vaccine for older adults (the Pneumococcal Polysaccharide Vaccine).
+    <br><br>The vaccine does not contain any live bacteria and cannot cause pneumococcal disease.
+    <br><br>The brand name of the PCV used in the UK is Prevenar 13 (see the Patient Information Leaflet ).
+    <h2>Who should have the vaccine?</h2>
+    In the UK the PCV is given to babies at 8 and 16 weeks, with a booster at 12-13 months of age. The repeated doses
+    are needed to give a good immune response in the majority of children.
+    <br><br>Pneumococcal vaccines are also recommended for people of all ages with some health conditions who are at
+    greater risk of complications from pneumococcal disease. This includes people with:
+    <ul padding-horizontal>
+      <li>immunosuppression, a missing spleen, sickle cell anemia or coeliac disease</li>
+      <li>chronic liver disease, kidney disease or heart disease</li>
+      <li>chronic lung conditions</li>
+      <li>chronic brain (neurological) conditions including learning disability</li>
+      <li>diabetes</li>
+      <li>cochlear implants</li>
+      <li>cerebrospinal fluid leaks</li>
+      <li>complement disorders (the complement system is an important part of the immune system)</li>
+    </ul>
+    <h2>Ingredients</h2>
+    The PCV used in the UK is called Prevenar 13. Apart from the active ingredients (the antigens), it contains very
+    small amounts of these ingredients:
+    <ul padding-horizontal>
+      <li>aluminum, which strengthens and lengthens the immune response to the vaccine
+      <li>sodium chloride (salt)</li>
+      <li>succinic acid, an acidity regulator</li>
+      <li>Polysorbate, used as an emulsifier (to hold other ingredients together)</li>
+    </ul>
+    Other brands of the PCV used in other countries may contain different ingredients. If you are not in the UK, ask for
+    the Patient Information leaflet for the vaccine you are offered.
+    <h2>Side effects</h2>
+    Common (affecting up to 1 in 10 people at each dose):
+    <ul padding-horizontal>
+      <li>redness, tenderness and/or swelling at the injection site</li>
+      <li>slightly raised temperature</li>
+      <li>irritability</li>
+      <li>loss of appetite</li>
+      <li>drowsiness</li>
+      <li>problems with sleeping</li>
+    </ul>
+    Many of these symptoms can be relieved by giving paracetamol (Calpol) if your child is over 2 months, or ibuprofen
+    if your child is over 3 months and weighs more than 5kg (see NHS Choices for more advice on giving painkillers to
+    babies and children).
+    <br><br>Very rare (affecting fewer than 1 in 10,000 people at each dose):
+    <ul padding-horizontal>
+      <li>high temperatures, sometimes leading to fits (also called convulsions or febrile seizures)</li>
+      <li>mild allergic reactions, or skin rash (hives)</li>
+    </ul>
+    You should consult your doctor if these reactions happen after vaccination. This is mainly to check that it is the
+    vaccine causing the symptoms, and not some unrelated disease.
+    <h2>Anaphylaxis</h2>
+    As with any vaccine, medicine or food, there is a very small chance of a severe allergic reaction (anaphylaxis).
+    Anaphylaxis is different from less severe allergic reactions because it causes life-threatening breathing and/or
+    circulation problems. It is always extremely serious but can be treated with adrenaline. Health care workers who
+    give vaccines know how to do this. In the UK between 1997 and 2003 there were a total of 130 reports of anaphylaxis
+    following ALL immunizations. Around 117 million doses of vaccines were given in the UK during this period. This
+    means that the overall rate of anaphylaxis is around 1 in 900,000.
+
+  </div>
+
+
+
+</ion-content>

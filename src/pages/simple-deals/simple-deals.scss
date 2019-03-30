@@ -4,6 +4,7 @@ page-simple-deals {
 
 .no-scroll .scroll-content{
   background-color: rgb(230, 230, 230);
+  margin: 0 !important;
 }
 
 ion-footer {
@@ -22,11 +23,11 @@ ion-footer {
   float: left;
 }
 .addCSS{
-  margin-top: 70px;
+  margin: 56px 0;
 }
-.addBottomCSS{
-  margin-bottom: 70px;
-}
+// .addBottomCSS{
+//   margin-bottom: 70px;
+// }
 
 .dateInWords :first-child{
     margin-top:45px;
@@ -59,7 +60,8 @@ ion-footer {
 }
 
 .first-card{
-  border-radius: 10px
+  border-radius: 10px;
+  margin-top: 63px;
 }
 
 
@@ -204,7 +206,7 @@ ion-footer {
 
 .ciii{
   border-radius: 10px;
-  height: 150px;
+  margin-bottom: 61px;
 }
 
 .pti{
@@ -261,6 +263,25 @@ ion-footer {
 .im2 {
   margin-left: 0px;
   height: 50px;
+}
+
+.my-slider{
+  ion-slide{
+    border-radius: 9px;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px 0px grey;
+    background-color: #B7A3DC;
+    height: 138px;
+    ion-list{
+        margin-bottom: 0;
+        border: none;
+        height: 100%;
+        & *{
+          border: none;
+          background-color: transparent !important;
+        }
+    }
+}
 }
 
 }

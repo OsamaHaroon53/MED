@@ -32,8 +32,7 @@ export class AuthProvider {
 
   constructor(private afAuth: AngularFireAuth,private storage: AngularFireStorage, 
     private http: HttpClient,private api:ApiProvider,private events:Events, public facebook: Facebook,) {
-    // console.log('Hello AuthProv
-    ider Provider');
+    console.log('Hello AuthProvider Provider');
     
     // this.afAuth.authState.subscribe((user)=>{
     //   if(user){

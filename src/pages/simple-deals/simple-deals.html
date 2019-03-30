@@ -13,8 +13,8 @@
 </ion-header>
 
 <ion-content class="card-background-page" class="background" class="no-scroll" *ngIf="showAll">
-
-  <ion-card class="first-card" [class]="addCSS?'first-card card card-md addCSS':'first-card card card-md'">
+  <div class="addCSS">
+  <ion-card class="first-card">
     <p class="pp"> Next Due Vaccines </p>
     <div class="ci">
       <ion-slides #mySlider *ngIf="showSlide.length">
@@ -98,14 +98,14 @@
 
   </ion-card>
 
-  <ion-card class="ciii" [class]="addCSS?'ciii card card-md addBottomCSS':'ciii card card-md'">
+  <ion-card class="ciii">
 
-    <div class="ii">
+    <!-- <div class="ii">
       <div class="ii1">
         <h1 style="font-size: 21px; font-weight: 430; ">Vaccination Article</h1>
       </div>
       <div class="ii2">
-        <h2 style="color:#B7CBF9; font-size: 19px; ">View All</h2>
+        <h2 style="color:#B7CBF9; font-size: 19px; " (click)="openVacinneList()">View All</h2>
       </div>
       <div class="pti" style="background-color: #B7A3DC;">
         <div class="ii3">
@@ -116,11 +116,26 @@
             diphtheria<br>pertussis(Whooping cough)</h2>
         </div>
       </div>
-    </div>
+    </div> -->
+    <ion-card-header>
+      <h1 style="font-size: 21px; font-weight: 430; " float-left>Vaccination Article</h1>
+      <h2 style="color:#B7CBF9; font-size: 19px; " float-right (click)="openVacinneList()">View All</h2>
+    </ion-card-header>
+    <ion-slides #mySlider1 class="my-slider" margin-bottom>
+      <ion-slide *ngFor="let item of vaccines" padding (click)="openVacinne(item)">
+        <h1>{{item.type}}</h1>
+        <p>Click to View</p>
+        <!-- <ion-list>
+          <ion-list-header>
+            <h1>{{item.type}}</h1>
+          </ion-list-header>
+        </ion-list> -->
+      </ion-slide>
+    </ion-slides>
 
   </ion-card>
 
-
+</div>
 
 </ion-content>
 

@@ -61,6 +61,8 @@ import { LoginPageModule } from '../pages/login/login.module'
 import { DetailDealPage } from '../pages/detail-deal/detail-deal';
 import { InjectionPage } from '../pages/injection/injection';
 import { HistoryPage } from '../pages/history/history';
+import { VaccineListPageModule } from '../pages/vaccine-list/vaccine-list.module';
+import { VaccineDetailPageModule } from '../pages/vaccine-detail/vaccine-detail.module';
 
 
 
@@ -86,6 +88,8 @@ import { HistoryPage } from '../pages/history/history';
     HttpClientModule,
     LoginPageModule,
     InvitedetailsPageModule,
+    VaccineListPageModule,
+    VaccineDetailPageModule,
     FetchdataPageModule,
     // DirectivesModule,
     RegisterinfluencerPageModule,

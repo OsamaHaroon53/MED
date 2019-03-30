@@ -69,7 +69,7 @@ inv: any;
 
 
 Back(){
-	this.navCtrl.setRoot(SimpleDealsPage);
+	this.navCtrl.pop();
 }
 
   accept(inv:Deal){

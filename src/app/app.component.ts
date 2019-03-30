@@ -38,6 +38,8 @@ export class MyApp {
     { name: 'My Child', icon: 'star', url: 'FetchdataPage', isVisible: true },
     { name: 'Settings', icon: 'settings', url: 'SettingsPage', isVisible: true },
     { name: 'My Profile', icon: 'person', url: 'ProfilePage', isVisible: true },
+    { name: 'Vaccine Info', icon: 'person', url: 'VaccineListPage', isVisible: true },
+    // { name: 'Vaccine Detail', icon: 'person', url: 'VaccineDetailPage', isVisible: true },
     { name: 'Logout', icon: 'power', url: 'logout', isVisible: true },
 
   ]

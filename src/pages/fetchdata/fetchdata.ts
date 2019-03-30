@@ -59,7 +59,7 @@ export class FetchdataPage { goBack(){ this.navCtrl.push('ProfilePage',null,{ani
     }
 
  tour1(event ,x) {
-  this.navCtrl.setRoot(InvitedetailsPage,{x:x});
+  this.navCtrl.push(InvitedetailsPage,{x:x});
   }
 
 

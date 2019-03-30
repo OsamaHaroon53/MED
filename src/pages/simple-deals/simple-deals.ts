@@ -15,7 +15,9 @@ import { ShowmapPage } from '../showmap/showmap';
 import { deal } from './deal'
 import { DetailDealPage } from '../detail-deal/detail-deal';
 import { map } from 'rxjs/operators';
-
+import { vaccineList } from "../vaccine-list/vaccine";
+import { VaccineDetailPage } from '../vaccine-detail/vaccine-detail';
+import { VaccineListPage } from '../vaccine-list/vaccine-list';
 
 @Component({
   selector: 'page-simple-deals',
@@ -27,6 +29,7 @@ import { map } from 'rxjs/operators';
 export class SimpleDealsPage {
 
   @ViewChild('mySlider') slider: Slides;
+  @ViewChild('mySlider1') slider1: Slides;
   home = AddDealPage;
   user: User;
   showPhoto: boolean = false;
@@ -43,6 +46,8 @@ export class SimpleDealsPage {
   addCSS = false;
   showAll: boolean = false;
   showSlide = [];
+  vaccines = vaccineList;
+
   constructor(public navCtrl: NavController, private helper: HelperProvider,
     private api: ApiProvider, private auth: AuthProvider, private cdRef: ChangeDetectorRef,
     public navParams: NavParams) {
@@ -99,9 +104,11 @@ export class SimpleDealsPage {
         this.slider.slidesPerView = 1.3;
         this.slider.spaceBetween = 15;
         this.slider.centeredSlides = true;
+        this.slider1.slidesPerView = 1.3;
+        this.slider1.spaceBetween = 15;
+        this.slider1.centeredSlides = true;
       }
       this.helper.dismiss();
-      this.getCSS();
       this.cdRef.detectChanges();
     })
   }
@@ -121,13 +128,6 @@ export class SimpleDealsPage {
 
   ngAfterViewInit() {
     this.cdRef.detectChanges();
-  }
-
-  getCSS() {
-    let el: any = document.getElementsByClassName('fixed-content')[1];
-    if (!el.hasAttribute('style')) {
-      this.addCSS = true;
-    }
   }
 
   getVaccineDate(item): number {
@@ -198,5 +198,12 @@ export class SimpleDealsPage {
       this.addCSS = false;
       this.cdRef.detectChanges();
     });
+  }
+
+  openVacinne(vaccine: object): void{
+    this.navCtrl.push(VaccineDetailPage, vaccine);
+  }
+  openVacinneList(): void{
+    this.navCtrl.setRoot(VaccineListPage);
   }
 }

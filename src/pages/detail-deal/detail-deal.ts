@@ -46,13 +46,11 @@ export class DetailDealPage {
     this.child.injection.forEach(element => {
       this.allDeal[element.id-1].injected = element;
     });
-    console.log(this.allDeal);
   }
   checkInjection(index) {
     if(!this.child.injection)
       return false;
     let check = this.child.injection.filter(element => index == element.id-1);
-    console.log(check.length,check);
     if(check.length)
       return true;
     return false;
@@ -123,7 +121,6 @@ export class DetailDealPage {
   goToHistory(index){
     let profileModal = this.modalCtrl.create(HistoryPage, {...this.allDeal[index], child: this.child, id: index+1});
     profileModal.present();
-    console.log('injected ok')
   }
 
   inject(category){

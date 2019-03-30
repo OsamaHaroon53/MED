@@ -1,0 +1,27 @@
+page-vaccine-detail {
+    ul>li{
+        font-weight: 600;
+    }
+    ion-content div{
+        line-height: 1.5;
+    }
+    
+    .col {
+        background-color: lightyellow;
+        padding: 10px 5px;
+        border: solid 1px grey;
+        border-bottom-style: none;
+        border-right-style: none;
+    }
+    
+    .row:first-child,.row:last-child{
+        font-weight: 700;
+    }
+    .col:last-child {
+        border-right: solid 1px grey;
+    }
+    
+    .row:last-child .col {
+        border-bottom: solid 1px grey;
+    }
+}
