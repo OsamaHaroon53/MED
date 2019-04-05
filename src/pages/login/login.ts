@@ -6,12 +6,12 @@ import { HelperProvider } from '../../providers/helper/helper';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { MyApp } from '../../app/app.component';
 import { SimpleDealsPage } from '../simple-deals/simple-deals';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { RegisterinfluencerPage } from '../registerinfluencer/registerinfluencer';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { AngularFireAuth } from "@angular/fire/auth";
 import firebase from 'firebase';
@@ -26,7 +26,9 @@ export class LoginPage {
   err: any;
   token: string;
   influencer: boolean;
-  constructor(private googlePlus: GooglePlus, private events: Events, private iab: InAppBrowser, private navCtrl: NavController, private auth: AuthProvider, private api: ApiProvider, private helper: HelperProvider, public fb: Facebook, private afs: AngularFirestore, public menuCtrl: MenuController,
+  constructor(private googlePlus: GooglePlus, private events: Events, private iab: InAppBrowser, private navCtrl: NavController, private auth: AuthProvider, private api: ApiProvider, private helper: HelperProvider
+    // , public fb: Facebook
+    , private afs: AngularFirestore, public menuCtrl: MenuController,
     private navParams: NavParams, private fire: AngularFireAuth) {
 
     this.menuCtrl.enable(false, 'logoutmenu');
@@ -41,6 +43,7 @@ export class LoginPage {
     // this.spl
     this.fire.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
       .then(res=>{
+        this.helper.load();
         console.log(res);
         // const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.credential['accessToken']);
         // console.log(facebookCredential);
@@ -53,8 +56,6 @@ export class LoginPage {
             localStorage.setItem('uid', this.user.uid);
             this.events.publish('user:loggedIn', this.user);
 
-            this.navCtrl.setRoot(SimpleDealsPage);
-
             console.log(this.user);
             console.log('UID = ', this.user.uid);
             console.log('email = ', this.user.email);
@@ -62,7 +63,8 @@ export class LoginPage {
 
             const userr = { uid: this.user.uid, email: this.user.email, name: this.user.displayName, influencer: false, phone: '', savedDeals: '', photo: '' }
             this.afs.doc(`users/${this.user.uid}`).set(userr);
-
+            this.navCtrl.setRoot(SimpleDealsPage);
+            this.helper.dismiss();
 
           }).catch(err=>{
             console.log("inner firebase error fb login",err);
@@ -116,9 +118,39 @@ export class LoginPage {
   }
 
   loginUser() {
-    this.googlePlus.login({})
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+    this.googlePlus.login({
+      'webClientId': '522878343942-can42t1pc99lp05mlgpvvr87aci3c7g8.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+      'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+    })
+      .then(res => {
+        this.helper.load();
+        console.log(res)
+        const googleCredential = firebase.auth.GoogleAuthProvider.credential(res.idToken);
+        console.log('gC',googleCredential)
+        firebase.auth().signInAndRetrieveDataWithCredential(googleCredential)
+          .then(credential => {
+            console.log(credential);
+            this.user = credential.user;
+
+
+            localStorage.setItem('uid', this.user.uid);
+            this.events.publish('user:loggedIn', this.user);
+            console.log(this.user);
+            console.log('UID = ', this.user.uid);
+            console.log('email = ', this.user.email);
+            console.log('name = ', this.user.displayName);
+
+            const userr = { uid: this.user.uid, email: this.user.email, name: this.user.displayName, influencer: false, phone: '', savedDeals: '', photo: '' }
+            this.afs.doc(`users/${this.user.uid}`).set(userr);
+            this.navCtrl.setRoot(SimpleDealsPage);
+            this.helper.dismiss();
+          }).catch(err=>{
+            console.log("inner firebase error google login",err);
+            this.helper.dismiss();
+            this.helper.toast('LogIn Failed')
+          })
+      })
+      .catch(err => console.log(err));
   }
 
   login() {

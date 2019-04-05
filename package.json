@@ -25,12 +25,15 @@
     "@ionic-native/camera": "^4.17.0",
     "@ionic-native/clipboard": "^4.19.0",
     "@ionic-native/core": "~4.15.0",
-    "@ionic-native/facebook": "^4.0.0",
+    "@ionic-native/facebook": "^4.20.0",
     "@ionic-native/fcm": "^4.18.0",
+    "@ionic-native/file": "^4.20.0",
+    "@ionic-native/geolocation": "^4.20.0",
     "@ionic-native/google-maps": "^4.20.0",
-    "@ionic-native/google-plus": "^5.0.0",
+    "@ionic-native/google-plus": "^4.20.0",
     "@ionic-native/image-picker": "^4.18.0",
     "@ionic-native/in-app-browser": "^4.18.0",
+    "@ionic-native/launch-navigator": "^4.20.0",
     "@ionic-native/social-sharing": "^4.18.0",
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/status-bar": "~4.15.0",
@@ -40,10 +43,13 @@
     "cordova-android": "7.0.0",
     "cordova-android-support-gradle-release": "^2.0.1",
     "cordova-clipboard": "^1.2.1",
+    "cordova-plugin-actionsheet": "2.3.3",
     "cordova-plugin-android-permissions": "1.0.0",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
-    "cordova-plugin-facebook4": "^4.0.0",
+    "cordova-plugin-dialogs": "2.0.1",
+    "cordova-plugin-file": "6.0.1",
+    "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-googleplus": "^7.0.0",
     "cordova-plugin-inappbrowser": "^3.0.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
@@ -55,14 +61,17 @@
     "cordova-plugin-x-socialsharing": "5.4.3",
     "es6-promise-plugin": "4.2.2",
     "firebase": "^5.5.8",
+    "ion2-calendar": "^2.2.0",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "moment": "^2.22.2",
+    "moment": "^2.24.0",
     "ngx-barcode": "^0.2.4",
     "ngx-qrcode2": "0.0.9",
+    "pdfmake": "^0.1.54",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.4.0",
     "sw-toolbox": "3.6.0",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "5.0.4",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
@@ -90,18 +99,20 @@
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "Need Acees tp PhotoLibrary for selecting profile"
       },
       "cordova-clipboard": {},
-      "cordova-plugin-facebook4": {
-        "APP_ID": "2360543857297142",
-        "APP_NAME": "Meddec",
-        "FACEBOOK_HYBRID_APP_EVENTS": "false",
-        "FACEBOOK_ANDROID_SDK_VERSION": "4.38.1"
-      },
       "cordova-plugin-googleplus": {
         "WEB_APPLICATION_CLIENT_ID": "925797755692-k93c3uad4n2411oncpjij671aqboj6ij.apps.googleusercontent.com",
         "PLAY_SERVICES_VERSION": "11.8.0"
       },
       "cordova-android-support-gradle-release": {
         "ANDROID_SUPPORT_VERSION": "27.+"
+      },
+      "cordova-plugin-file": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
+      "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+        "GOOGLE_API_KEY_FOR_ANDROID": "AIzaSyBLn5cVuf6ZMIMwCYqpzVrF4vPU8Xx1GgM",
+        "OKHTTP_VERSION": "3.12.0"
       }
     },
     "platforms": [

@@ -6,7 +6,7 @@ import { User } from 'firebase';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ApiProvider } from '../api/api';
 import { Events } from 'ionic-angular';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 
 
@@ -27,18 +27,20 @@ export interface InstagramProfile {
 
 @Injectable()
 export class AuthProvider {
- 
-  user:User;
 
-  constructor(private afAuth: AngularFireAuth,private storage: AngularFireStorage, 
-    private http: HttpClient,private api:ApiProvider,private events:Events, public facebook: Facebook,) {
+  user: User;
+
+  constructor(private afAuth: AngularFireAuth, private storage: AngularFireStorage,
+    private http: HttpClient, private api: ApiProvider, private events: Events,
+    // public facebook: Facebook,
+  ) {
     console.log('Hello AuthProvider Provider');
-    
+
     // this.afAuth.authState.subscribe((user)=>{
     //   if(user){
     //     console.log(user,'user logged in');
     //     this.user=user;
-        
+
     //   }else{
     //     // console.log('user logout');
     //   }
@@ -46,9 +48,9 @@ export class AuthProvider {
   }
 
 
-  
+
   isAuthenticated() {
-  
+
     return new Observable(o => {
       if (this.user) {
         o.next(true);
@@ -72,9 +74,9 @@ export class AuthProvider {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, password).then(r => {
         this.user = r.user;
-        
-        localStorage.setItem('uid',r.user.uid);
-        this.events.publish('user:loggedIn',this.user);
+
+        localStorage.setItem('uid', r.user.uid);
+        this.events.publish('user:loggedIn', this.user);
         resolve(r);
       }, err => { reject(err) });
     });
@@ -89,95 +91,95 @@ export class AuthProvider {
   }
 
 
-  
+
   getInstagramProfile(token: string) {
     return new Promise((resolve, reject) => {
       let url = `https://api.instagram.com/v1/users/self/?access_token=${token}`;
       this.http.get(url).subscribe((r: any) => {
         if (r.data) {
-          let profile:InstagramProfile=r.data;
+          let profile: InstagramProfile = r.data;
           debugger;
-          this.api.getProfile(profile.id).subscribe((r:User)=>{
-            if(r){
-              this.user=r;
+          this.api.getProfile(profile.id).subscribe((r: User) => {
+            if (r) {
+              this.user = r;
               this.saveToken(this.user.uid);
-              this.events.publish('user:loggedIn',this.user);
+              this.events.publish('user:loggedIn', this.user);
               resolve(this.user);
-            }else{
+            } else {
               //profile not found in firebase. create a new profile
-              let user={
-                
-                email:'',
-                name:profile.full_name,
-                phone:'',
-                savedDeals:[],
-                influencer:true,
-                photo:profile.profile_picture,
-                uid:profile.id
+              let user = {
+
+                email: '',
+                name: profile.full_name,
+                phone: '',
+                savedDeals: [],
+                influencer: true,
+                photo: profile.profile_picture,
+                uid: profile.id
               }
-              this.api.createProfile(profile.id,user).then(res=>{
-                this.api.updateUid(profile.id).then(r=>{
+              this.api.createProfile(profile.id, user).then(res => {
+                this.api.updateUid(profile.id).then(r => {
                   console.log(r);
-                },err=>{
+                }, err => {
                   console.log(err);
                 })
 
                 this.saveToken(profile.id);
-                this.events.publish('user:loggedIn',profile);
+                this.events.publish('user:loggedIn', profile);
                 resolve(user);
-              },err=>{
+              }, err => {
                 reject(err);
               })
             }
-          },err=>{
+          }, err => {
             console.log('error executing get profile' + err);
             reject(err);
           })
-        }else{
+        } else {
           reject('no profile returned');
         }
-      },err=>{
+      }, err => {
         reject(err);
       })
     });
   }
 
-  checkUserExists(){
-    return new Promise((resolve,reject)=>{
-      
+  checkUserExists() {
+    return new Promise((resolve, reject) => {
+
     });
   }
 
-  getProfilePic(uid){
-    return new Observable(o=>{
-      this.storage.ref('/profile'+uid).getDownloadURL().subscribe(r=>{
+  getProfilePic(uid) {
+    return new Observable(o => {
+      this.storage.ref('/profile' + uid).getDownloadURL().subscribe(r => {
         o.next(r);
-      },err=>{
+      }, err => {
         o.error(err);
       })
     });
   }
 
   signup(user) {
-    return new Promise((resolve,reject)=>{
-      this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(r=>{
-        this.user=r.user;
-        localStorage.setItem('uid',r.user.uid);
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(r => {
+        this.user = r.user;
+        localStorage.setItem('uid', r.user.uid);
         resolve(r);
-      },err=>{
+      }, err => {
         reject(err);
       });
     });
-  
+
   }
 
   logout() {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
       this.afAuth.auth.signOut().then(r => {
         localStorage.clear();
         this.events.publish('user:loggedOut');
         resolve();
-      },err=>{
+      }, err => {
         localStorage.clear();
         resolve();
       });
@@ -192,23 +194,23 @@ export class AuthProvider {
     return localStorage.getItem('uid');
   }
 
-    getUserDetail(userid) {
+  // getUserDetail(userid) {
 
-    return Observable.create(observer => {
-     return this.facebook.api("/"+userid+"/?fields=id,email,name,picture,gender,birthday",["public_profile"])
-      .then(res => {
-        console.log("got details",JSON.stringify(res));
-        observer.next(res);
-        //this.users = res;
-      })
-      .catch(e => {
-        console.log(e);
-        observer.error(e);
-      });
+  //   return Observable.create(observer => {
+  //     return this.facebook.api("/" + userid + "/?fields=id,email,name,picture,gender,birthday", ["public_profile"])
+  //       .then(res => {
+  //         console.log("got details", JSON.stringify(res));
+  //         observer.next(res);
+  //         //this.users = res;
+  //       })
+  //       .catch(e => {
+  //         console.log(e);
+  //         observer.error(e);
+  //       });
 
-    })
-  
-  }
+  //   })
+
+  // }
 
 
   changePassword(email, oldPassword, newPassword) {

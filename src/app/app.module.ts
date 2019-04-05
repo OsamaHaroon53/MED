@@ -14,9 +14,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiProvider } from '../providers/api/api';
 import { HelperProvider } from '../providers/helper/helper';
 import { AuthProvider } from '../providers/auth/auth';
-import { Facebook } from '@ionic-native/facebook';
+// import { Facebook } from '@ionic-native/facebook';
+import { File } from '@ionic-native/file';
 
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 
@@ -30,7 +31,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 // import { DirectivesModule } from '../directives/directives.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { Geolocation } from '@ionic-native/geolocation';
 import { FCM } from '@ionic-native/fcm';
 
 import { Clipboard } from '@ionic-native/clipboard';
@@ -63,6 +65,8 @@ import { InjectionPage } from '../pages/injection/injection';
 import { HistoryPage } from '../pages/history/history';
 import { VaccineListPageModule } from '../pages/vaccine-list/vaccine-list.module';
 import { VaccineDetailPageModule } from '../pages/vaccine-detail/vaccine-detail.module';
+import { CalendarPageModule } from '../pages/calendar/calendar.module';
+import { CalendarPage } from '../pages/calendar/calendar';
 
 
 
@@ -95,6 +99,7 @@ import { VaccineDetailPageModule } from '../pages/vaccine-detail/vaccine-detail.
     RegisterinfluencerPageModule,
     Menu2PageModule,
     MomentModule,
+    CalendarPageModule,
     IonicModule.forRoot(MyApp, {
       menuType: 'push',
       platforms: {
@@ -121,7 +126,7 @@ import { VaccineDetailPageModule } from '../pages/vaccine-detail/vaccine-detail.
     // }),
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -131,11 +136,13 @@ import { VaccineDetailPageModule } from '../pages/vaccine-detail/vaccine-detail.
     ShowmapPage,
     DetailDealPage,
     InjectionPage,
-    HistoryPage
+    HistoryPage,
+    CalendarPage
   ],
   providers: [
     StatusBar,
-    Facebook,
+    // Facebook,
+    File,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ApiProvider,
@@ -154,7 +161,9 @@ import { VaccineDetailPageModule } from '../pages/vaccine-detail/vaccine-detail.
     SocialSharing,
     UserProfileProvider,
     FCM,
-    GooglePlus
+    GooglePlus,
+    LaunchNavigator,
+    Geolocation
   ]
 })
 export class AppModule { }

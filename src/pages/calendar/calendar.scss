@@ -1,0 +1,13 @@
+page-calendar {
+    .marked{
+        background-color: mediumpurple !important;
+        p{
+            color: black !important;
+        }
+        small{
+            color: mediumturquoise !important;
+            transition: bottom .3s;
+            bottom: -14px !important;
+        }
+    }
+}

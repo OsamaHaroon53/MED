@@ -86,18 +86,20 @@
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-clipboard" spec="^1.2.1" />
-    <plugin name="cordova-plugin-facebook4" spec="^4.1.0">
-        <variable name="APP_ID" value="2360543857297142" />
-        <variable name="APP_NAME" value="Meddec" />
-        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
-        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.38.1" />
-    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^7.0.0">
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="925797755692-k93c3uad4n2411oncpjij671aqboj6ij.apps.googleusercontent.com" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="522878343942-can42t1pc99lp05mlgpvvr87aci3c7g8.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
     <plugin name="cordova-android-support-gradle-release" spec="^2.0.1">
         <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
+    </plugin>
+    <plugin name="cordova-plugin-file" spec="6.0.1" />
+    <plugin name="cordova-plugin-geolocation" spec="4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
+    </plugin>
+    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="5.0.4">
+        <variable name="GOOGLE_API_KEY_FOR_ANDROID" value="AIzaSyBLn5cVuf6ZMIMwCYqpzVrF4vPU8Xx1GgM" />
+        <variable name="OKHTTP_VERSION" value="3.12.0" />
     </plugin>
     <engine name="android" spec="7.0.0" />
 </widget>

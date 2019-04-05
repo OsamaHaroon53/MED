@@ -17,9 +17,10 @@ import { AuthProvider } from '../providers/auth/auth';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { User } from '../datamodel/user';
 import { FCM } from '@ionic-native/fcm';
-
+import { File } from "@ionic-native/file";
 
 import { FetchdataPage } from '../pages/fetchdata/fetchdata';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 interface Page {
@@ -73,7 +74,9 @@ export class MyApp {
     androidPermissions: AndroidPermissions,
     private auth: AuthProvider,
     private events: Events,
-    private menuCtrl: MenuController, private api: ApiProvider) {
+    private menuCtrl: MenuController, private api: ApiProvider,
+    private geolocation: Geolocation,
+    private file: File) {
     splashScreen.show();
 
     platform.ready().then(() => {
@@ -81,8 +84,38 @@ export class MyApp {
         androidPermissions.checkPermission(androidPermissions.PERMISSION.CAMERA).then(
           result => console.log('Has permission?', result.hasPermission),
           err => androidPermissions.requestPermission(androidPermissions.PERMISSION.CAMERA)).catch(err => console.log(`android permission error`))
+        androidPermissions.checkPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then(
+          result => console.log('Has permission?', result.hasPermission),
+          err => androidPermissions.requestPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION)).catch(err => console.log(`android permission error`))
+
           androidPermissions.requestPermissions([androidPermissions.PERMISSION.CAMERA, androidPermissions.PERMISSION.GET_ACCOUNTS])
           .catch(err => console.log(`Cordova error!`));
+          androidPermissions.requestPermissions([androidPermissions.PERMISSION.ACCESS_FINE_LOCATION, androidPermissions.PERMISSION.GET_ACCOUNTS]).then(res=>{
+            console.log(res)
+          })
+          .catch(err => console.log(`Cordova error!`));
+
+
+          if(platform.is('android')) {
+            this.file.checkDir(this.file.externalRootDirectory, 'Medrec').then(response => {
+              console.log('Directory exists'+response);
+            }).catch(err => {
+              console.log('Directory doesn\'t exist'+JSON.stringify(err));
+              this.file.createDir(this.file.externalRootDirectory, 'Medrec', false).then(response => {
+                console.log('Directory create'+response);
+              }).catch(err => {
+                console.log('Directory no create'+JSON.stringify(err));
+              }); 
+            });
+
+            geolocation.getCurrentPosition({
+              // enableHighAccuracy: false,
+              timeout: 5000,
+              maximumAge: 0
+            }).then(location=>{
+              console.log('loc',location)
+            }).catch(err=> console.log('loc',err))
+          }
 
 
       this.auth.isAuthenticated().subscribe(r => {

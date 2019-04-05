@@ -18,6 +18,7 @@ import { map } from 'rxjs/operators';
 import { vaccineList } from "../vaccine-list/vaccine";
 import { VaccineDetailPage } from '../vaccine-detail/vaccine-detail';
 import { VaccineListPage } from '../vaccine-list/vaccine-list';
+import { CalendarPage } from '../calendar/calendar';
 
 @Component({
   selector: 'page-simple-deals',
@@ -42,7 +43,7 @@ export class SimpleDealsPage {
     { name: ['Measles'], category: 'Measles', format: 'month', from: 9, to: 9 },
     { name: ['Chicken Pox '], category: 'Chicken Pox ', format: 'month', from: 9, to: 9 },
   ];
-  child1;
+  childLength;
   addCSS = false;
   showAll: boolean = false;
   showSlide = [];
@@ -87,12 +88,13 @@ export class SimpleDealsPage {
         return { id, ...data };
       }))
     ).subscribe(resp => {
-      if (resp.length == 1) {
+      this.childLength = resp.length;
+      if (this.childLength == 1) {
         this.allDeal.forEach(el => {
           this.showSlide.push({...el, child: resp[0]});
         })
       }
-      else if (resp.length <= 4) {
+      else if (this.childLength <= 4) {
         this.createChildDealSlides(resp,0);
       }
       else{
@@ -205,5 +207,9 @@ export class SimpleDealsPage {
   }
   openVacinneList(): void{
     this.navCtrl.setRoot(VaccineListPage);
+  }
+
+  openCalendar(){
+    this.navCtrl.push(CalendarPage)
   }
 }

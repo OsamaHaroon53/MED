@@ -65,7 +65,7 @@
 
     <div class="oo">
       <div class="oo1">
-        <h1 style=" font-size: 20px; font-weight: 430; ">Children Added -1</h1>
+        <h1 style=" font-size: 20px; font-weight: 430;margin-top: 7px; ">Children Added -{{childLength}}</h1>
       </div>
       <div class="oo2">
         <h2 style=" color:#F5A0E5; font-size: 20px; ">Age</h2>
@@ -88,11 +88,11 @@
       </div>
 
       <button ion-button color="b"
-        style="height: 18px; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF"
+        style="height: 18px;padding: 14px 1.1em; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF"
         (click)="addDeal()">Add Child</button>
 
       <button ion-button color="b"
-        style="height: 18px; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF"
+        style="height: 18px;padding: 14px 1.1em; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF"
         (click)="go2()">View Child</button>
     </div>
 
@@ -144,7 +144,7 @@
     <ion-row>
       <ion-col no-padding>
         <div style="text-align: center;">
-          <button ion-button icon-only clear (click)="map()">
+          <button ion-button icon-only clear (click)="openCalendar()">
             <ion-icon name="calendar"></ion-icon>
           </button>
         </div>
