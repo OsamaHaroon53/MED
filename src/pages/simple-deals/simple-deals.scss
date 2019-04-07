@@ -22,6 +22,10 @@ ion-footer {
 .first,.slide-content,.dateInWords{
   float: left;
 }
+.sz{
+  position: absolute;
+  right: 5px;
+}
 .addCSS{
   margin: 56px 0;
 }
@@ -107,7 +111,7 @@ ion-footer {
 
 .cii {
     border-radius: 10px;
-  height: 170px;
+  height: 205px;
   margin-bottom: 6px;
 }
 
@@ -177,6 +181,11 @@ ion-footer {
 .circle {
   margin-left:10px;
   // margin-top: -15px;
+  circle{
+    stroke-width: 14;
+    stroke-opacity: 1;
+    fill: none;
+  }
 }   
 
 .dot {
@@ -185,6 +194,7 @@ ion-footer {
     background-color: #B7A3DC;
     border-radius: 50%;
     display: inline-block;
+    margin-right: 8px;
 }
 
 .do {
@@ -284,4 +294,10 @@ ion-footer {
 }
 }
 
+}
+
+.my-select{
+  padding: 5px;
+  overflow: unset;
+  min-width: 100%;
 }

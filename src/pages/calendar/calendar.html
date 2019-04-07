@@ -6,12 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-
+  <ion-navbar color="primary" hideBackButton="true">
+    <ion-buttons left>
     <button ion-button icon-only (click)="goBack()">
       <ion-icon ios="ios-arrow-back" md="md-arrow-back" style="color:white"></ion-icon>
     </button>
-
+    </ion-buttons>
     <ion-title>Medrec</ion-title>
 
   </ion-navbar>
@@ -26,4 +26,8 @@
               [type]="type"
               [format]="'YYYY-MM-DD'">
   </ion-calendar>
+  <h4 *ngIf="allChild.length">Short Notations on Calendar:</h4>
+  <ion-grid *ngIf="allChild.length">
+    <ion-row *ngFor="let deal of allDeal; let i=index"><ion-col col>V{{i+1}} = {{deal.category}}</ion-col></ion-row>
+  </ion-grid>
 </ion-content>

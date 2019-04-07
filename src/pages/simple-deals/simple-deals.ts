@@ -1,5 +1,5 @@
 import { LoginPage } from './../login/login';
-import { Component, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, HostBinding } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -19,16 +19,38 @@ import { vaccineList } from "../vaccine-list/vaccine";
 import { VaccineDetailPage } from '../vaccine-detail/vaccine-detail';
 import { VaccineListPage } from '../vaccine-list/vaccine-list';
 import { CalendarPage } from '../calendar/calendar';
+import { style, animate, animation, animateChild, useAnimation, group, sequence, transition, state, trigger, query, stagger, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'page-simple-deals',
   templateUrl: 'simple-deals.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('profileAnimation', [
+      transition(':enter', group([
+        query('circle', style({transform: 'translateX(-110%)'})),
+        query('circle', group([
+         animate('2000ms ease-in', keyframes([
+            style({ transform: 'translateX(-100%)', offset:  0.15 }),
+            style({ transform: 'translateX(-80%)', offset:  0.2 }),
+            style({ transform: 'translateX(-60%)', offset:  0.3 }),
+            style({ transform: 'translateX(-40%)', offset:  0.4 }),
+            style({ transform: 'translateX(-20%)', offset:  0.5 }),
+            style({ transform: 'translateX(0)', offset:  0.6 }),
+            style({ transform: 'translateX(20%)', offset:  0.7 }),
+            style({ transform: 'translateX(40%)', offset:  0.8 }),
+            style({ transform: 'translateX(20%)', offset:  0.9 }),
+            style({ transform: 'translateX(0)', offset:  1 }),
+          ]))  
+        ])),
+      ]))
+    ])
+  ],
 })
 
 
 export class SimpleDealsPage {
-
+  // @HostBinding('@profileAnimation')
   @ViewChild('mySlider') slider: Slides;
   @ViewChild('mySlider1') slider1: Slides;
   home = AddDealPage;
@@ -48,7 +70,9 @@ export class SimpleDealsPage {
   showAll: boolean = false;
   showSlide = [];
   vaccines = vaccineList;
-
+  selectOption = 'Age'
+  maleLength = 0;
+  allChild = [];
   constructor(public navCtrl: NavController, private helper: HelperProvider,
     private api: ApiProvider, private auth: AuthProvider, private cdRef: ChangeDetectorRef,
     public navParams: NavParams) {
@@ -88,7 +112,10 @@ export class SimpleDealsPage {
         return { id, ...data };
       }))
     ).subscribe(resp => {
+      this.allChild = resp;
       this.childLength = resp.length;
+      this.maleLength = resp.filter(r=>r['gender'] == 'male').length
+      console.log(this.maleLength)
       if (this.childLength == 1) {
         this.allDeal.forEach(el => {
           this.showSlide.push({...el, child: resp[0]});
@@ -101,6 +128,7 @@ export class SimpleDealsPage {
         this.createChildDealSlides(resp,1);
       }
       this.showAll = true;
+      this.selectOption = 'Gender'
       this.cdRef.detectChanges();
       if(this.showSlide.length){
         this.slider.slidesPerView = 1.3;
@@ -210,6 +238,6 @@ export class SimpleDealsPage {
   }
 
   openCalendar(){
-    this.navCtrl.push(CalendarPage)
+    this.navCtrl.push(CalendarPage, {childs: this.allChild})
   }
 }

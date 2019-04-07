@@ -35,7 +35,7 @@ export class DetailDealPage {
   selectedDeal = []
 
   constructor(public file: File, private datePipe: DatePipe,public navCtrl: NavController, public navParams: NavParams, private helper: HelperProvider, public modalCtrl: ModalController) {
-    console.log(this.navParams.data);
+    // console.log(this.navParams.data);
     this.child = this.navParams.data;
     this.birthDate = new Date(new Date(this.child.birthday).setHours(0, 0, 0, 0));
   }
@@ -199,7 +199,7 @@ export class DetailDealPage {
       },
       { text: 'Vaccine Informations', style: 'header', margin: [0, 15, 0, 15] }
     )
-    console.log(this.pdfContent);
+    // console.log(this.pdfContent);
     pdfmake.vfs = pdfFonts.pdfMake.vfs;
     var docDefinition = {
       content: this.pdfContent,
@@ -229,26 +229,21 @@ export class DetailDealPage {
     pdfmake.createPdf(docDefinition).getBuffer(function (buffer) {
       let utf8 = new Uint8Array(buffer);
       let binaryArray = utf8.buffer;
-      
+      console.log('created')
       self.saveToDevice(binaryArray,self.child.name+".pdf")
       });
   }
 
   saveToDevice(data:any,savefile:any){
-    console.log(this.file.externalRootDirectory+'Medrec/')
-    
-    
-    this.file.checkDir(this.file.externalRootDirectory, 'Medrec').then(_ => {console.log('Directory exists')
-
-    // _.getDirectory('Medrec', { create: true }, function (dirEntry) {
-    //   dirEntry.getDirectory('childinfo', { create: true }, function (subDirEntry) {
-    //   }, err=> console.log(err,'getchilddir'));
-  // }, err=> console.log(err,'getRootdir'));
-  
-  }).catch(err =>console.log('Directory doesnt exist'));
-    console.log(this.file)
-    this.file.writeFile(this.file.externalRootDirectory+'Medrec/', savefile, data, {replace:false});
-    this.helper.dismiss();
-    this.helper.toast('PDF Saved');
+    console.log(this.file.externalRootDirectory+'Medrec/');
+    this.file.writeFile(this.file.externalRootDirectory+'Medrec/', savefile, data, {replace:true}).then(res=>{
+      this.helper.toast('PDF Saved');
+      this.helper.dismiss();
+      console.log(res)
+    }).catch(err=>{
+      this.helper.toast('PDF Not Saved');
+      console.log(err)
+      this.helper.dismiss();
+    });
   }
 }

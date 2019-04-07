@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { InvitedetailsPage } from '../invitedetails/invitedetails';
 })
 export class FetchdataPage { goBack(){ this.navCtrl.push('ProfilePage',null,{animate:true,direction:'back'}) }
 
-  constructor(public navCtrl: NavController, private api:ApiProvider,
+  constructor(private _cdRef: ChangeDetectorRef,public navCtrl: NavController, private api:ApiProvider,
     public navParams: NavParams,private helper:HelperProvider) {
   }
 
@@ -39,7 +39,7 @@ export class FetchdataPage { goBack(){ this.navCtrl.push('ProfilePage',null,{ani
     ).subscribe(resp=>{
       this.deals = resp;
       console.log(this.deals);
-
+      this._cdRef.detectChanges();
     })
   }
 

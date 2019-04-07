@@ -46,7 +46,7 @@ export class ShowmapPage {
     { name: ['Chicken Pox '], category: 'Chicken Pox ', format: 'month', from: 9, to: 9 },
   ];
   constructor(private geolocation: Geolocation, public navCtrl: NavController, private googleMaps: GoogleMaps, private navigator: LaunchNavigator) {
-    console.log(this.getVaccineInfo())
+    // console.log(this.getVaccineInfo())
   }
 
 

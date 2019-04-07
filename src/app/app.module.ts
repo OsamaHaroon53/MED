@@ -69,7 +69,7 @@ import { CalendarPageModule } from '../pages/calendar/calendar.module';
 import { CalendarPage } from '../pages/calendar/calendar';
 
 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -85,6 +85,7 @@ import { CalendarPage } from '../pages/calendar/calendar';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AddDealPageModule,
     InvitesPageModule,
     ReqinfPageModule,

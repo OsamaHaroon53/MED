@@ -14,61 +14,106 @@
 
 <ion-content class="card-background-page" class="background" class="no-scroll" *ngIf="showAll">
   <div class="addCSS">
-  <ion-card class="first-card">
-    <p class="pp"> Next Due Vaccines </p>
-    <div class="ci">
-      <ion-slides #mySlider *ngIf="showSlide.length">
-        <ion-slide *ngFor="let item of showSlide" (click)="descriptionPage(item.child)">
-          <div class="dash">
-            <div class="panel">
-              <div class="slide-container">
-                <div class="image first">
-                  <img [src]="item.child.photo?item.child.photo:'../assets/imgs/image.jpg'" style="height: 57px; width: 57px; border-radius: 50%;">
-                </div>
-                <div class="slide-content">
-                  <h1>{{getVaccineDate(item) | date}}</h1>
-                  <div padding text-left>
-                    <div>
-                      <label for="">{{item.child.name}}</label>
-                    </div>
-                    <div>
-                      <label for="">{{item.from==0?'At Birth':item.from+' '+ item.format}}</label>
+    <ion-card class="first-card">
+      <p class="pp"> Next Due Vaccines </p>
+      <div class="ci">
+        <ion-slides #mySlider *ngIf="showSlide.length">
+          <ion-slide *ngFor="let item of showSlide" (click)="descriptionPage(item.child)">
+            <div class="dash">
+              <div class="panel">
+                <div class="slide-container">
+                  <div class="image first">
+                    <img [src]="item.child.photo?item.child.photo:'../assets/imgs/image.jpg'"
+                      style="height: 57px; width: 57px; border-radius: 50%;">
+                  </div>
+                  <div class="slide-content">
+                    <h1>{{getVaccineDate(item) | date}}</h1>
+                    <div padding text-left>
+                      <div>
+                        <label for="">{{item.child.name}}</label>
+                      </div>
+                      <div>
+                        <label for="">{{item.from==0?'At Birth':item.from+' '+ item.format}}</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="dateInWords" *ngIf="item.child.injection">
-                  <div>{{7-item.child.injection.length==0?'No':7-item.child.injection.length}}</div>
-                  <div>Due</div>
-                </div>
-                <div class="dateInWords" *ngIf="!item.child.injection">
-                  <div>7</div>
-                  <div>Due</div>
-                </div>
-                <div class="bottom-text">
-                  <!-- <p><span *ngFor="let name of item.name">kjkkk</span></p> -->
-                  <p>{{item.category}}</p>
+                  <div class="dateInWords sz" *ngIf="item.child.injection">
+                    <div>{{7-item.child.injection.length==0?'No':7-item.child.injection.length}}</div>
+                    <div>Due</div>
+                  </div>
+                  <div class="dateInWords sz" *ngIf="!item.child.injection">
+                    <div>7</div>
+                    <div>Due</div>
+                  </div>
+                  <div class="bottom-text">
+                    <!-- <p><span *ngFor="let name of item.name">kjkkk</span></p> -->
+                    <p>{{item.category}}</p>
+                  </div>
                 </div>
               </div>
+
             </div>
-
-          </div>
-        </ion-slide>
-      </ion-slides>
-      <div *ngIf="!showSlide.length" text-center padding>
-        <h2 padding-vertical>No Child added yet!</h2>
-        <button ion-button color="primary" (click)="addDeal()">Add Child</button>
+          </ion-slide>
+        </ion-slides>
+        <div *ngIf="!showSlide.length" text-center padding>
+          <h2 padding-vertical>No Child added yet!</h2>
+          <button ion-button color="primary" (click)="addDeal()">Add Child</button>
+        </div>
       </div>
-    </div>
-  </ion-card>
+    </ion-card>
 
-  <ion-card class="cii">
-
-    <div class="oo">
+    <ion-card class="cii">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <h2 style="font-size:21px">Children Added -{{childLength}}</h2>
+          </ion-col>
+          <ion-col col-4>
+            <ion-select class="my-select" okText="Okay" cancelText="Dismiss" placeholder="Gender" [(ngModel)]="selectOption">
+              <ion-option value="Age">Age</ion-option>
+              <ion-option value="Gender">Gender</ion-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-center>
+          <ion-col no-padding col-7>
+            <svg height="100" width="100" class="circle" [@profileAnimation]="childLength">
+              <circle cx="50" cy="50" r="32" stroke="#B7A3DC" stroke-width="14" fill="#FFFFFF" />
+              <circle *ngIf="selectOption == 'Gender'" cx="50" cy="50" r="32" stroke="rebeccapurple" style="stroke-dasharray: 100,100;" stroke-width="14"
+                fill="#FFFFFF" />
+              
+            </svg>
+          </ion-col>
+          <ion-col col-5 no-padding>
+            <span *ngIf="selectOption == 'Age'"><span class="dot"></span>0-5 Year Old</span>
+            <span *ngIf="selectOption == 'Gender'">
+              <span class="dot"></span>Male ({{maleLength}})<br>
+              <span class="dot" style="background-color:rebeccapurple"></span>Female ({{childLength-maleLength}})
+            </span>
+            <!-- <div>
+              <div class="do"><span class="dot"></span></div>0-5 Year Old
+            </div> -->
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-col no-padding col-4>
+            <button ion-button color="b" style="color: #FFFFFF" (click)="addDeal()">Add Child</button>
+          </ion-col>
+          <ion-col no-padding col-4 offset-1>
+            <button ion-button color="b" style="color: #FFFFFF" (click)="go2()">View Child</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- <div class="oo">
       <div class="oo1">
         <h1 style=" font-size: 20px; font-weight: 430;margin-top: 7px; ">Children Added -{{childLength}}</h1>
       </div>
       <div class="oo2">
         <h2 style=" color:#F5A0E5; font-size: 20px; ">Age</h2>
+        <ion-select [ngModel]="'Age'">
+          <ion-option value="Age">Age</ion-option>
+          <ion-option value="Gender">Gender</ion-option>
+        </ion-select>
       </div>
       <div class="ic" style="color: #F5A0E5">
         <ion-icon name="ios-arrow-down-outline"></ion-icon>
@@ -76,8 +121,9 @@
 
 
 
-      <svg height="100" width="100" class="circle">
+      <svg height="100" width="100" class="circle" [@profileAnimation]="childLength">
         <circle cx="50" cy="50" r="32" stroke="#B7A3DC" stroke-width="14" fill="#FFFFFF" />
+        <circle cx="50" cy="50" r="32" stroke="rebeccapurple" style="stroke-dasharray: 100,100;" stroke-width="14" fill="#FFFFFF" />
       </svg>
 
       <div class="ad">
@@ -94,13 +140,13 @@
       <button ion-button color="b"
         style="height: 18px;padding: 14px 1.1em; text-align: center; margin-left: 25px; margin-top: 40px; color: #FFFFFF"
         (click)="go2()">View Child</button>
-    </div>
+    </div> -->
 
-  </ion-card>
+    </ion-card>
 
-  <ion-card class="ciii">
+    <ion-card class="ciii">
 
-    <!-- <div class="ii">
+      <!-- <div class="ii">
       <div class="ii1">
         <h1 style="font-size: 21px; font-weight: 430; ">Vaccination Article</h1>
       </div>
@@ -117,25 +163,25 @@
         </div>
       </div>
     </div> -->
-    <ion-card-header>
-      <h1 style="font-size: 21px; font-weight: 430; " float-left>Vaccination Article</h1>
-      <h2 style="color:#B7CBF9; font-size: 19px; " float-right (click)="openVacinneList()">View All</h2>
-    </ion-card-header>
-    <ion-slides #mySlider1 class="my-slider" margin-bottom>
-      <ion-slide *ngFor="let item of vaccines" padding (click)="openVacinne(item)">
-        <h1>{{item.type}}</h1>
-        <p>Click to View</p>
-        <!-- <ion-list>
+      <ion-card-header>
+        <h1 style="font-size: 21px; font-weight: 430; " float-left>Vaccination Article</h1>
+        <h2 style="color:#B7CBF9; font-size: 19px; " float-right (click)="openVacinneList()">View All</h2>
+      </ion-card-header>
+      <ion-slides #mySlider1 class="my-slider" margin-bottom>
+        <ion-slide *ngFor="let item of vaccines" padding (click)="openVacinne(item)">
+          <h1>{{item.type}}</h1>
+          <p>Click to View</p>
+          <!-- <ion-list>
           <ion-list-header>
             <h1>{{item.type}}</h1>
           </ion-list-header>
         </ion-list> -->
-      </ion-slide>
-    </ion-slides>
+        </ion-slide>
+      </ion-slides>
 
-  </ion-card>
+    </ion-card>
 
-</div>
+  </div>
 
 </ion-content>
 
@@ -144,7 +190,7 @@
     <ion-row>
       <ion-col no-padding>
         <div style="text-align: center;">
-          <button ion-button icon-only clear (click)="openCalendar()">
+          <button ion-button icon-only clear style="width: 50%;" (click)="openCalendar()">
             <ion-icon name="calendar"></ion-icon>
           </button>
         </div>
@@ -152,7 +198,7 @@
 
       <ion-col no-padding>
 
-        <button ion-button icon-only clear (click)="map()">
+        <button ion-button icon-only style="width: 50%;" clear (click)="map()">
           <ion-icon name="navigate"></ion-icon>
         </button>
       </ion-col>

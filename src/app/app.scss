@@ -114,3 +114,11 @@ ion-title {
 ion-icon, .iconx{
           color: color($colors,primary,base);  
         }
+#none{ 
+    height: 100%;
+    img{
+        display: block;
+        width: 85%;
+        height: 80%;
+        margin: 10px auto;
+}}

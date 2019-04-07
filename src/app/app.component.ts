@@ -1,5 +1,5 @@
 import { LoginPage } from './../pages/login/login';
-import { Component, ViewChild, NgZone, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, NgZone, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Platform, Nav, MenuController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +30,8 @@ interface Page {
   isVisible: boolean
 }
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyApp {
 
@@ -63,9 +64,10 @@ export class MyApp {
     savedDeals: [],
     uid: ''
   }
-  loadedAll: Boolean = true;
+  // loadedAll: Boolean = false;
 
   constructor(
+    private _cdRef: ChangeDetectorRef,
     platform: Platform,
     private fcm: FCM,
     statusBar: StatusBar,
@@ -80,18 +82,23 @@ export class MyApp {
     splashScreen.show();
 
     platform.ready().then(() => {
-        console.log('app.component loaded');
+        // console.log('app.component loaded');
         androidPermissions.checkPermission(androidPermissions.PERMISSION.CAMERA).then(
-          result => console.log('Has permission?', result.hasPermission),
+          result => 
+          {
+            // console.log('Has permission?', result.hasPermission)
+          },
           err => androidPermissions.requestPermission(androidPermissions.PERMISSION.CAMERA)).catch(err => console.log(`android permission error`))
         androidPermissions.checkPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then(
-          result => console.log('Has permission?', result.hasPermission),
+          result => {
+            // console.log('Has permission?', result.hasPermission)
+          },
           err => androidPermissions.requestPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION)).catch(err => console.log(`android permission error`))
 
           androidPermissions.requestPermissions([androidPermissions.PERMISSION.CAMERA, androidPermissions.PERMISSION.GET_ACCOUNTS])
           .catch(err => console.log(`Cordova error!`));
           androidPermissions.requestPermissions([androidPermissions.PERMISSION.ACCESS_FINE_LOCATION, androidPermissions.PERMISSION.GET_ACCOUNTS]).then(res=>{
-            console.log(res)
+            // console.log(res)
           })
           .catch(err => console.log(`Cordova error!`));
 
@@ -100,7 +107,7 @@ export class MyApp {
             this.file.checkDir(this.file.externalRootDirectory, 'Medrec').then(response => {
               console.log('Directory exists'+response);
             }).catch(err => {
-              console.log('Directory doesn\'t exist'+JSON.stringify(err));
+              // console.log('Directory doesn\'t exist'+JSON.stringify(err));
               this.file.createDir(this.file.externalRootDirectory, 'Medrec', false).then(response => {
                 console.log('Directory create'+response);
               }).catch(err => {
@@ -113,7 +120,7 @@ export class MyApp {
               timeout: 5000,
               maximumAge: 0
             }).then(location=>{
-              console.log('loc',location)
+              // console.log('loc',location)
             }).catch(err=> console.log('loc',err))
           }
 
@@ -130,7 +137,6 @@ export class MyApp {
         }
         statusBar.styleDefault();
         this.splashScreen.hide();
-        this.loadedAll = true;
         // this.check();
       })
 
@@ -154,7 +160,7 @@ export class MyApp {
     }
     else{
       this.splashScreen.hide();
-      this.loadedAll = true;
+      // this.loadedAll = true;
     }
   }
 
@@ -166,6 +172,7 @@ export class MyApp {
       this.user = data;
       this.menuCtrl.enable(true, 'loginmenu');
       this.menuCtrl.enable(false, 'logoutmenu');
+      this._cdRef.detectChanges();
       // this.fcm.getToken().then(token => {
       // this.user.token=token;
       // this.api.updateProfile(this.user.uid,this.user).then(r=>{
@@ -243,12 +250,16 @@ export class MyApp {
     else if (url == 'home') {
       this.rootPage = SimpleDealsPage;
     } else {
-      this.nav.setRoot(url, null, {
+      this.nav.push(url, null, {
         animate: true,
         direction: 'forward'
       });
     }
     this.menuCtrl.close();
+  }
+
+  ngAfterViewInit() {
+    this._cdRef.detectChanges()
   }
 
   goLogin() {
