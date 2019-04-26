@@ -94,7 +94,7 @@ console.log(this.invites);
             return { id, ...data };
           }))
           ).subscribe(resp=>{
-            debugger;
+            // debugger;
             this.invites = resp;
             console.log(this.invites);
 

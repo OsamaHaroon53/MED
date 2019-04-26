@@ -5,7 +5,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler, NavParams } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -44,7 +44,7 @@ import { CategoryPage } from '../pages/category/category';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { MomentModule } from 'angular2-moment';
 import { SortPipe } from '../pipes/sort/sort';
 import { SimpleDealsPage } from '../pages/simple-deals/simple-deals';
@@ -68,8 +68,11 @@ import { VaccineDetailPageModule } from '../pages/vaccine-detail/vaccine-detail.
 import { CalendarPageModule } from '../pages/calendar/calendar.module';
 import { CalendarPage } from '../pages/calendar/calendar';
 
-
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ViewPdfPage } from '../pages/view-pdf/view-pdf';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -81,7 +84,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SortPipe,
     DetailDealPage,
     InjectionPage,
-    HistoryPage
+    HistoryPage,
+    ViewPdfPage
   ],
   imports: [
     BrowserModule,
@@ -127,7 +131,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     // }),
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireAuthModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -138,7 +142,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DetailDealPage,
     InjectionPage,
     HistoryPage,
-    CalendarPage
+    CalendarPage,
+    ViewPdfPage
   ],
   providers: [
     StatusBar,
@@ -164,7 +169,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FCM,
     GooglePlus,
     LaunchNavigator,
-    Geolocation
+    Geolocation,
+    LocationAccuracy,
+    LocalNotifications,
+    CallNumber
   ]
 })
 export class AppModule { }

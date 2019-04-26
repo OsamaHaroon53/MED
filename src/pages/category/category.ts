@@ -42,12 +42,12 @@ sort(){
 
 
 show(x){
-  console.log(x);
+  // console.log(x);
   this.navCtrl.push('DealPage',x);
 }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoryPage');
+    // console.log('ionViewDidLoad CategoryPage');
 
 /* now we have the deals. */
 this.getDeals();

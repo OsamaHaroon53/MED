@@ -23,7 +23,7 @@
               <div class="panel">
                 <div class="slide-container">
                   <div class="image first">
-                    <img [src]="item.child.photo?item.child.photo:'../assets/imgs/image.jpg'"
+                    <img [src]="item.child?.photo?item.child?.photo:'../../assets/imgs/baby.png'"
                       style="height: 57px; width: 57px; border-radius: 50%;">
                   </div>
                   <div class="slide-content">
@@ -69,10 +69,10 @@
             <h2 style="font-size:21px">Children Added -{{childLength}}</h2>
           </ion-col>
           <ion-col col-4>
-            <ion-select class="my-select" okText="Okay" cancelText="Dismiss" placeholder="Gender" [(ngModel)]="selectOption">
+            <!-- <ion-select class="my-select" okText="Okay" cancelText="Dismiss" placeholder="Gender" [(ngModel)]="selectOption">
               <ion-option value="Age">Age</ion-option>
               <ion-option value="Gender">Gender</ion-option>
-            </ion-select>
+            </ion-select> -->
           </ion-col>
         </ion-row>
         <ion-row align-items-center>
@@ -88,7 +88,8 @@
             <span *ngIf="selectOption == 'Age'"><span class="dot"></span>0-5 Year Old</span>
             <span *ngIf="selectOption == 'Gender'">
               <span class="dot"></span>Male ({{maleLength}})<br>
-              <span class="dot" style="background-color:rebeccapurple"></span>Female ({{childLength-maleLength}})
+              <span class="dot" style="background-color:rebeccapurple"></span>Female ({{femaleLength}})<br>
+              <span class="dot" style="background-color:rebeccapurple"></span>X ({{childLength-maleLength-femaleLength}})
             </span>
             <!-- <div>
               <div class="do"><span class="dot"></span></div>0-5 Year Old
@@ -188,18 +189,22 @@
 <ion-footer no-margin>
   <ion-toolbar>
     <ion-row>
-      <ion-col no-padding>
-        <div style="text-align: center;">
+      <ion-col no-padding text-center>
           <button ion-button icon-only clear style="width: 50%;" (click)="openCalendar()">
             <ion-icon name="calendar"></ion-icon>
           </button>
-        </div>
       </ion-col>
 
-      <ion-col no-padding>
+      <ion-col no-padding text-center>
 
         <button ion-button icon-only style="width: 50%;" clear (click)="map()">
           <ion-icon name="navigate"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col no-padding text-center>
+
+        <button ion-button icon-only style="width: 50%;" clear (click)="call()">
+          <ion-icon name="call"></ion-icon>
         </button>
       </ion-col>
     </ion-row>

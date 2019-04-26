@@ -33,7 +33,6 @@ export class ProfilePage {
     public navParams: NavParams) {
 
       this.api.getProfile(localStorage.getItem('uid')).subscribe((resp:User) => {
-        console.log(resp);
         this.user = resp;
         
       })

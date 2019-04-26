@@ -8,10 +8,9 @@ import { SimpleDealsPage } from '../simple-deals/simple-deals';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { Geolocation } from '@ionic-native/geolocation';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 
 declare var google;
-
-
 
 @Component({
   selector: 'page-showmap',
@@ -29,6 +28,7 @@ export class ShowmapPage {
     timeout: 5000,
     maximumAge: 0
   };
+  isGpsOn = false;
   image = {
     url: 'assets/imgs/marker.png',
     size: new google.maps.Size(71, 71),
@@ -45,8 +45,20 @@ export class ShowmapPage {
     { name: ['Measles'], category: 'Measles', format: 'month', from: 9, to: 9 },
     { name: ['Chicken Pox '], category: 'Chicken Pox ', format: 'month', from: 9, to: 9 },
   ];
-  constructor(private geolocation: Geolocation, public navCtrl: NavController, private googleMaps: GoogleMaps, private navigator: LaunchNavigator) {
+  constructor(private locationAccuracy: LocationAccuracy,private geolocation: Geolocation, public navCtrl: NavController, private googleMaps: GoogleMaps, private navigator: LaunchNavigator) {
     // console.log(this.getVaccineInfo())
+    this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+      if(canRequest) {
+        // the accuracy option will be ignored by iOS
+        this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+          () => {
+            this.isGpsOn = true;
+          },
+          error => console.log('Error requesting location permissions', error)
+        );
+      }
+    
+    });
   }
 
 
@@ -100,7 +112,6 @@ export class ShowmapPage {
 
 
     this.geolocation.getCurrentPosition(this.options).then(location => {
-      console.log(location);
       this.map = new google.maps.Map(this.mapElement.nativeElement, {
         center: { lat: location.coords.latitude, lng: location.coords.longitude },
         zoom: 15
@@ -120,6 +131,7 @@ export class ShowmapPage {
       });
     }).catch(error => {
       console.log(error);
+      
     });
     var myplace = { lat: -33.8665, lng: 151.1956 };
   }
@@ -141,7 +153,6 @@ export class ShowmapPage {
       google.maps.event.addListenerOnce(self.infowindow, 'domready', () => {
         document.getElementById('tap').addEventListener('click', () => {
           //alert('Clicked');
-          console.log("touch");
           self.getMapaa(document.getElementById('place').innerText);
           // this.infowindow.close()
           // this.closeInfoViewWindow(this.infowindow);
@@ -153,7 +164,6 @@ export class ShowmapPage {
   }
 
   getMapaa(name){
-    console.log(name,"ok");
     this.navigator.navigate(name).then(res=>{
       console.log(res);
     }).catch(err=> console.log(err));

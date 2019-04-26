@@ -76,4 +76,13 @@ margin-top: 7.4px;
 .sd {
 	height: 340px;
 }
+ion-img{
+	position: relative;
+	img{
+		position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+	}
+}
 }

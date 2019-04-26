@@ -10,22 +10,32 @@ import { SimpleDealsPage } from '../simple-deals/simple-deals';
 })
 export class InjectionPage {
 
+  todayDate = new Date(new Date().setHours(0,0,0,0) - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
   child;
-  criteria = '1';
+  criteria;
   injection;
   injectionDate: number;
+  injectedDate;
   constructor(public navCtrl: NavController, public navParams: NavParams, private helper: HelperProvider,private api: ApiProvider) {
     this.child =this.navParams.data.child;
     this.injection = this.navParams.data.injection;
     this.injectionDate = this.child.injection[this.child.injection.length-1].date;
-    this.criteria = '1';
+    this.injectedDate = new Date(new Date(this.injectionDate).setHours(0,0,0,0) - new Date(this.injectionDate).getTimezoneOffset() * 60000).toISOString().split("T")[0];
+  }
+
+  ionViewDidLoad() {
+    this.criteria = 'a';
   }
 
   segmentChanged(value,input){
-    if(value==3)
+    if(value=='c'){
+      if(new Date(this.injectedDate)>new Date(this.todayDate)){
+        this.helper.toast('You can not take Vaccine.')
+        return;
+      }
       input.open();
-      // value?0:''
-    else if(value == 2)
+    }
+    else if(value == 'b')
       this.child.injection[this.child.injection.length-1].date = Date.now()
     else
       this.child.injection[this.child.injection.length-1].date = this.injectionDate;
@@ -36,12 +46,16 @@ export class InjectionPage {
   }
 
   save(){
+    if(new Date(this.injectedDate)>new Date(this.todayDate)){
+      this.helper.toast('You can not take Vaccine.')
+      return;
+    }
     this.helper.load()
     this.helper.toast("Take Vaccine Successfully");
     // delete this.child.injection;
     this.api.updateDeal(this.child.id,this.child).then(res=>{
       this.helper.dismiss();
-      this.navCtrl.setRoot(SimpleDealsPage);
+      this.navCtrl.setRoot(SimpleDealsPage,{animate:true,direction:"back"});
     });
   }
 

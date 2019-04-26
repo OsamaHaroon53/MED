@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">Close</button>
+    </ion-buttons>
+    <ion-title>View PDF</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col><h1>Medrec Vaccinne Remainder</h1></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><h3><u>Child Informations</u></h3></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><strong>Child Name: </strong>{{child.name}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><strong>BirthDate:</strong> {{child.bd | date}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><strong>City:</strong> {{child.city}}</ion-col>
+      <ion-col><strong>Gender:</strong> {{child.gender}}</ion-col>
+    </ion-row>
+    <ion-row margin-top>
+      <ion-col><h3><u>Vaccine Informations</u></h3></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let deal of deals" margin-bottom>
+      <ion-col col-12><h5 no-margin>{{deal.category}}</h5></ion-col>
+      <ion-col col-12><strong>Due on:</strong> {{deal.from ? deal.from + ' ' + deal.format : 'At Birth'}}</ion-col>
+      <ion-col col-12><strong>Due Date:</strong> {{getVaccineDate(deal) | date}}</ion-col>
+      <ion-col col-12><strong>Staus:</strong> {{deal.injected?'Done':'Not taken'}}</ion-col>
+      <ion-col col-12 *ngIf="deal.injected"><strong>Vaccine Date:</strong> {{deal.injected.date | date}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

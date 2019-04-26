@@ -61,7 +61,7 @@ export class HomePage {
 
   getuserProfile():Promise<any>{
     return new Promise((resolve,reject)=>{
-      debugger;
+      // debugger;
       this.api.getProfile(localStorage.getItem('uid')).subscribe((r:User) => {    
         if(r){
           let user:User={

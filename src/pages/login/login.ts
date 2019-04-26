@@ -40,6 +40,7 @@ export class LoginPage {
     this.navCtrl.setRoot(SimpleDealsPage)
   }
   facebookLogin(){
+    this.helper.load();
     // this.spl
     this.fire.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
       .then(res=>{
@@ -67,9 +68,20 @@ export class LoginPage {
             this.helper.dismiss();
 
           }).catch(err=>{
+            this.helper.dismiss();
             console.log("inner firebase error fb login",err);
           })
-      })
+      }).catch(err=> {
+        console.log(err);
+        if (err.code === 'auth/account-exists-with-different-credential'){
+          this.helper.presentAlert('Account exist with Different Credential','you may have login with google or register you Account with same Email','OK')
+        }
+        else{
+          this.helper.toast('Error');
+        }
+      });
+      this.helper.dismiss();
+      
   }
   // facebookLogin() {
   //   console.log('click ok')
@@ -118,12 +130,13 @@ export class LoginPage {
   }
 
   loginUser() {
+    this.helper.load();
     this.googlePlus.login({
       'webClientId': '522878343942-can42t1pc99lp05mlgpvvr87aci3c7g8.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
       'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
     })
       .then(res => {
-        this.helper.load();
+        // this.helper.load();
         console.log(res)
         const googleCredential = firebase.auth.GoogleAuthProvider.credential(res.idToken);
         console.log('gC',googleCredential)
@@ -150,7 +163,10 @@ export class LoginPage {
             this.helper.toast('LogIn Failed')
           })
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.helper.dismiss();
+        console.log(err);
+      });
   }
 
   login() {

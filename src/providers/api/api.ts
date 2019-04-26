@@ -17,9 +17,9 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class ApiProvider {
 
   constructor(private afs:AngularFirestore,private storage:AngularFireStorage) {
-    console.log('Hello ApiProvider Provider');
+    // console.log('Hello ApiProvider Provider');
     //set dummy ID
-    console.log(localStorage.getItem('uid'))
+    // console.log(localStorage.getItem('uid'))
   }
 
 
@@ -83,6 +83,9 @@ export class ApiProvider {
   }
   updateDeal(id,data){
     return this.afs.doc('child/'+id).update(data);
+  }
+  deleteChild(id){
+    return this.afs.doc('child/'+id).delete();
   }
 
 deleteDeal(id){

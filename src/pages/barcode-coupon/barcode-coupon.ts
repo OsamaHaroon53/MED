@@ -26,7 +26,6 @@ export class BarcodeCouponPage { goBack(){ this.navCtrl.pop(); }
 
   deal;
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BarcodeCouponPage');
     this.deal = this.navParams.data;
     this.value = this.deal.code;
 

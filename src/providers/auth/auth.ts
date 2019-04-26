@@ -34,7 +34,7 @@ export class AuthProvider {
     private http: HttpClient, private api: ApiProvider, private events: Events,
     // public facebook: Facebook,
   ) {
-    console.log('Hello AuthProvider Provider');
+    // console.log('Hello AuthProvider Provider');
 
     // this.afAuth.authState.subscribe((user)=>{
     //   if(user){
@@ -87,7 +87,7 @@ export class AuthProvider {
   getInstagramToken() {
     let url = `https://api.instagram.com/oauth/authorize/?client_id=4067bb5e06d74878a6f60513c7702f1c&redirect_uri=http://localhost:8100/&response_type=token`;
     window.location.href = url;
-    debugger;
+    // debugger;
   }
 
 
@@ -98,7 +98,7 @@ export class AuthProvider {
       this.http.get(url).subscribe((r: any) => {
         if (r.data) {
           let profile: InstagramProfile = r.data;
-          debugger;
+          // debugger;
           this.api.getProfile(profile.id).subscribe((r: User) => {
             if (r) {
               this.user = r;
@@ -119,7 +119,7 @@ export class AuthProvider {
               }
               this.api.createProfile(profile.id, user).then(res => {
                 this.api.updateUid(profile.id).then(r => {
-                  console.log(r);
+                  // console.log(r);
                 }, err => {
                   console.log(err);
                 })

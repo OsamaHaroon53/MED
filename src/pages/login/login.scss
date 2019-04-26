@@ -62,4 +62,11 @@ page-login {
     font-weight: normal;
     font-size: .5em
   }
+  .fbg img{
+    box-shadow: 0px 0px 5px 5px lightgray;
+    border-radius: 50%;
+  }
+  .fbg img:active{
+    box-shadow: none;
+  }
 }

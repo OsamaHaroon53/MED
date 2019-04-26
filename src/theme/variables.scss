@@ -112,9 +112,14 @@ $font-family-base: "CircularStd-Black";
 }
 
 .p,.pp,.pppp,.ff{
-	font-family: "CircularStd-Medium" !important;
+	font-family: "Montserrat", sans-serif !important;
 }
 
 *:not(ion-icon) {
-    font-family: 'CircularStd-Medium' !important;
+    font-family: 'Montserrat', sans-serif !important;
 }
+.custom-class{
+  .toast-wrapper {
+    background-color: purple !important;
+  }
+  }

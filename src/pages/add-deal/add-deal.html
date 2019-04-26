@@ -1,19 +1,19 @@
 <ion-header>
 
-    <ion-navbar hideBackButton="true">
-        <ion-buttons left>
-            <button ion-button navPop icon-only>
-                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
-
- 
-            
-        <ion-title>{{title}}</ion-title>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button navPop icon-only>
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
 
 
-    </ion-navbar>
-    <!-- <div class="info" padding>
+
+    <ion-title>{{title}}</ion-title>
+
+
+  </ion-navbar>
+  <!-- <div class="info" padding>
       <p class="p">PERSONAL INFORMATION</p>
     </div> -->
 </ion-header>
@@ -26,10 +26,10 @@
     <ion-segment-button value="Form">
       Detail
     </ion-segment-button>
-    <ion-segment-button value="Date">
+    <ion-segment-button value="Date" [disabled]="dealForm.get('number').invalid || dealForm.get('city').invalid || dealForm.get('name').invalid">
       Date Of Birth
     </ion-segment-button>
-    <ion-segment-button value="Gender">
+    <ion-segment-button value="Gender" [disabled]="dealForm.get('number').invalid || dealForm.get('city').invalid || dealForm.get('name').invalid || dealForm.get('birthday').invalid">
       Gender
     </ion-segment-button>
   </ion-segment>
@@ -37,117 +37,123 @@
 
 
 
-    <div [ngSwitch]="galleryType">
+  <div [ngSwitch]="galleryType">
 
 
     <form [formGroup]="dealForm" (ngSubmit)="submit()">
 
-        
+
 
       <ion-card *ngSwitchCase="'Form'">
 
 
-    <ion-grid>
-            <ion-row>
-                    <ion-col col-12 text-center>
-                      <ion-img (click)="setImage()" style="width:120px;height:120px"  [src]="deal?.photo || 'https://cdn.dribbble.com/users/21845/screenshots/3938419/placeholder.png'" height="120px"></ion-img>    
-                    </ion-col>
-                  </ion-row>
-    </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12 text-center>
+              <ion-img (click)="setImage()" style="width:120px;height:120px"
+                [src]="deal?.photo || 'https://cdn.dribbble.com/users/21845/screenshots/3938419/placeholder.png'"
+                height="120px"></ion-img>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
         <ion-item>
-            <ion-label floating>Child Name</ion-label>
-            <ion-input type="text" formControlName="name" [class.invalid]="!dealForm.get('name').valid && (dealForm.get('name').dirty || dealForm.get('name').touched)"></ion-input>
+          <ion-label floating>Child Name</ion-label>
+          <ion-input type="text" formControlName="name"
+            [class.invalid]="!dealForm.get('name').valid && (dealForm.get('name').dirty || dealForm.get('name').touched)">
+          </ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label floating>City</ion-label>
-            
-
-                       <ion-select placeholder="City" formControlName="city" [class.invalid]="!dealForm.get('city').valid && (dealForm.get('city').dirty || dealForm.get('city').touched)">
-                    <ion-option value="karachi">Karachi</ion-option>
-                    <ion-option value="Lahore">Lahore</ion-option>
-                    <ion-option value="multan">Multan</ion-option>
-                    <ion-option value="islamabad">Islamabad</ion-option>
-                </ion-select>
+          <ion-label floating>City</ion-label>
+          <!-- <div>
+            <select name="city" id="city" placeholder="City" formControlName="city">
+              <option value="karachi">Karachi</option>
+              <option value="Lahore">Lahore</option>
+              <option value="multan">Multan</option>
+              <option value="islamabad">Islamabad</option>
+            </select>
+          </div> -->
+          <ion-select placeholder="City" (ionChange)="clickOption($event)" okText="Okay" cancelText="Dismiss" formControlName="city"
+            [class.invalid]="!dealForm.get('city').valid && (dealForm.get('city').dirty || dealForm.get('city').touched)">
+            <ion-option value="karachi">Karachi</ion-option>
+            <ion-option value="Lahore">Lahore</ion-option>
+            <ion-option value="multan">Multan</ion-option>
+            <ion-option value="islamabad">Islamabad</ion-option>
+          </ion-select>
 
         </ion-item>
 
         <ion-item>
-            <ion-label floating>Phone number </ion-label>
-                        <ion-input type="number" formControlName="number" [class.invalid]="!dealForm.get('number').valid && (dealForm.get('number').dirty || dealForm.get('number').touched)"></ion-input>
+          <ion-label floating>Phone number </ion-label>
+          <ion-input type="text" pattern="^([+]92[0-9]{10}|[0-9]{11})$" formControlName="number"
+            [class.invalid]="!dealForm.get('number').valid && (dealForm.get('number').dirty || dealForm.get('number').touched)">
+          </ion-input>
         </ion-item>
 
+        <button style="display:block;margin: 16px auto;" ion-button no-padding [disabled]="dealForm.get('number').invalid || dealForm.get('city').invalid || dealForm.get('name').invalid" (click)="gotoDate()"><img class="tick" src="assets/imgs/tick.png"></button>
+      </ion-card>
+
+      <ion-card *ngSwitchCase="'Date'">
+
+        <div>
+          <img class="imgx" src="assets/imgs/cc.png" style="height: 100px; width: 100px; border-radius: 50%;">
+          <h1 style="text-align: center; margin-top: 20px;">Select Date Of Birth</h1>
+
+        </div>
         
-                      
-           <br>            
-           <br>
-           <br>
-        
-             <img class="tick" (click)="gotoDate()" src="assets/imgs/tick.png"> 
+        <ion-item>
+          <ion-label floating>Date</ion-label>
+          <ion-datetime displayFormat="DD/MMMM/YYYY" min="2010" [max]="today" formControlName="birthday"
+            (ionChange)="onDateChange()" [(ngModel)]="selectedDate">
+          </ion-datetime>
+        </ion-item>
+
+        <div style="margin-top: 25px;" *ngIf="selectedDate">
+          <div *ngFor="let commingDate of upcomingDates">
+            <p>{{commingDate.time }} : {{commingDate.date | date}}</p>
+          </div>
+        </div>
+        <button style="display:block;margin: 16px auto;" ion-button no-padding [disabled]="dealForm.get('birthday').invalid" (click)="GotoGender()"><img class="tick" src="assets/imgs/tick.png"></button>
+
 
       </ion-card>
 
-        <ion-card *ngSwitchCase="'Date'">
-
-            <div>
-              <img class="imgx" src="assets/imgs/cc.png"  style="height: 100px; width: 100px; border-radius: 50%;">
-              <h1 style="text-align: center; margin-top: 20px;">Select Date Of Birth</h1>
-
-            </div>
-
-             <ion-item>
-               <ion-label floating>Date</ion-label>
-               <ion-datetime  displayFormat="DD/MMMM/YYYY" min="2010" max="2050-10-31" formControlName="birthday" (ionChange)="onDateChange()" [(ngModel)]="selectedDate">
-               </ion-datetime>
-            </ion-item>
-             
-             <div style="margin-top: 25px;" *ngIf="selectedDate"> 
-  <div *ngFor="let commingDate of upcomingDates">
-    <p>{{commingDate.time }} : {{commingDate.date | date}}</p>
-  </div>
-</div>
-
-            <br><br>
-            <img class="tick" (click)="GotoGender()" src="assets/imgs/tick.png"> 
-            <br>
-
-
-         </ion-card>
-
 
       <ion-card *ngSwitchCase="'Gender'" class="sd">
-      
-         <div>
-           <img class="imgx"  src="assets/imgs/male.png"  style="height: 100px; width: 100px;">
- 
-         </div>
-         <br>
 
-          <h1 style="text-align: center;">Select Gender</h1>
- 
- <ion-item>
-    <ion-label>Select Here</ion-label>
-    <ion-select  formControlName="gender" [class.invalid]="!dealForm.get('gender').valid && (dealForm.get('gender').dirty || dealForm.get('gender').touched)"  >
-        <ion-option value="male" selected="true">Male</ion-option>
-        <ion-option value="female">Female</ion-option>
-        <ion-option value="x">X</ion-option>
-    </ion-select>
-</ion-item>
+        <div>
+          <img class="imgx" src="assets/imgs/male.png" style="height: 100px; width: 100px;">
+
+        </div>
+        <br>
+
+        <h1 style="text-align: center;">Select Gender</h1>
+
+        <ion-item>
+          <ion-label floating>Gender</ion-label>
+          <ion-select formControlName="gender" (ionChange)="clickOption($event)"
+            [class.invalid]="!dealForm.get('gender').valid && (dealForm.get('gender').dirty || dealForm.get('gender').touched)">
+            <ion-option value="male" selected="true">Male</ion-option>
+            <ion-option value="female">Female</ion-option>
+            <ion-option value="x">X</ion-option>
+          </ion-select>
+        </ion-item>
 
         <br><br>
 
-          
-           <button  [disabled]="!dealForm.valid" text-center class="lastbtn" type="submit"><img class="tick"  src="assets/imgs/tick.png"> </button>
+
+        <button [disabled]="!dealForm.valid" text-center class="lastbtn" type="submit"><img class="tick"
+            src="assets/imgs/tick.png"> </button>
 
 
-    </ion-card>
+      </ion-card>
 
 
 
 
 
-<!-- 
+      <!-- 
         <ion-item *ngIf="buttonClicked2">
             <ion-label floating>Normal Price</ion-label>
             <ion-input type="text" formControlName="normalprice" [class.invalid]="!dealForm.get('normalprice').valid && (dealForm.get('normalprice').dirty || dealForm.get('normalprice').touched)"></ion-input>
@@ -199,8 +205,9 @@
             </ion-datetime>
         </ion-item> -->
 
-<!--         <button ion-button block color="primary" [disabled]="!dealForm.valid" type="submit">{{buttonText}}</button>
- -->    </form>
-</div>
+      <!--         <button ion-button block color="primary" [disabled]="!dealForm.valid" type="submit">{{buttonText}}</button>
+ -->
+    </form>
+  </div>
 
 </ion-content>

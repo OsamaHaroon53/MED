@@ -7,7 +7,7 @@
       </button>
       <button ion-button icon-only>
         <div class="image">
-          <img [src]="child.photo?child1.photo:'../assets/imgs/image.jpg'"
+          <img [src]="child.photo?child.photo:'../assets/imgs/image.jpg'"
             style="height: 57px; width: 57px; border-radius: 50%;">
         </div>
       </button>
@@ -34,13 +34,13 @@
 
   <div padding>
     <ion-segment [(ngModel)]="criteria" (ionChange)="segmentChanged($event.value,setDate)" color="primary">
-      <ion-segment-button class="segment-activated" value="1">
+      <ion-segment-button value="a">
         Due Date
       </ion-segment-button>
-      <ion-segment-button value="2">
+      <ion-segment-button value="b">
         Today
       </ion-segment-button>
-      <ion-segment-button value="3">
+      <ion-segment-button value="c">
         Custom
       </ion-segment-button>
     </ion-segment>
@@ -50,7 +50,7 @@
 
       <ion-item style="margin-left: 10px;">
             <ion-label><ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>&nbsp;{{child.injection[child.injection.length-1].date| date}}</ion-label>
-            <ion-datetime #setDate hidden  displayFormat="DD/MMMM/YYYY" min="2010" (ionChange)="onDateChange($event)" hidden>
+            <ion-datetime #setDate hidden  displayFormat="DD/MMMM/YYYY" [min]="injectedDate" [max]="todayDate" (ionChange)="onDateChange($event)" hidden>
             </ion-datetime>
       </ion-item>
       <button ion-button (click)="save()">Take Vaccine</button>

@@ -28,9 +28,9 @@ export class ChangepasswordPage { goBack(){ this.navCtrl.pop(); }
   oldPassword;
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChangepasswordPage');
+    // console.log('ionViewDidLoad ChangepasswordPage');
     this.user = this.navParams.data;
-    console.log(this.user);
+    // console.log(this.user);
   }
 
 

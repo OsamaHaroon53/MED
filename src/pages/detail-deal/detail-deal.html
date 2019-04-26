@@ -5,12 +5,12 @@
       <button ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="goProfile()">
+      <!-- <button ion-button icon-only (click)="goProfile()">
         <div class="image">
-          <img [src]="child.photo?child1.photo:'../assets/imgs/image.jpg'"
+          <img [src]="child?.photo?child?.photo:'../assets/imgs/baby.png'"
             style="height: 57px; width: 57px; border-radius: 50%;">
         </div>
-      </button>
+      </button> -->
     </ion-buttons>
     <ion-title>{{child.name}}</ion-title>
   </ion-navbar>
@@ -69,8 +69,16 @@
         </ion-slides>
       </ion-col>
     </ion-row>
+    <ion-row justify-content-center>
+      <ion-col>
+        <button ion-button (click)='makePdf()'>Download PDF</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)='viewPdf()'>view PDF</button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
-  <div text-center>
+  <!-- <div text-center>
     <button ion-button (click)='makePdf()'>Generate PDF</button>
-  </div>
+  </div> -->
 </ion-content>

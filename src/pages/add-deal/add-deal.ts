@@ -1,5 +1,5 @@
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -13,42 +13,37 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { SimpleDealsPage } from '../simple-deals/simple-deals';
 
-/**
- * Generated class for the AddDealPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-add-deal',
   templateUrl: 'add-deal.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddDealPage {
 
- selectedDate: Date;
+  selectedDate = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
   upcomingDates: any[];
+  today = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
 
- galleryType = 'Form';
+  galleryType = 'Form';
 
 
-    public buttonClicked: boolean = false; //Whatever you want to initialise it as
-    public buttonClicked2: boolean = false; //Whatever you want to initialise it as
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
+  public buttonClicked2: boolean = false; //Whatever you want to initialise it as
 
-onButtonClick(ev) {
-    if(ev === 'discount') {
-    this.buttonClicked = true;
-        this.buttonClicked2 = false;
-
-    }
-    else if(ev === 'reduction') {
-    this.buttonClicked2 = true;
-        this.buttonClicked = false;
+  onButtonClick(ev) {
+    if (ev === 'discount') {
+      this.buttonClicked = true;
+      this.buttonClicked2 = false;
 
     }
+    else if (ev === 'reduction') {
+      this.buttonClicked2 = true;
+      this.buttonClicked = false;
 
-}
+    }
+
+  }
 
 
   photo
@@ -69,11 +64,11 @@ onButtonClick(ev) {
 
   deal: Deal;
   dealForm: FormGroup;
- // minDate: string = "2018";
+  // minDate: string = "2018";
   //maxDate: string = "2030";
 
   constructor(private camera: Camera,
-    public navCtrl: NavController, private helper: HelperProvider, private api: ApiProvider, private navParams: NavParams, private actionSheet: ActionSheetController,
+    public navCtrl: NavController, private cdRef: ChangeDetectorRef, private helper: HelperProvider, private api: ApiProvider, private navParams: NavParams, private actionSheet: ActionSheetController,
     private imagePicker: ImagePicker, private storage: AngularFireStorage, private fb: FormBuilder) {
 
     this.api.getProfile(localStorage.getItem('uid')).subscribe((r: User) => {
@@ -82,7 +77,7 @@ onButtonClick(ev) {
       this.helper.presentAlert('critical error', 'unable to get user session info', 'ok');
     });
 
-
+    console.log(this.navParams.data.deal)
     if (this.navParams.data.deal) {
       this.title = "EDIT DEAL";
       this.buttonText = "Update";
@@ -93,12 +88,12 @@ onButtonClick(ev) {
         'number': [this.deal.number],
         'gender': [this.deal.gender],
         'birthday': [this.deal.birthday],
-                'userId': [''],
+        'userId': [''],
         'userName': [''],
 
 
- 
-        'isInvite':this.deal.isInvite|| false
+
+        'isInvite': this.deal.isInvite || false
       })
 
     } else {
@@ -108,48 +103,62 @@ onButtonClick(ev) {
 
       this.dealForm = fb.group({
         'name': ['', Validators.required],
-        'city': ['', [Validators.required]],
+        'city': ['', Validators.required],
         'number': ['', Validators.required],
         'gender': ['', Validators.required],
         'userName': [''],
         'userId': [''],
-        'birthday': ['', [Validators.required]],
+        'birthday': [this.today, Validators.required],
 
-  
+
       })
     }
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddDealPage');
     this.getCategories();
+  }
+
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
+  }
+
+  clickOption(event) {
+    console.log('ok', event)
   }
 
   goBack() {
     this.navCtrl.pop();
   }
 
-   gotoDate(){
-    this.galleryType = 'Date'; 
+  gotoDate() {
+    this.galleryType = 'Date';
   }
 
-   GotoGender(){
-    this.galleryType = 'Gender'; 
+  GotoGender() {
+    this.galleryType = 'Gender';
   }
-  
 
-    onDateChange() {
-    
-    let upcomingIteration = ['First', 'Second', 'Third'];
+
+  onDateChange() {
+    // let upcomingIteration = ['First', 'Second', 'Third'];
     this.upcomingDates = [];
-
-    for (let i = 1; i < upcomingIteration.length + 1; i++) {
-        let tempDate = new Date(this.selectedDate);
-        let upcomingDate = tempDate.setDate(tempDate.getDate() + i * 2);
-        this.upcomingDates.push({ time: upcomingIteration[i -1], date: new Date(upcomingDate)}); 
-    }
-    console.log(JSON.stringify(this.upcomingDates, null, 2));
+    // for (let i = 6; i < 15; i=i+2) {
+    let tempDate = new Date(this.selectedDate);
+    this.upcomingDates.push({ time: 'First', date: new Date(this.selectedDate) });
+    let upcomingDate = tempDate.setDate(tempDate.getDate() + 6 * 7);
+    this.upcomingDates.push({ time: 'Second', date: new Date(upcomingDate) });
+    upcomingDate = tempDate.setDate(tempDate.getDate() + 8 * 7);
+    this.upcomingDates.push({ time: 'Third', date: new Date(upcomingDate) });
+    upcomingDate = tempDate.setDate(tempDate.getDate() + 10 * 7);
+    this.upcomingDates.push({ time: 'Fourth', date: new Date(upcomingDate) });
+    upcomingDate = tempDate.setDate(tempDate.getDate() + 14 * 7);
+    this.upcomingDates.push({ time: 'Fifth', date: new Date(upcomingDate) });
+    upcomingDate = tempDate.setDate(tempDate.getMonth() + 9);
+    this.upcomingDates.push({ time: 'Sixth', date: new Date(upcomingDate) });
+    this.upcomingDates.push({ time: 'Seventh', date: new Date(upcomingDate) });
+    // }
+    // console.log(JSON.stringify(this.upcomingDates, null, 2));
   }
 
 
@@ -166,29 +175,27 @@ onButtonClick(ev) {
       birthday: this.dealForm.get('birthday').value,
       number: this.dealForm.get('number').value,
       gender: this.dealForm.get('gender').value,
-           userId: this.user.uid,
+      userId: this.user.uid,
       userName: this.user.name,
 
- 
+
       photo: this.deal.photo || '',
-    
-      isInvite:false
+
+      isInvite: false
     }
     this.helper.load();
     if (this.navParams.data.deal) {
       deal.id = this.deal.id;
-      
+
       this.api.updateDeal(deal.id, deal).then(r => {
-        console.log('deal id' + this.deal.id + ' updated successfully');
-        this.helper.toast(`Updated Deal sent for approval from admin!`);
+        this.helper.toast(`Child Updated! Thanks for using Medrec`);
         this.navCtrl.pop().then(() => this.helper.dismiss());
       })
     } else {
 
       this.api.addDeal(deal).then(resp => {
-        console.log(resp);
 
-        this.helper.toast(`Child Added ! . Thanks for using Medrec`);
+        this.helper.toast(`Child Added! Thanks for using Medrec`);
         this.navCtrl.setRoot(SimpleDealsPage).then(() => this.helper.dismiss());
       });
 
@@ -200,18 +207,19 @@ onButtonClick(ev) {
     let sheet = this.actionSheet.create({
       buttons: [
         {
-          text: 'Select From Gallery',
+          text: 'Get Picture From Phone',
           icon: 'images',
           handler: () => {
-            console.log('select images form gallery');
-            this.pickImageFromGallery();
+            // this.pickImageFromGallery();
+            this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
+            this.takePicture();
           }
         },
         {
           text: 'Select from Camera',
           icon: 'camera',
           handler: () => {
-            console.log('select from camera');
+            this.options.sourceType = this.camera.PictureSourceType.CAMERA;
             this.takePicture();
           }
         },
@@ -220,7 +228,6 @@ onButtonClick(ev) {
           icon: 'close-circle',
           role: 'destructive',
           handler: () => {
-            console.log('cancel clicked');
           }
         },
       ]
@@ -235,14 +242,14 @@ onButtonClick(ev) {
     this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 1 }).then((res) => {
       if (res) {
         if (res.length > 0) {
-          debugger;
           this.helper.load();
           const image = `data:image/jpeg;base64,${res}`;
-          let id=Date.now();
+          let id = Date.now();
           const pictures = this.storage.ref('deal/' + id);
           pictures.putString(image, 'data_url').then(r => {
             r.ref.getDownloadURL().then(r => {
-              this.deal.photo = r
+              this.deal.photo = r;
+              this.cdRef.detectChanges();
               this.helper.dismiss();
             });
           }, err => {
@@ -269,24 +276,29 @@ onButtonClick(ev) {
 
   options: CameraOptions = {
     quality: 100,
+    targetHeight: 400,
+    targetWidth: 400,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    allowEdit: false
   }
 
   takePicture() {
     this.camera.getPicture(this.options).then((imageData) => {
       this.helper.load();
 
-      let id=Date.now();
+      let id = Date.now();
       const image = `data:image/jpeg;base64,${imageData}`;
-      const pictures = this.storage.ref('deal/'+id);
+      const pictures = this.storage.ref('deal/' + id);
       pictures.putString(image, 'data_url').then((r: UploadTaskSnapshot) => {
-          r.ref.getDownloadURL().then(res=>{
-           this.deal.photo=res; 
-           this.helper.dismiss();
-          })
-        
+        r.ref.getDownloadURL().then(res => {
+          this.deal.photo = res;
+          this.cdRef.detectChanges();
+          this.helper.dismiss();
+        })
+
       }, err => {
         console.log(err);
         this.helper.toast(err);
@@ -314,7 +326,6 @@ onButtonClick(ev) {
 
   submitData(data, e) {
     e.preventDefault();
-    console.log(data);
     //    return this.api.addDeal(data)
   }
 

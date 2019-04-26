@@ -18,11 +18,9 @@ export class VaccineDetailPage {
   current;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.current = this.navParams.data;
-    console.log(this.current);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad VaccineDetailPage');
   }
 
   goBack(){

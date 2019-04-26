@@ -1,26 +1,19 @@
 import { LoginPage } from './../pages/login/login';
-import { Component, ViewChild, NgZone, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Platform, Nav, MenuController, NavParams, Events } from 'ionic-angular';
+import { Component, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Platform, Nav, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { SimpleDealsPage } from '../pages/simple-deals/simple-deals';
-import { FavoritePage } from '../pages/favorite/favorite';
-import { SettingsPage } from '../pages/settings/settings';
-import { ProfilePage } from '../pages/profile/profile';
-import { HelperProvider } from '../providers/helper/helper';
-import { HomePage } from '../pages/home/home';
-import { CategoryPage } from '../pages/category/category';
+// import { HelperProvider } from '../providers/helper/helper';
 import { ApiProvider } from '../providers/api/api';
 import { AuthProvider } from '../providers/auth/auth';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { User } from '../datamodel/user';
-import { FCM } from '@ionic-native/fcm';
+// import { FCM } from '@ionic-native/fcm';
 import { File } from "@ionic-native/file";
 
-import { FetchdataPage } from '../pages/fetchdata/fetchdata';
-import { Geolocation } from '@ionic-native/geolocation';
+// import { Geolocation } from '@ionic-native/geolocation';
 
 
 interface Page {
@@ -50,7 +43,7 @@ export class MyApp {
     { name: 'Login', icon: 'log-in', url: 'LoginPage', isVisible: true },
     { name: 'Register', icon: 'person', url: 'RegisterPage', isVisible: true },
   ]
-
+  ok = true;
   rootPage: any = LoginPage;
   @ViewChild(Nav) nav: Nav;
 
@@ -69,41 +62,57 @@ export class MyApp {
   constructor(
     private _cdRef: ChangeDetectorRef,
     platform: Platform,
-    private fcm: FCM,
+    // private fcm: FCM,
     statusBar: StatusBar,
-    private helper: HelperProvider,
+    // private helper: HelperProvider,
     private splashScreen: SplashScreen,
     androidPermissions: AndroidPermissions,
     private auth: AuthProvider,
     private events: Events,
     private menuCtrl: MenuController, private api: ApiProvider,
-    private geolocation: Geolocation,
+    // private geolocation: Geolocation,
     private file: File) {
     splashScreen.show();
 
+    this.auth.isAuthenticated().subscribe(r => {
+      console.log(r)
+      if (r) {
+        this.rootPage = SimpleDealsPage;
+        // this.loadedAll = true;
+        this.setLoggedInView();
+      } else {
+        // this.loadedAll = true;
+        this.setLoggedOutView();
+      }
+      statusBar.styleDefault();
+      this.splashScreen.hide();
+      // this.check();
+    })
+
     platform.ready().then(() => {
         // console.log('app.component loaded');
-        androidPermissions.checkPermission(androidPermissions.PERMISSION.CAMERA).then(
-          result => 
-          {
-            // console.log('Has permission?', result.hasPermission)
-          },
-          err => androidPermissions.requestPermission(androidPermissions.PERMISSION.CAMERA)).catch(err => console.log(`android permission error`))
-        androidPermissions.checkPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then(
-          result => {
-            // console.log('Has permission?', result.hasPermission)
-          },
-          err => androidPermissions.requestPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION)).catch(err => console.log(`android permission error`))
-
-          androidPermissions.requestPermissions([androidPermissions.PERMISSION.CAMERA, androidPermissions.PERMISSION.GET_ACCOUNTS])
-          .catch(err => console.log(`Cordova error!`));
-          androidPermissions.requestPermissions([androidPermissions.PERMISSION.ACCESS_FINE_LOCATION, androidPermissions.PERMISSION.GET_ACCOUNTS]).then(res=>{
-            // console.log(res)
-          })
-          .catch(err => console.log(`Cordova error!`));
-
-
+  
           if(platform.is('android')) {
+
+            androidPermissions.checkPermission(androidPermissions.PERMISSION.CAMERA).then(
+              result => 
+              {
+                // console.log('Has permission?', result.hasPermission)
+              },
+              err => androidPermissions.requestPermission(androidPermissions.PERMISSION.CAMERA)).catch(err => console.log(`android permission error`))
+            androidPermissions.checkPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then(
+              result => {
+                // console.log('Has permission?', result.hasPermission)
+              },
+              err => androidPermissions.requestPermission(androidPermissions.PERMISSION.ACCESS_FINE_LOCATION)).catch(err => console.log(`android permission error`))
+    
+              androidPermissions.requestPermissions([androidPermissions.PERMISSION.CAMERA, androidPermissions.PERMISSION.GET_ACCOUNTS])
+              .catch(err => console.log(`Cordova error!`));
+              androidPermissions.requestPermissions([androidPermissions.PERMISSION.ACCESS_FINE_LOCATION, androidPermissions.PERMISSION.GET_ACCOUNTS]).then(res=>{
+                // console.log(res)
+              })
+              .catch(err => console.log(`Cordova error!`));
+
             this.file.checkDir(this.file.externalRootDirectory, 'Medrec').then(response => {
               console.log('Directory exists'+response);
             }).catch(err => {
@@ -115,31 +124,14 @@ export class MyApp {
               }); 
             });
 
-            geolocation.getCurrentPosition({
-              // enableHighAccuracy: false,
-              timeout: 5000,
-              maximumAge: 0
-            }).then(location=>{
-              // console.log('loc',location)
-            }).catch(err=> console.log('loc',err))
+            // geolocation.getCurrentPosition({
+            //   // enableHighAccuracy: false,
+            //   timeout: 5000,
+            //   maximumAge: 0
+            // }).then(location=>{
+            //   // console.log('loc',location)
+            // }).catch(err=> console.log('loc',err))
           }
-
-
-      this.auth.isAuthenticated().subscribe(r => {
-        console.log(r)
-        if (r) {
-          this.rootPage = SimpleDealsPage;
-          // this.loadedAll = true;
-          this.setLoggedInView();
-        } else {
-          // this.loadedAll = true;
-          this.setLoggedOutView();
-        }
-        statusBar.styleDefault();
-        this.splashScreen.hide();
-        // this.check();
-      })
-
       // this.rootPage = LoginPage;
     });
 

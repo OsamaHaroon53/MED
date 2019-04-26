@@ -20,11 +20,9 @@ export class HistoryPage {
   }
   
   ionViewDidLoad() {
-    console.log(this.navParams.data);
   }
 
   closeModal(){
-    console.log('ok')
     this.viewCtrl.dismiss();
   }
 

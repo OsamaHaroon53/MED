@@ -21,15 +21,20 @@
 
 <ion-content padding>
   <ion-list *ngIf="deals">
-    <ion-item *ngFor="let x of deals" style="background-color:rgba(0, 0, 0, 0.082);" (click)="tour1($event, x)">
-      <ion-thumbnail item-left>
+    <ion-item *ngFor="let x of deals" style="background-color:rgba(0, 0, 0, 0.082);">
+      <ion-thumbnail item-left (click)="tour1($event, x)">
         <img [src]="x.photo || './assets/imgs/baby.png'">
       </ion-thumbnail>
-      <h2 class="hh">{{x?.name}}</h2>
-      <p>{{x?.city}}</p>
-      <ion-badge  color="success" *ngIf="x.gender == 'name'">Male</ion-badge>
-      <ion-badge  color="warning" *ngIf="x.gender == 'female' || false">female</ion-badge>
+      <h2 class="hh" (click)="tour1($event, x)">{{x?.name}}</h2>
+      <p (click)="tour1($event, x)">{{x?.city}}</p>
+      <ion-badge  color="success" *ngIf="x.gender == 'male'">Male</ion-badge>
+      <ion-badge  color="success" *ngIf="x.gender == 'female'">female</ion-badge>
+      <ion-badge  color="success" *ngIf="x.gender == 'x'">X</ion-badge>
+      <div item-right class="my-buttons">
+        <ion-badge  color="success" (click)="editDeal(x)" style="margin-bottom:5px">Edit</ion-badge>
+        <ion-badge  color="success" (click)="deleteChild(x.id)">Delete</ion-badge>
 
+      </div>
     </ion-item>
   </ion-list>
  <!--  <ion-fab right bottom (tap)="addDeal()">

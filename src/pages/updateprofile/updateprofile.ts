@@ -34,11 +34,9 @@ export class UpdateprofilePage {
   user: User;
   // _currentUserSubscription;
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UpdateprofilePage');
     this.api.getProfile(localStorage.getItem('uid')).subscribe((resp: User) => {
       this.user = resp;
       this._cdRef.detectChanges();
-      console.log(this.user);
     })
   }
 
@@ -62,17 +60,22 @@ export class UpdateprofilePage {
 
   options: CameraOptions = {
     quality: 100,
+    targetHeight: 400,
+    targetWidth: 400,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    allowEdit: false
   }
+
   takePicture() {
     this.camera.getPicture(this.options).then((imageData) => {
       this.helper.load();
       const image = `data:image/jpeg;base64,${imageData}`;
       const pictures = this.storage.ref('profile/' + this.user.uid);
       pictures.putString(image, 'data_url').then((r: UploadTaskSnapshot) => {
-        debugger;
+        // debugger;
         r.ref.getDownloadURL().then(re => {
           this.user.photo = re;
           this.helper.dismiss();
@@ -99,18 +102,19 @@ export class UpdateprofilePage {
     let sheet = this.actionSheet.create({
       buttons: [
         {
-          text: 'Select From Gallery',
+          text: 'Get Picture From Phone',
           icon: 'images',
           handler: () => {
-            console.log('select images form gallery');
-            this.pickImageFromGallery();
+            // this.pickImageFromGallery();
+            this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
+            this.takePicture();
           }
         },
         {
           text: 'Select from Camera',
           icon: 'camera',
           handler: () => {
-            console.log('select from camera');
+            this.options.sourceType = this.camera.PictureSourceType.CAMERA;
             this.takePicture();
           }
         },

@@ -6,46 +6,46 @@
 -->
 <ion-header>
 
-  <ion-navbar  hideBackButton="true">
-      <ion-buttons left>
-          <button ion-button  icon-only (click)="goBack()">
-           <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-         </button>
-         </ion-buttons>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>settings</ion-title>
   </ion-navbar>
 
 </ion-header>
 <ion-content padding>
-<ion-list inset no-lines>
-  <!-- <ion-list-header text-center>
+  <ion-list inset no-lines>
+    <!-- <ion-list-header text-center>
     Settings
   </ion-list-header> -->
-  <ion-item>
+    <!-- <ion-item>
       <div item-start>
         <h2>Enable Notifications</h2>
       </div>
-        <ion-toggle checked="" item-end></ion-toggle>
+      <ion-toggle checked="" item-end></ion-toggle>
+    </ion-item> -->
+    <!-- <hr> -->
+    <ion-item>
+      <div item-start>
+        <h2>Terms & Conditions</h2>
+      </div>
     </ion-item>
-    <hr>
-      <ion-item>
-          <div item-start>
-            <h2>Terms & Conditions</h2>
-          </div>
-        </ion-item>
-        <ion-item>
-            <div >
-              <h2>About Medrec</h2>
-            </div>
-          </ion-item>
+    <ion-item>
+      <div>
+        <h2>About Medrec</h2>
+      </div>
+    </ion-item>
 
-</ion-list>
+  </ion-list>
 </ion-content>
 
 <ion-footer>
-<ion-row>
-  <ion-col text-center style="color:rgba(0, 0, 0, 0.562)">
+  <ion-row>
+    <ion-col text-center style="color:rgba(0, 0, 0, 0.562)">
       Medrec v.1.0.0
-  </ion-col>
-</ion-row>
+    </ion-col>
+  </ion-row>
 </ion-footer>

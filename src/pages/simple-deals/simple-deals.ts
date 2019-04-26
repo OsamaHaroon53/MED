@@ -1,25 +1,25 @@
 import { LoginPage } from './../login/login';
 import { Component, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, HostBinding } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { NavController, NavParams, Slides, Platform } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HelperProvider } from '../../providers/helper/helper';
 
 import { User } from '../../datamodel/user';
-import { RegisterinfluencerPage } from '../registerinfluencer/registerinfluencer';
 import { ReqinfPage } from '../reqinf/reqinf';
 
 import { AddDealPage } from '../add-deal/add-deal';
 import { FetchdataPage } from '../fetchdata/fetchdata';
 import { ShowmapPage } from '../showmap/showmap';
-import { deal } from './deal'
 import { DetailDealPage } from '../detail-deal/detail-deal';
 import { map } from 'rxjs/operators';
 import { vaccineList } from "../vaccine-list/vaccine";
 import { VaccineDetailPage } from '../vaccine-detail/vaccine-detail';
 import { VaccineListPage } from '../vaccine-list/vaccine-list';
 import { CalendarPage } from '../calendar/calendar';
-import { style, animate, animation, animateChild, useAnimation, group, sequence, transition, state, trigger, query, stagger, keyframes } from '@angular/animations';
+import { style, animate, group, transition, trigger, query, keyframes } from '@angular/animations';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { CallNumber } from '@ionic-native/call-number';
 
 @Component({
   selector: 'page-simple-deals',
@@ -28,20 +28,20 @@ import { style, animate, animation, animateChild, useAnimation, group, sequence,
   animations: [
     trigger('profileAnimation', [
       transition(':enter', group([
-        query('circle', style({transform: 'translateX(-110%)'})),
+        query('circle', style({ transform: 'translateX(-110%)' })),
         query('circle', group([
-         animate('2000ms ease-in', keyframes([
-            style({ transform: 'translateX(-100%)', offset:  0.15 }),
-            style({ transform: 'translateX(-80%)', offset:  0.2 }),
-            style({ transform: 'translateX(-60%)', offset:  0.3 }),
-            style({ transform: 'translateX(-40%)', offset:  0.4 }),
-            style({ transform: 'translateX(-20%)', offset:  0.5 }),
-            style({ transform: 'translateX(0)', offset:  0.6 }),
-            style({ transform: 'translateX(20%)', offset:  0.7 }),
-            style({ transform: 'translateX(40%)', offset:  0.8 }),
-            style({ transform: 'translateX(20%)', offset:  0.9 }),
-            style({ transform: 'translateX(0)', offset:  1 }),
-          ]))  
+          animate('2000ms ease-in', keyframes([
+            style({ transform: 'translateX(-100%)', offset: 0.15 }),
+            style({ transform: 'translateX(-80%)', offset: 0.2 }),
+            style({ transform: 'translateX(-60%)', offset: 0.3 }),
+            style({ transform: 'translateX(-40%)', offset: 0.4 }),
+            style({ transform: 'translateX(-20%)', offset: 0.5 }),
+            style({ transform: 'translateX(0)', offset: 0.6 }),
+            style({ transform: 'translateX(20%)', offset: 0.7 }),
+            style({ transform: 'translateX(40%)', offset: 0.8 }),
+            style({ transform: 'translateX(20%)', offset: 0.9 }),
+            style({ transform: 'translateX(0)', offset: 1 }),
+          ]))
         ])),
       ]))
     ])
@@ -72,37 +72,33 @@ export class SimpleDealsPage {
   vaccines = vaccineList;
   selectOption = 'Age'
   maleLength = 0;
+  femaleLength = 0;
   allChild = [];
+  notification = [];
   constructor(public navCtrl: NavController, private helper: HelperProvider,
+    private localNotifications: LocalNotifications,
+    private callNumber: CallNumber,
     private api: ApiProvider, private auth: AuthProvider, private cdRef: ChangeDetectorRef,
-    public navParams: NavParams) {
+    public navParams: NavParams, public platform: Platform) {
     this.helper.load();
+    this.ready();
     this.api.getProfile(localStorage.getItem('uid')).subscribe((resp: User) => {
       if (!resp) return;
       this.user = resp;
       this.getMyChilds();
-      // this.api.getUserDeals(this.user.uid).subscribe(snapshot => {
-      // console.log('all new deals recieved', snapshot);
-      // let temp;
-      // snapshot.forEach((childSnapshot)=> {
-      // temp = this.allDeal.map(el=>{
-      //   el['child'] = childSnapshot['payload'].doc.data();
-      //   return el;
-      // }
-      // this.child1 = snapshot[0]['payload'].doc.data();
-      // });
-      // console.log(this.child1);
-      // setTimeout(()=>{
-      //   el.setAttribute('class','swiper-container swiper-container-horizontal swiper-container-android');
-      //   this.slider.update();
-      // },10);
-      // },err=>{
-      //     this.helper.presentAlert('critical error', err.msg, 'ok');
-      //   });
     }, err => {
       this.helper.presentAlert('critical error', err.msg, 'ok');
     });
   }
+
+  ready() {
+    this.platform.ready().then(rdy => {
+      this.localNotifications.on("click").subscribe(notification => {
+        this.navCtrl.push(DetailDealPage, notification.data.child);
+      })
+    })
+  }
+
 
   getMyChilds() {
     return this.api.getUserDeals(this.user.uid).pipe(
@@ -114,23 +110,24 @@ export class SimpleDealsPage {
     ).subscribe(resp => {
       this.allChild = resp;
       this.childLength = resp.length;
-      this.maleLength = resp.filter(r=>r['gender'] == 'male').length
-      console.log(this.maleLength)
+      this.setNotification();
+      this.maleLength = resp.filter(r => r['gender'] == 'male').length
+      this.femaleLength = resp.filter(r => r['gender'] == 'female').length
       if (this.childLength == 1) {
         this.allDeal.forEach(el => {
-          this.showSlide.push({...el, child: resp[0]});
+          this.showSlide.push({ ...el, child: resp[0] });
         })
       }
       else if (this.childLength <= 4) {
-        this.createChildDealSlides(resp,0);
+        this.createChildDealSlides(resp, 0);
       }
-      else{
-        this.createChildDealSlides(resp,1);
+      else {
+        this.createChildDealSlides(resp, 1);
       }
       this.showAll = true;
       this.selectOption = 'Gender'
       this.cdRef.detectChanges();
-      if(this.showSlide.length){
+      if (this.showSlide.length) {
         this.slider.slidesPerView = 1.3;
         this.slider.spaceBetween = 15;
         this.slider.centeredSlides = true;
@@ -146,12 +143,12 @@ export class SimpleDealsPage {
   createChildDealSlides(res, num) {
     if (!num) {
       res.forEach(el => {
-        this.showSlide.push({...this.allDeal[0],child: el}, {...this.allDeal[1],child: el})
+        this.showSlide.push({ ...this.allDeal[0], child: el }, { ...this.allDeal[1], child: el })
       });
     }
-    else{
+    else {
       res.forEach(el => {
-        this.showSlide.push({...this.allDeal[0],child: el})
+        this.showSlide.push({ ...this.allDeal[0], child: el })
       });
     }
   }
@@ -174,7 +171,7 @@ export class SimpleDealsPage {
   }
 
   map() {
-    this.navCtrl.setRoot(ShowmapPage)
+    this.navCtrl.push(ShowmapPage)
   }
 
   req() {
@@ -230,14 +227,71 @@ export class SimpleDealsPage {
     });
   }
 
-  openVacinne(vaccine: object): void{
+  openVacinne(vaccine: object): void {
     this.navCtrl.push(VaccineDetailPage, vaccine);
   }
-  openVacinneList(): void{
-    this.navCtrl.setRoot(VaccineListPage);
+  openVacinneList(): void {
+    this.navCtrl.push(VaccineListPage);
   }
 
-  openCalendar(){
-    this.navCtrl.push(CalendarPage, {childs: this.allChild})
+  openCalendar() {
+    this.navCtrl.push(CalendarPage, { childs: this.allChild })
+  }
+
+  call() {
+    this.callNumber.callNumber("0800-82222", true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
+  }
+  clearandCreateNotification() {
+    this.localNotifications.cancelAll().then(() => {
+      this.localNotifications.schedule(this.notification);
+    });
+  }
+  setNotification() {
+    let today = new Date();
+    let bd;
+    this.allChild.forEach(child => {
+      for (let i = 0; i < this.allDeal.length; i++) {
+        if(child.injection && child.injection.filter(el=>el.id == i+1).length){
+          continue;
+        }
+        bd = new Date(new Date(child.birthday).setHours(today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds()));
+        if (this.allDeal[i].format == 'week') {
+          if (!this.allDeal[i].from)
+            bd.setTime(bd.getTime() + (60000*5))
+          else
+            bd.setDate(bd.getDate() + (this.allDeal[i].from * 7))
+        }
+        else if (this.allDeal[i].format == 'month') {
+          bd.setMonth(bd.getMonth() + this.allDeal[i].from)
+        }
+        if (bd.valueOf() < today.valueOf()) {
+          continue;
+        }
+        else {
+          this.notification.push({
+            id: i + 1,
+            text: child.name + "'s Vaccination Date Remainder",
+            data: { child: child },
+            trigger: { at: new Date(bd) }
+          })
+        }
+      }
+    });
+    // console.log(this.notification)
+    // this.notification = [
+    //   {
+    //     id: 1,
+    //     text: 'Child-Take Vaccine Remainder',
+    //     data: { child: 'key' },
+    //     trigger: { at: new Date(new Date().getTime() + 1000) }
+    //   }
+    // ];
+    this.clearandCreateNotification();
+  }
+
+  ionViewDidLoad() {
+    // console.log('ionViewDidLoad notfication');
   }
 }

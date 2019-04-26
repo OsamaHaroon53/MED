@@ -1,5 +1,5 @@
-import { Injectable, ErrorHandler } from '@angular/core';
-import { ToastController, AlertController, Spinner, LoadingController } from 'ionic-angular';
+import { Injectable } from '@angular/core';
+import { ToastController, AlertController, LoadingController } from 'ionic-angular';
 
 /*
   Generated class for the HelperProvider provider.
@@ -14,7 +14,7 @@ export class HelperProvider {
   loader:any;
   constructor(private toastCtrl:ToastController, private loadingCtrl:LoadingController,
     private alertCtrl:AlertController) {
-    console.log('Hello HelperProvider Provider');
+    // console.log('Hello HelperProvider Provider');
   }
 
   load() {
@@ -32,7 +32,8 @@ export class HelperProvider {
     return this.toastCtrl.create({
       message:message,
       duration:3000,
-      position:'bottomn'
+      position:'bottom',
+      cssClass: 'custom-class'
     }).present();
   }
 
